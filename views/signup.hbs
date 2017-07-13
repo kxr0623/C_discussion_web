@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>C Programming Discussion</title>
+
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <!-- Style Sheet-->
+    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='css/main5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
+
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+
+    <![endif]-->
+    <script src="js/jquery-1.9.1.min.js"> </script>
+    <script src="js/showlogin.js"></script>
+</head>
+<body>
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/" title="C-Discussion">
+                    <img src="images/logo.png" alt="logo">
+                </a>
+                <span class="tag-line">C Programming Discussion</span>
+            </div>
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container" id="cssmenu">
+                    <ul id="headerrul1" class="clearfix" style="text-align:right;">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="articles-list">Articles List</a></li>
+                        <li><a href="contact">Contact</a></li>
+                    </ul>
+                    <ul id="headerul2">
+                        <li id='login'><a href="login"> LOG IN</a></li>
+                        <li id='reg'class="current-menu-item"><a href="reg">Register</a></li>
+                        <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of Main Navigation -->
+
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
+
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+            <!-- start of sidebar -->
+            <aside class="span5 page-sidebar">
+                <section class="widget">
+                </section>
+            </aside>
+
+            <div class="span5 page-content">
+
+                <article class="type-page hentry clearfix">
+                    <h1 class="post-title">
+                       Sign Up
+                    </h1>
+                </article>
+
+                <form  class="row" method="POST" >
+
+                    <div class="span2">
+                        <label for="name">Your Username <span>*</span> </label>
+
+                    </div>
+                    <div class="span6">
+
+                        <input  required type="text" name="userName" id="siName" class="" style="width:270px;" title="* Please provide your username">
+
+                    </div>
+
+                    <div class="span2">
+                        <label for="email">Your Email <span>*</span></label>
+                    </div>
+                    <div class="span6">
+                        <input type="email" name="email" id="siemail" required class=" required input-xlarge" value="" title="* Please provide a valid email address">
+                    </div>
+
+                    <div class="span2">
+                        <label for="Password">Password <span>*</span></label>
+                    </div>
+                    <div class="span6">
+
+                        <input required type="password" name="password" id="siPassword" style="width:270px;"  value=""title="* Please provide your password">
+
+
+                    </div>
+                    <div class="span2">
+                        <label for="Password">Confirm Password <span>*</span></label>
+                    </div>
+                    <div class="span6">
+
+                        <input required type="password" name="password2" id="siPassword2" style="width:270px;"  value=""title="* Please provide your password">
+
+
+                    </div>
+                    <div class="span3 ">
+                        <input type="button" onclick="checkForm();" value="Sign Up" id="signup" class="btn" style="width: 285px;height:40px ; font-size: medium;color:white;background: black"/>
+                        <script>
+                            function checkForm() {
+
+                                var userName = document.getElementById("siName").value;
+
+                                var password = document.getElementById("siPassword").value;
+                                var password2 = document.getElementById("siPassword2").value;
+                                var email = document.getElementById("siemail").value;
+
+                                if (userName.length <= 0) {
+                                    alert("input your username");
+                                    return false;
+                                }
+                                if (password.length > 16 || password.length<3) {
+                                    alert("You need to type passwords between 3 and 16 characters!");
+                                    return false;
+                                }
+                                if (password2.length > 16 || password2 !== password) {
+                                    alert("The two passwords are different !");
+                                    return false;
+                                }
+                                if(checkUserName()) {
+
+                                    //alert(password);
+                                    $.ajax({
+                                        type: "POST",
+                                        url : "reg/submitsignup",
+                                        dataType: 'json',
+                                        async : false,
+                                        data:{"userName":userName, "password":password,"email":email},
+                                        success: function(data,status) {
+                                            if(data === true){
+                                                alert('Sign up successfully...');
+                                                location.href = '/';
+                                            }
+                                        },
+                                        error: function(data,status){
+                                            if(data === false){
+                                                alert('tech error!');
+                                                location.reload();
+                                            }
+                                        }
+                                    });
+                                }
+                                return false;
+                            }
+                            function checkUserName() {
+                                var userName = $("#siName").val();
+                                var result;
+                                if(userName.length > 0) {
+                                    $.ajax({
+                                        type : "POST",
+                                        url : "/reg/checkusername",
+                                        dataType: 'text',
+                                        data : {"userName":userName },
+                                        async : false,
+                                        success : function(data){
+                                            result = data;
+                                        }
+                                    });
+                                    if(result === "false") {
+                                        alert("This username has been registered. Please type another one.");
+                                        location.reload();
+                                        return false;
+                                    } else {
+                                        return true;
+                                    }
+
+                                }
+                            }
+                        </script>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- end of page content -->
+        </div>
+    </div>
+</div>
+
+<footer id="footer-wrapper">
+    <div id="footer" class="container">
+        <div class="row">
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">Contact us</h3>
+                    <div class="textwidget">
+                    </div>
+                </section>
+            </div>
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">Categories</h3>
+                    <ul>
+
+                    </ul>
+                </section>
+            </div>
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">About</h3>
+                    <div id="twitter_update_list">
+                        <ul>
+                            <li>No Tweets loaded !</li>
+                        </ul>
+                    </div>
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of #footer -->
+    <!-- Footer Bottom -->
+    <div id="footer-bottom-wrapper">
+        <div id="footer-bottom" class="container">
+            <div class="row">
+                <div class="span6">
+                    <p class="copyright">
+                        Copyright © 2017. All Rights Reserved by Xiaorui.
+                    </p>
+                </div>
+                <div class="span6">
+                    <!-- Social Navigation -->
+                    <ul class="social-nav clearfix">
+                        <li class="linkedin"><a target="_blank" href="#"></a></li>
+                        <li class="stumble"><a target="_blank" href="#"></a></li>
+                        <li class="google"><a target="_blank" href="#"></a></li>
+                        <li class="deviantart"><a target="_blank" href="#"></a></li>
+                        <li class="flickr"><a target="_blank" href="#"></a></li>
+                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                        <li class="rss"><a target="_blank" href="#"></a></li>
+                        <li class="twitter"><a target="_blank" href="#"></a></li>
+                        <li class="facebook"><a target="_blank" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Footer Bottom -->
+</footer>
+<!-- End of Footer -->
+</body>
+</html>

@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<head>
+
+    <!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>contact</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+    <!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+	================================================== -->
+  	
+</head>
+
+<body>
+ <div id="cssmenu" >
+    <ul id="headerul1" >
+        <li class="active"><a href="./"><span>Home</span></a></li>
+        <li id="album"><a href="album"><span>Album</span></a></li>
+        <li id="tvshow"><a href="tv"><span>TV Show</span></a></li>
+        <li id="movie"><a href="movie"><span>Movie</span></a></li>
+        <li id="mv"><a href="mv"><span>MV</span></a></li>
+        <li class="last" id="contact"><a href="contact"><span>Contact us</span></a></li>
+    </ul>
+    <ul id="headerul2">
+        
+
+            <li ><a  href="singleblog"> </a></li>
+            <li ><a  href="logout">Log Out</a></li>
+
+            <li id ='login'><a  href="login"> LOG IN</a></li>
+            <li id ='reg'><a  href="reg">Register</a></li>
+        
+    </ul>
+</div>
+<header>
+<div class="logo"> <a href="#"><img src="images/mylogo.png" alt="Mountain View"></a> </div>
+</header> 
+	<div class="wrap-body">
+		<header class="">
+		<!--////////////////////////////////////Container-->
+		<section id="container">
+			<div class="wrap-container">
+				<!-----------------Content-Box-------------------->
+				<section class="content-box zerogrid">
+					<div class="row wrap-box"><!--Start Box-->
+						<h3 class="t-center">Contact Form</h3>
+						<div id="contact_form">
+							<form name="form1" id="ff" method="post" action="contact.php">
+								<label class="row">
+									<div class="col-1-3">
+										<div class="wrap-col">
+											<input type="text" name="name" id="name" placeholder="Enter name" required="required" />
+										</div>
+									</div>
+									<div class="col-1-3">
+										<div class="wrap-col">
+											<input type="email" name="email" id="email" placeholder="Enter email" required="required" />
+										</div>
+									</div>
+									<div class="col-1-3">
+										<div class="wrap-col">
+											<input type="text" name="subject" id="subject" placeholder="Subject" required="required" />
+										</div>
+									</div>
+								</label>
+								<label class="row">
+									<div class="wrap-col">
+										<textarea name="message" id="message" class="form-control" rows="4" cols="25" required="required"
+										placeholder="Message"></textarea>
+									</div>
+								</label>
+								<center><input class="sendButton" type="submit" name="Submit" value="Submit"></center>
+							</form>
+						</div>
+					</div>
+				</section>
+				
+			</div>
+			</section>
+		</header>
+		
+		
+	</div>
+
+</body>
+</html>

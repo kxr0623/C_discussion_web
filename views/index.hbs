@@ -1,0 +1,295 @@
+<!doctype html>
+        <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+        <!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+        <!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
+        <!--[if gt IE 8]><!--> <html lang="en-US"> <!--<![endif]-->
+        <head>
+                <!-- META TAGS -->
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <title>C Programming Discussion</title>
+
+                <link rel="shortcut icon" href="images/favicon.png" />
+
+                <!-- Style Sheet-->
+                
+                <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
+                <link rel='stylesheet' id='responsive-css-css'  href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
+                <link rel='stylesheet' id='pretty-photo-css-css'  href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
+                <link rel='stylesheet' id='main-css-css'  href='css/main5152.css?ver=1.0' type='text/css' media='all' />
+                <link rel='stylesheet' id='custom-css-css'  href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
+
+            <script>
+
+            </script>
+                <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+                <!--[if lt IE 9]>
+                <script src="js/html5.js"></script>
+                <![endif]-->
+
+        </head>
+
+        <body>
+
+                <!-- Start of Header -->
+                <div class="header-wrapper">
+                        <header>
+                                <div class="container">
+                                        <div class="logo-container">
+                                                <!-- Website Logo -->
+                                                <a href="/"  title="C-Discussion">
+                                                        <img src="images/logo.png" alt="logo">
+                                                </a>
+                                                <span class="tag-line">C Programming Discussion</span>
+                                        </div>
+                                        <!-- Start of Main Navigation -->
+                                        <nav class="main-nav">
+                                                <div class="menu-top-menu-container" id="cssmenu">
+                                                        <ul id="headerrul1" class="clearfix" style="text-align:right;">
+                                                                <li class="current-menu-item"><a href="/">Home</a></li>
+                                                                <li><a href="articles-list">Articles List</a></li>
+                                                                <li><a href="contact">Contact</a></li>
+                                                        </ul>
+                                                        <ul id="headerul2">
+                                                                <li id ='login'><a  href="login"> LOG IN</a></li> 
+                                                                <li id ='reg'><a  href="reg">Register</a></li>
+                                                                <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
+                                                        </ul>
+                                                </div>
+                                        </nav>
+                                        <!-- End of Main Navigation -->
+
+                                </div>
+                        </header>
+                </div>
+                <!-- End of Header -->
+
+                <!-- Start of Search Wrapper -->
+                <div class="search-area-wrapper">
+                        <div class="search-area container">
+                                <h3 class="search-header">Search a Question?</h3>
+                                <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
+
+                                <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
+                                        <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
+                                        <input class="search-btn" type="submit" value="Search" />
+                                        <div id="search-error-container"></div>
+                                </form>
+                        </div>
+                </div>
+                <!-- End of Search Wrapper -->
+        
+
+                <!-- Start of Page Container -->
+                <div class="page-container">
+                        <div class="container">
+                                <div class="row">
+                                        <!-- start of page content -->
+                                        <div class="span8 page-content">
+                                                <!-- Basic Home Page Template -->
+                                                <div class="row separator">
+                                                        <section class="span4 articles-list">
+                                                                <h3>Latest Topics</h3>
+                                                                <ul class="articles">
+                                                                    {{#if newest}}
+                                                                        {{#each newest}}
+
+                                                                            <li class="article-entry standard">
+                                                                                <h4><a class="atitle" href="/single?id={{tid}}">{{title}}</a></h4>
+                                                                                <span class="article-meta">{{createtime}} by {{username}}</span>
+                                                                                <span class="like-count">{{likes}}</span>
+                                                                            </li>
+
+                                                                        {{/each}}
+                                                                    {{/if}}
+
+                                                                </ul>
+                                                        </section>
+
+
+                                                        <section class="span4 articles-list">
+                                                                <h3>Featured Topics</h3>
+                                                                <ul class="articles">
+                                                                    {{#if pop}}
+                                                                        {{#each pop}}
+                                                                            <li class="article-entry standard">
+                                                                                <h4><a href="/single?id={{tid}}">{{title}}</a></h4>
+                                                                                <span class="article-meta">{{createtime}} by {{username}}</span>
+                                                                                <span class="like-count">{{likes}}</span>
+                                                                            </li>
+                                                                        {{/each}}
+                                                                    {{/if}}
+                                                                </ul>
+                                                        </section>
+                                                </div>
+                                        </div>
+                                        <!-- end of page content -->
+
+
+                                        <!-- start of sidebar -->
+                                        <aside class="span4 page-sidebar">
+
+                                                <section class="widget">
+                                                        <div class="newTopic-widget">
+                                                                <h3 class="title">Create a New Topic</h3>
+                                                                <p class="intro">If you did not found an question, Create a new one.</p>
+                                                                <div class="row">
+                                                                        
+                                                                        <div class="span1">total posts:</div>
+                                                                    {{#if sumTopic}}
+                                                                        {{#each sumTopic}}
+                                                                        <div class="span1"><lable  class="showleft">{{sum}} </lable></div>
+                                                                        {{/each}}
+                                                                    {{/if}}
+                                                                </div>
+                                                                <input class="create-btn showright" type="submit" onclick="location.href='topic';" value="Create Topic" />
+
+                                                        </div>
+                                                </section>
+
+                                                <section class="widget">
+                                                        <div class="support-widget" onclick="document.location='contact';return false;" >
+                                                                <h3 class="title">Support</h3>
+                                                                <p class="intro">Need more support? If you did not found an answer, contact us for further help.</p>
+                                                        </div>
+                                                </section>
+
+                                                <section class="widget">
+                                                        <div class="quick-links-widget">
+                                                                <h3 class="title">Quick Links</h3>
+                                                                <ul id="menu-quick-links" class="menu clearfix">
+                                                                        <li><a href="index">Home</a></li>
+                                                                        <li><a href="articles-list">Articles List</a></li>
+                                                                        <li><a href="topic">Create topic</a></li>
+                                                                        <li><a href="contact">Contact</a></li>
+                                                                </ul>
+                                                        </div>
+                                                </section>
+                                        </aside>
+                                        <!-- end of sidebar -->
+                                </div>
+                        </div>
+                </div>
+                <!-- End of Page Container -->
+
+                <!-- Start of Footer -->
+                <footer id="footer-wrapper">
+                        <div id="footer" class="container">
+                                <div class="row">
+
+                                        <div class="span4">
+                                                <section class="widget">
+                                                        <h3 class="title">Contact us</h3>
+                                                        <div class="textwidget">
+                                                        </div>
+                                                </section>
+                                        </div>
+
+                                        <div class="span4">
+                                                <section class="widget"><h3 class="title">Categories</h3>
+                                                        <ul>
+                                                                
+                                                        </ul>
+                                                </section>
+                                        </div>
+
+                                        <div class="span4">
+                                                <section class="widget">
+                                                        <h3 class="title">About</h3>
+                                                        <div id="twitter_update_list">
+                                                                <ul>
+                                                                        <li>No Tweets loaded !</li>
+                                                                </ul>
+                                                        </div>
+                                                       
+                                                </section>
+                                        </div>
+
+                                </div>
+                        </div>
+                        <!-- end of #footer -->
+
+                        <!-- Footer Bottom -->
+                        <div id="footer-bottom-wrapper">
+                                <div id="footer-bottom" class="container">
+                                        <div class="row">
+                                                <div class="span6">
+                                                        <p class="copyright">
+                                                                Copyright © 2013. All Rights Reserved by xk16184
+                                                        </p>
+                                                </div>
+                                                <div class="span6">
+                                                        <!-- Social Navigation -->
+                                                        <ul class="social-nav clearfix">
+                                                                <li class="linkedin"><a target="_blank" href="#"></a></li>
+                                                                <li class="stumble"><a target="_blank" href="#"></a></li>
+                                                                <li class="google"><a target="_blank" href="#"></a></li>
+                                                                <li class="deviantart"><a target="_blank" href="#"></a></li>
+                                                                <li class="flickr"><a target="_blank" href="#"></a></li>
+                                                                <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                                                                <li class="rss"><a target="_blank" href="#"></a></li>
+                                                                <li class="twitter"><a target="_blank" href="#"></a></li>
+                                                                <li class="facebook"><a target="_blank" href="#"></a></li>
+                                                        </ul>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                        <!-- End of Footer Bottom -->
+
+                </footer>
+                <!-- End of Footer -->
+
+                <a href="#top" id="scroll-top"></a>
+
+                <!-- script -->
+                <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+                <script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
+                <script type='text/javascript' src='js/prettyphoto/jquery.prettyPhoto.js'></script>
+                <script type='text/javascript' src='js/jflickrfeed.js'></script>
+				<script type='text/javascript' src='js/jquery.liveSearch.js'></script>
+                <script type='text/javascript' src='js/jquery.form.js'></script>
+                <script type='text/javascript' src='js/jquery.validate.min.js'></script>
+                <script type='text/javascript' src='js/custom.js'></script>
+                <script>
+                    $(function () {
+                        var result;
+                        $.ajax({
+                            type: "GET",
+                            url: "/login/getcookie",
+                            dataType: 'text',
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                result = data;
+                                if (result) {
+                                    $('#login').hide();
+                                    $('#reg').hide();
+                                    $('#logout').text(result+" logout ");
+                                } else {
+                                    $('#logout').hide();
+                                }
+                            }
+                        });
+                    });
+                    function logoutFuc() {
+
+                        var result;
+                        $.ajax({
+                            type: "GET",
+                            url: "/logout",
+                            dataType: 'text',
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                result = data;
+                            }
+                        });
+                        if (result === "true") {
+                            location.reload();
+                        }
+                    }
+                </script>
+        </body>
+</html>
