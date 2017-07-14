@@ -72,11 +72,12 @@ router.post('/',urlencodedParser, function (req, res) {
                     } else {
                         sess=req.session;
                         sess.username = username;
-                        sess.userid = row.uid;
+                        sess.userid = parseInt(row[0].uid,10);
+
                         /*res.cookie('username', username, {maxAge: 7200 * 1000});
                         res.cookie('userid', row.user_id, {maxAge: 7200 * 1000});*/
                         //res.render('index');
-                        console.log("log in susess--------------------");
+                        console.log("log in susess--------------------"+sess.userid);
                         // res.sendStatus(200);
                         res.send("true");
                     }

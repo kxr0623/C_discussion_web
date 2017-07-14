@@ -96,23 +96,29 @@
                 <section class="widget">
                     <div class="support-widget" onclick="document.location='contact';return false;">
                         <h3 class="title">Poster</h3>
-                        <p class="intro">Username: rstanly</p>
+                        <p class="intro">Username: {{topic_detail.creator}}</p>
                     </div>
                 </section>
 
                 <section class="widget">
                     <h3 class="title">All Replies for this post</h3>
                     <ul>
-                        <li>#3 User:<a href="reply3" title="go to reply 3">algorism</a> </li>
+                        {{#if children_replies}}
+                            {{#each children_replies}}
+                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}" title="go to reply {{inc @index}}">{{username}}</a> </li>
+                            {{/each}}
+                        {{/if}}
 
                     </ul>
                 </section>
                 <section class="widget">
                     <h3 class="title">All Same level Comments</h3>
                     <ul>
-                        <li>#1 User:<a href="reply1" title="go to reply1">algorism</a> </li>
-                        <li>#5 User:<a href="reply5" title="go to reply5">Salem</a> </li>
-                        <li>#6 User:<a href="reply6" title="go to reply6">algorism</a> </li>
+                        {{#if children_replies}}
+                            {{#each children_replies}}
+                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}" title="go to reply {{inc @index}}">{{username}}</a> </li>
+                            {{/each}}
+                        {{/if}}
 
                     </ul>
                 </section>
@@ -130,61 +136,48 @@
             <div class="span9 page-content">
 
                 <ul class="breadcrumb">
-                    <li>Title<a href="single">Strlen is return 1 on empty strings - fgets</a>
+                    <li>Title<a href="single?id={{topic_detail.tid}}">{{topic_detail.title}}</a>
                         <span class="divider">/</span>
                     </li>
                     Reply
-                    <li class="pagemark">2</li><span class="divider">/</span>
+                    <li class="pagemark">{{2}}</li><span class="divider">/</span>
                 </ul>
 
                 <article class=" type-post format-standard hentry clearfix">
 
-                    <h1 class="post-title"><a href="single">Strlen is return 1 on empty strings - fgets</a></h1>
+                    <h1 class="post-title"><a href="single?id={{topic_detail.tid}}"> {{topic_detail.title}}</a></h1>
                     <p class="notice"> <img src="images/arrow-down.png" style="width:15px;height:15px;" /> Reply
                         2
                     </p>
 
                     <div class="post-meta clearfix">
-                        <span class="date">11 May, 2017</span>
-                        <span class="comments"> 1 replies</span>
-                        <span class="category">Reply ID:2</span>
-                        <span class="like-count" id="like1">54</span>
+                        <span class="date">{{topic_detail.createtime}}</span>
+                        <span class="comments"> {{post_sum.sum_posts}} replies</span>
+                        <span class="category">Reply ID:{{post.id}}</span>
+                        <span class="like-count" id="like1">{{topic_detail.likes}}</span>
                     </div>
                     <!-- end of post meta -->
                     <h3>Explain </h3>
                     <blockquote class="discription">
 
-                        <p id="explain-area">
-                            If at the prompt, the user justs presses the [Enter] key, a newline will be input, and the strlen(buffer.idarea) will be
-                            one, not zero! <br/>                                                                <br/> You need to remove the newline right after entering
-                            the string before testing the length of the string. Even
-                            if the user entered valid data, the newline should be removed!
-                            <br/><br/> Please read the man page for fgets().<br/>
-                        </p>
+                        <pre id="explain-area" style="font-size: 14px;font-family: Arial, Helvetica, sans-serif;">
+                            {{topic_detail.description}}
+                        </pre>
                     </blockquote>
 
                     <div class="row-fluid">
                         <div class="span7">
                             <h3>My code</h3>
                             <blockquote class="code">
-                                                                        <pre id="codearea1" class="brush: cpp;">
-puts("Insert the ID?");
-fgets(buffer.idarea, MAX, stdin);
-                                                                        </pre>
+                                <pre id="codearea1" class="brush: cpp;">{{topic_detail.code}}
+
+</pre>
                             </blockquote>
                         </div>
                         <div class="span5">
                             <h3>Last version code</h3>
                             <blockquote class="code">
-                                                                        <pre id="codearea2" class="brush: cpp">
-int size = 0;
-
-    do {
-        puts("Insert the ID?");
-        fgets(buffer.idarea, MAX, stdin);
-        strtok(buffer.idarea, "\n"); // Consumir o \n
-        printf("size of string %d\n", size = strlen(buffer.idarea));
-    } while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);
+                                <pre id="codearea2" class="brush: cpp">{{topic_detail.code}}
 
 </pre>
                             </blockquote>
@@ -196,7 +189,7 @@ int size = 0;
                 <div class="like-btn">
 
                     <form id="like-it-form" action="#" method="post">
-                        <span class="like-it " id="likecount2">54</span>
+                        <span class="like-it ">{{topic_detail.likes}}</span>
                         <input type="hidden" name="post_id" value="99">
                         <input type="hidden" name="action" value="like_it">
                     </form>
@@ -220,18 +213,7 @@ int size = 0;
                         <form id="contact-form" action="http://inspirythemes.com/templates/knowledgebase-html/contact_form_handler.php" method="post">
 
 
-                            <p class="comment-notes">Your email address will not be published. Required fields
-                                are marked <span class="required">*</span></p>
-
-                            <div>
-                                <label for="author">Name *</label>
-                                <input type="text" name="name" id="name" class="required input-xlarge" value="" title="* Please provide your name">
-                            </div>
-
-                            <div>
-                                <label for="email">Email *</label>
-                                <input type="text" name="email" id="email" class="email required input-xlarge" value="" title="* Please provide a valid email address">
-                            </div>
+                            <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
 
                             <div>
                                 <label for="comment">Comment</label>
@@ -244,7 +226,7 @@ int size = 0;
 
 
                             <div>
-                                <input class="btn btn-inverse" name="submit" type="submit" id="submit" value="Submit Comment">
+                                <input class="btn btn-inverse" name="submit" type="button" id="submit_Reply" value="Submit Comment">
                                 <img src="images/loading.gif" id="contact-loader" alt="Loading...">
                             </div>
 
@@ -340,6 +322,7 @@ int size = 0;
 
 <!-- script -->
 <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+<script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
 <script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
 <script type='text/javascript' src='js/prettyphoto/jquery.prettyPhoto.js'></script>
 <script type='text/javascript' src='js/jflickrfeed.js'></script>

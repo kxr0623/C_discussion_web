@@ -1,7 +1,4 @@
 /**
- * Created by kxr on 17-7-13.
- */
-/**
  * Created by kxr on 17-7-8.
  */
 
@@ -66,80 +63,93 @@ function validEmail(v) {
     return (v.match(r) == null) ? false : true;
 }
 
-//$(document).ready(function(){
-$("#submit_Reply").click(function(){
+$(document).ready(function(){
+    $("#submit_Reply").click(function(){
 
-    //console.log(">>>>>>>>>>>>>>>>");
-    var replyname = $("#replyname").val();
-    var replyemail=$("#replyemail").val();
-    var replycomment=$("#replycomment").val();
-    var replycode=$("#replycode").val();
-    // console.log(">>>>>>>>>>>>>>>>contactname:"+contactname);
-    //console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
-    $('#feedback1').test("Please ....");
-    if(replyname.length < 1||replyemail.length<1||replycomment.length<1) {
-        $('#feedback1').test("Please full the form, and submit again.");
-        return;
-    }
-    else  if(!validEmail(replyemail)) {
-        $("#feedback1").test("Please input a valid email...");
-        return;
-    }
+        //console.log(">>>>>>>>>>>>>>>>");
+        var replycomment=$("#replycomment").val();
+        var replycode=$("#replycode").val();
+        // console.log(">>>>>>>>>>>>>>>>contactname:"+contactname);
+        //console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
 
-    //else {
-    var sresult;
-    var topicid=$('#topicid-div').val();
-
-    var parent=0;
-    $.ajax({
-        type: "post",
-        url : "/single",
-        dataType: 'json',
-        async : false,
-        data:{"replyname":replyname,
-            "replyemail":replyemail,
-            "replycode":replycode,
-            "replycomment":replycomment,
-            "topicid":topicid,
-            "parent":parent},
-        success: function(data) {
-            sresult = data;
-            console.log(">>>>>>ajax:"+replyemail);
-        },
-        err:function(data){
-            alert(data);
+        if(!checkIsLogin()) {
+            $('#feedback1').text("* Please Sign In First.");
+            return;
         }
-    });
-    if(sresult.result === true) {
+        if(replycomment.length<1) {
+            $('#feedback1').text("* Please give a comment, and submit again.");
+            return;
+        }
 
-        $('#message-sent').text("send susessfully!");
-        location.reload();
-    } else {
-        $('#message-sent').val("send fail!");
-    }
-    //}
-});
-//});
-$(function () {
-    var result;
-    $.ajax({
-        type: "GET",
-        url: "/login/getcookie",
-        dataType: 'text',
-        async: false,
-        data: {},
-        success: function (data) {
-            result = data;
-            if (result) {
-                $('#login').hide();
-                $('#reg').hide();
-                $('#logout').text(result+" logout ");
+        else  {
+            var sresult;
+            var topicid=$('#topicid-div').val();
+            var parent=0;
+
+            $.ajax({
+                type: "post",
+                url : "/reply/submit",
+                dataType: 'json',
+                async : false,
+                data:{
+                    "replycode":replycode,
+                    "replycomment":replycomment,
+                    "topicid":topicid,
+                    "parent":parent},
+                success: function(data) {
+                    sresult = data;
+                    console.log(">>>>>>ajax:"+data);
+                },
+                err:function(data){
+                    alert(data);
+                }
+            });
+            if(sresult.result === true) {
+                alert("send susessfully!");
+                location.reload();
             } else {
-                $('#logout').hide();
+                $('#feedback1').val("* database is locked! please waite..");
             }
         }
     });
+    $(function () {
+        var result;
+        $.ajax({
+            type: "GET",
+            url: "/login/getcookie",
+            dataType: 'text',
+            async: false,
+            data: {},
+            success: function (data) {
+                result = data;
+                if (result) {
+                    $('#login').hide();
+                    $('#reg').hide();
+                    $('#logout').text(result+" logout ");
+                } else {
+                    $('#logout').hide();
+                }
+            }
+        });
+    });
 });
+function checkIsLogin() {
+
+    var isLoginResult;
+    $.ajax({
+        type: "GET",
+        url : "/login/checkIsLogin",
+        dataType: 'text',
+        async : false,
+        success: function(data) {
+            isLoginResult = data;
+        }
+    });
+    if(isLoginResult === "false") {
+        return false;
+    }
+    return true;
+}
 function logoutFuc() {
 
     var result;
@@ -260,13 +270,14 @@ function draw() {
     // add event listeners0
     network.on('select', function (params) {
         document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
+        //alert('Selection: ' + params.nodes);
         if (params.nodes == 0) {
             //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
             // SyntaxHighlighter.all();
             window.location.href = "single";
         }
         else
-            window.location.href = "reply"+params.nodes;
+            window.location.href = "reply?id="+params.nodes;
 
     });
     network0.on('select', function (params) {
@@ -274,10 +285,10 @@ function draw() {
         if (params.nodes == 0) {
             //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
             // SyntaxHighlighter.all();
-            window.location.href = "single";
+            window.location.href = "single?id=1";//todo:change id
         }
         else
-            window.location.href = "reply"+params.nodes;
+            window.location.href = "reply?id="+params.nodes;
 
     });
 

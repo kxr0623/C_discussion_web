@@ -15,7 +15,6 @@ var hbs = require('express-handlebars').create({
 });
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var contact=require('./routes/contact');
 var reply=require('./routes/reply');
 var single = require('./routes/single');
@@ -23,7 +22,7 @@ const DbQuery = require('./dbconnector');
 var routes_signopt = require('./routes/login.js');
 var logout = require('./routes/logout.js');
 var signup = require('./routes/signup.js');
-
+var newtopic=require('./routes/newtopic_r.js');
 var app = express();
 
 
@@ -46,14 +45,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({secret: 'ssshhh',saveUninitialized: true,resave: true}));
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/single',single);
 app.use('/contact',contact);
 app.use('/reply',reply);
 app.use('/login',routes_signopt);
 app.use('/logout',logout);
 app.use('/reg',signup);
-app.use('./reply',reply);
+app.use('/reply',reply);
+app.use('/topic',newtopic);
 
 app.use(function (req, res, next) {
     getFullUrl(req, function (fullUrl) {

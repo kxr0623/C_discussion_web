@@ -120,9 +120,6 @@ function generateQuerySQL1( callback) {
 router.get('/articles-list', function(req, res) {
   res.render('articles-list');
 });
-router.get('/topic', function (req, res) {
-    res.render('topic');
-})
 router.get('/reply3', function(req, res) {
   res.render('reply3');
 });

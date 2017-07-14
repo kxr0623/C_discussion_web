@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var engine=require('consolidate');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var birds = require('./routes/single');
 const DbQuery = require('./dbconnector');
 

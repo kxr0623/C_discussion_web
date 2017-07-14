@@ -83,43 +83,39 @@ Number.prototype.padLeft = function(base,chr){
     var  len = (String(base || 10).length - String(this).length)+1;
     return len > 0? new Array(len).join(chr || '0')+this : this;
 }
-router.post('/', urlencodedParser, function (req, res) {
+router.post('/submit', urlencodedParser, function (req, res) {
     console.log(req.body);
-    var creatorid =parseInt(req.body.replyname,10) ;
-    var email = req.body.replyemail;
-    var code = req.body.replycode;
-    var explain=req.body.replycomment;
-    var topicid=req.body.topicid;
-    var parentid=req.body.parent;
-    var d = new Date,
-        createtime = [ d.getFullYear(),
-                (d.getMonth()+1).padLeft(),
-                d.getDate().padLeft()
-            ].join('/')+ ' ' +
-            [ d.getHours().padLeft(),
-                d.getMinutes().padLeft(),
-                d.getSeconds().padLeft()].join(':');
-    /*var username=db.prepare("select username from Users where uid=$creatorid");
-    var
-    username.get($creatorid:creatorid,function (err,res) {
+    if (req.session.username) {
+        var creatorid = req.session.userid;
+        console.log(req.session.userid);
+        var code = req.body.replycode;
+        var explain = req.body.replycomment;
+        var topicid = req.body.topicid;
+        var parentid = req.body.parent;
+        var d = new Date,
+            createtime = [d.getFullYear(),
+                    (d.getMonth() + 1).padLeft(),
+                    d.getDate().padLeft()
+                ].join('/') + ' ' +
+                [d.getHours().padLeft(),
+                    d.getMinutes().padLeft(),
+                    d.getSeconds().padLeft()].join(':');
+        console.log("---------------topicid:" + topicid);
+        console.log("---------------creatorid:" + creatorid);
+        console.log("---------------code:" + code);
+        console.log("---------------explain:" + explain);
 
-    });
-    */
-    console.log("---------------topicid:"+topicid);
-    console.log("---------------creatorid:"+creatorid);
-    console.log("---------------code:"+code);
-    console.log("---------------explain:"+explain);
-
-    db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,explain,code) VALUES (?,?,?,?,?,?,?)",
-        topicid, createtime, 1, 0, parentid,explain,code, function (err) {
-            if (err) {
-                console.log("insert reply err->",err);
-                res.send(JSON.stringify({result: false, detail: "database error"}));
-            } else {
-                res.send(JSON.stringify({result: true}));
-                //$('#message-sent').val("send susessfully!");
-            }
-        });
+        db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,explain,code) VALUES (?,?,?,?,?,?,?)",
+            topicid, createtime, creatorid, 0, parentid, explain, code, function (err) {
+                if (err) {
+                    console.log("insert reply err->", err);
+                    res.send(JSON.stringify({result: false, detail: "database error"}));
+                } else {
+                    res.send(JSON.stringify({result: true}));
+                    //$('#message-sent').val("send susessfully!");
+                }
+            });
+    }
 
 });
 
