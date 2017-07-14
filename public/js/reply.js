@@ -67,8 +67,8 @@ $(document).ready(function(){
     $("#submit_Reply").click(function(){
 
         //console.log(">>>>>>>>>>>>>>>>");
-        var replycomment=$("#replycomment").val();
-        var replycode=$("#replycode").val();
+        var replycomment=$("#comment").val();
+        var replycode=$("#code").val();
         // console.log(">>>>>>>>>>>>>>>>contactname:"+contactname);
         //console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
 
@@ -77,6 +77,7 @@ $(document).ready(function(){
             return;
         }
         if(replycomment.length<1) {
+           // alert("rrrr");
             $('#feedback1').text("* Please give a comment, and submit again.");
             return;
         }
@@ -84,7 +85,7 @@ $(document).ready(function(){
         else  {
             var sresult;
             var topicid=$('#topicid-div').val();
-            var parent=$('#parent').val();
+            var parent=$('#postid_div').val();
 
             $.ajax({
                 type: "post",
@@ -274,7 +275,7 @@ function draw() {
         if (params.nodes == 0) {
             //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
             // SyntaxHighlighter.all();
-            window.location.href = "single";
+            window.location.href = "single?="+$('#topicid-div').val();
         }
         else
             window.location.href = "reply?id="+params.nodes;
@@ -285,7 +286,7 @@ function draw() {
         if (params.nodes == 0) {
             //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
             // SyntaxHighlighter.all();
-            window.location.href = "single?id=1";//todo:change id
+            window.location.href = "single?id="+$('#topicid-div').val();
         }
         else
             window.location.href = "reply?id="+params.nodes;
