@@ -7,21 +7,21 @@
  /* ----------------------------------------------------*/
 $('#like-it-form .like-it').click(function(){
     var likeButton = $(this);
-    var tid=parseInt($('#topicid-div').value,10);
+    var pid=parseInt($('#postid_div').value,10);
     var likeHtml = likeButton.html();
     var likeNum = parseInt(likeHtml, 10);
     likeNum++;
-    console.log("------->>>>>>>>>>>"+tid);
+    console.log("------->>>>>>>>>>>"+pid);
     likeButton.html(likeNum);
     var likeButton2=$('#like1');
     likeButton2.html(likeNum);
     var sresult;
     $.ajax({
         type: "GET",
-        url : "/single/addlikeTopic",
+        url : "/reply/addlikeReply",
         dataType: 'json',
         async : false,
-        data:{ "tid":tid},
+        data:{ "pid":pid},
         success: function(data) {
             sresult = data;
         }
@@ -32,11 +32,11 @@ $('#like-it-form .like-it').click(function(){
 });
 $('#like1').click(function(){
     var likeButton = $(this);
-    var tid=$('#topicid').value;
+    var pid=parseInt($('#postid_div').value,10);
     var likeHtml = likeButton.html();
     var likeNum = parseInt(likeHtml, 10);
     likeNum++;
-    console.log("------->>>>>>>>>>>"+tid);
+    console.log("------->>>>>>>>>>>"+pid);
     likeButton.html(likeNum);
     var likeButton2=$('#like-it-form .like-it');
     likeButton2.html(likeNum);
@@ -44,10 +44,10 @@ $('#like1').click(function(){
     var sresult;
     $.ajax({
         type: "GET",
-        url : "/single/addlikeTopic",
+        url : "/reply/addlikeReply",
         dataType: 'json',
         async : false,
-        data:{"tid":tid},
+        data:{"pid":pid},
         success: function(data) {
             sresult = data;
         }
@@ -84,7 +84,7 @@ $(document).ready(function(){
         else  {
             var sresult;
             var topicid=$('#topicid-div').val();
-            var parent=0;
+            var parent=$('#parent').val();
 
             $.ajax({
                 type: "post",
