@@ -96,16 +96,16 @@ int main()
 
     return 0;
 }');
-Insert into Post (likes,createtime,creator,topicid,parent,explain,code) 
-values (66,datetime('now'),3,1,0,
-   "strtok will not remove the newline (or any of the given separators) if there arent any non-separator characters in the string. 
-   However, if there are no non-separator characters in the  string, strtok will return NULL, 
-   so you can use that to tell if the line is empty. You may as well include other whitespace
-   characters in the separator list, and you can even use the returned pointer to skip any initial whitespace.
-   Try entering some spaces, 12345, and some more spaces.<br/> Alternatively, you could use strcspn like version 2
-   Or, if you are really interested in the string length, then you may as well do it in the straightforward way:(version 3)
-   If you are not really interested in the string length, the the strtok method is excellent since it allows you to skip initial and trailing space, and with a little extension could be used to detect extraneous (presumably erroneous) non-space characters after the first word.(version 4)
-   This considers one two an error, but  one is okay (and is interpreted as one). (I meant to add a few spaces before and after one, but the forum reduces them to one space.)",'include &lt;string.h> int main() ');
+--Insert into Post (likes,createtime,creator,topicid,parent,explain,code) 
+--values (66,datetime('now'),3,1,0,
+--   "strtok will not remove the newline (or any of the given separators) if there arent any non-separator characters in the string. 
+--   However, if there are no non-separator characters in the  string, strtok will return NULL, 
+--   so you can use that to tell if the line is empty. You may as well include other whitespace
+--   characters in the separator list, and you can even use the returned pointer to skip any initial whitespace.
+--   Try entering some spaces, 12345, and some more spaces.<br/> Alternatively, you could use strcspn like version 2
+--   Or, if you are really interested in the string length, then you may as well do it in the straightforward way:(version 3)
+--   If you are not really interested in the string length, the the strtok method is excellent since it allows you to skip initial and trailing space, and with a little extension could be used to detect extraneous (presumably erroneous) non-space characters after the first word.(version 4)
+--   This considers one two an error, but  one is okay (and is interpreted as one). (I meant to add a few spaces before and after one, but the forum reduces them to one space.)",'include &lt;string.h> int main() ');
 --\n 
 --{\n    char str[100];\n \n    while (1) {\n        puts("Enter the ID:");\n        if (fgets(str, sizeof str, stdin) == NULL)\n            break;\n        char *p = NULL;\n        if ((p = strtok(str, " \t\n")) == NULL)\n            continue;\n        printf("size of string %d\n", (int)strlen(p));\n    }\n \n    return 0\n}\n//version 2\n#include &lt;stdio.h>\n#include &lt;string.h>\n \nint main() {\n    char str[100];\n \n    while (1) {\n        puts("Enter the ID:");\n        if (fgets(str, sizeof str, stdin) == NULL)\n            break;\n        str[strcspn(str, "\n")] = '\0';\n        printf("size of string %d\n", (int)strlen(str));\n    }\n \n    return 0;\n}\n
 Insert into Post (likes,createtime,creator,topicid,parent,explain,code) 

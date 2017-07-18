@@ -6,7 +6,6 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
-var db = new sqlite3.Database('Mydb.db');
 
 router.get('/',function (req,res) {
         res.render('contact');
@@ -17,6 +16,8 @@ Number.prototype.padLeft = function(base,chr){
 }
 
 router.post('/addcontact', urlencodedParser, function (req, res) {
+    var db = new sqlite3.Database('Mydb.db');
+
     console.log(req.body);
 
         var title = req.body.title;
@@ -44,6 +45,7 @@ router.post('/addcontact', urlencodedParser, function (req, res) {
                     //$('#message-sent').val("send susessfully!");
                 }
             });
+        db.close()
 
 });
 

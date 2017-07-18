@@ -5,7 +5,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-var db = new sqlite3.Database('Mydb.db');
+
 var crypto = require('crypto');
 var dateFormat = require('dateformat');
 var now = new Date();
@@ -55,9 +55,9 @@ router.post('/',urlencodedParser, function (req, res) {
         }
 
         var md5 = crypto.createHash('md5');
-        var passwordmd5 = md5.update(password+salt).digest('base64');
-        console.log("passwordmd5->",passwordmd5);
-
+        //var passwordmd5 = md5.update(password+salt).digest('base64');
+        //console.log("passwordmd5->",passwordmd5);
+        var db = new sqlite3.Database('Mydb.db');
         db.serialize(function() {
             var stmt = db.prepare("SELECT * FROM Users WHERE username = $username AND password = $password");
             stmt.all({$username:username, $password:password},function(err,row){
@@ -74,8 +74,6 @@ router.post('/',urlencodedParser, function (req, res) {
                         sess.username = username;
                         sess.userid = parseInt(row[0].uid,10);
 
-                        /*res.cookie('username', username, {maxAge: 7200 * 1000});
-                        res.cookie('userid', row.user_id, {maxAge: 7200 * 1000});*/
                         //res.render('index');
                         console.log("log in susess--------------------"+sess.userid);
                         // res.sendStatus(200);
@@ -86,6 +84,7 @@ router.post('/',urlencodedParser, function (req, res) {
             stmt.finalize();
 
         });
+        db.close();
 
     });
 

@@ -7,7 +7,7 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
-var db = new sqlite3.Database('Mydb.db');
+
 
 router.get('/',function (req,res) {
     res.render('topic');
@@ -33,6 +33,7 @@ router.post('/addtopic', urlencodedParser, function (req, res) {
     console.log(req.body);
 
     if (req.session.username) {
+        var db = new sqlite3.Database('Mydb.db');
         var topictitle = req.body.topictitle;
         var creator = req.session.userid; console.log(req.session.userid);
         var topic_dicription = req.body.topic_dicription;
@@ -56,6 +57,7 @@ router.post('/addtopic', urlencodedParser, function (req, res) {
                     res.send(JSON.stringify({result: true}));
                 }
             });
+        db.close();
     }
     else{
         res.send("false");
@@ -63,6 +65,7 @@ router.post('/addtopic', urlencodedParser, function (req, res) {
 
 });
 function checkTopicCanBeRegistered(topictitle, callback) {
+    var db = new sqlite3.Database('Mydb.db');
     console.log("enter checkTopicCanBeRegistered");
     db.serialize(function() {
         var sql = db.prepare("SELECT * FROM Topic WHERE title = $topic");
@@ -81,6 +84,7 @@ function checkTopicCanBeRegistered(topictitle, callback) {
         });
         sql.finalize();
     });
+    db.close();
 }
 
 module.exports = router;

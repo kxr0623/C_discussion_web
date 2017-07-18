@@ -3,7 +3,7 @@ var router = express.Router()
 var sqlite3 = require('sqlite3').verbose();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
-var db = new sqlite3.Database('Mydb.db');
+
 
 var currenttid;
 var Handlebars = require('handlebars');
@@ -28,51 +28,65 @@ router.get('/', function (req, res) {
     res.render('/');
   }
   else {
-      var topic_infor_query = db.prepare("SELECT * FROM Users inner join Topic   on uid=creator where tid = $tid");
-      //console.log(">>>>>test");
-      topic_infor_query.get({$tid:tid}, function (err, row) {
-          var topic_detail = {};
-          if (!err && row) {
-              console.log(JSON.stringify(row));
-              topic_detail['tid'] = row.tid;
-              topic_detail['title'] = row.title;
-              topic_detail['createtime'] = row.createtime;
-              topic_detail['creator'] = row.username;
-              topic_detail['description'] = row.description;
-              topic_detail['likes'] = row.likes;
-              topic_detail['code'] = row.code;
+      var db = new sqlite3.Database('Mydb.db');
+      var topic_detail = {};
+      db.serialize(function() {
+          var topic_infor_query = db.prepare("SELECT * FROM Users inner join Topic   on uid=creator where tid = $tid");
+          //console.log(">>>>>test");
+          topic_infor_query.get({$tid: tid}, function (err, row) {
 
-              var children_replies = db.prepare("select pid,username,parent from Post inner join Users on creator=uid " +
-                  "where parent=0 and topicid=$tid order by pid ;"
-              );
+              if (!err && row) {
+                  console.log(JSON.stringify(row));
+                  topic_detail['tid'] = row.tid;
+                  topic_detail['title'] = row.title;
+                  topic_detail['createtime'] = row.createtime;
+                  topic_detail['creator'] = row.username;
+                  topic_detail['description'] = row.description;
+                  topic_detail['likes'] = row.likes;
+                  topic_detail['code'] = row.code;
+              } else {
+                  console.log("SELECT err->", err);
+                  res.render('/');
+              }
+          });
+          topic_infor_query.finalize();
 
-              children_replies.all({$tid:tid}, function (err, qres) {
-                  console.log("qres---------->", qres);
-                  console.log("topic_detail----------->", topic_detail);
-                  var stmt = db.prepare("SELECT count(pid)AS sum_posts FROM Post WHERE topicid = '"+tid+"'");
-                  stmt.get(function(err,pnumber){
-                      console.log("pnumber->",pnumber);
-                      var allpost=db.prepare("select * from Post inner join Users on creator=uid " +
-                                                "where topicid=$tid order by pid");
-                      allpost.all({$tid:tid}, function (err, allposts) {
-                          console.log("allposts---------->", allposts);
-                          res.render('single', {
-                              'topic_detail': topic_detail,
-                              'children_replies': qres,
-                              'post_sum': pnumber,
-                              'allpost': allposts,
-                          });
-                      });
+          var children_replies = db.prepare("select pid,username,parent from Post inner join Users on creator=uid " +
+              "where parent=0 and topicid=$tid order by pid ;");
+          var children_replies_r;
+          children_replies.all({$tid: tid}, function (err, qres) {
+              //console.log("qres---------->", qres);
+              console.log("topic_detail----------->", topic_detail);
+              children_replies_r=qres;
+          });
+          children_replies.finalize();
 
+          var stmt = db.prepare("SELECT count(pid)AS sum_posts FROM Post WHERE topicid = '" + tid + "'");
+          var pnum;
+          stmt.get(function (err, pnumber) {
+              console.log("pnumber->", pnumber);
+              pnum=pnumber;
+          });
+          stmt.finalize();
+
+          var allpost = db.prepare("select * from Post inner join Users on creator=uid " +
+                  "where topicid=$tid order by pid");
+
+          allpost.all({$tid: tid}, function (err, allposts) {
+                  console.log("allposts---------->", allposts);
+                  res.render('single', {
+                      'topic_detail': topic_detail,
+                      'children_replies': children_replies_r,
+                      'post_sum': pnum,
+                      'allpost': allposts,
                   });
-                  stmt.finalize();
-
               });
-          } else {
-              console.log("err->", err);
-              res.render('/');
-          }
+          allpost.finalize();
+
+
+
       });
+      db.close();
   }
 
 });
@@ -93,28 +107,26 @@ router.post('/submit', urlencodedParser, function (req, res) {
         var topicid = req.body.topicid;
         var parentid = req.body.parent;
         var d = new Date,
-            createtime = [d.getFullYear(),
-                    (d.getMonth() + 1).padLeft(),
-                    d.getDate().padLeft()
-                ].join('/') + ' ' +
-                [d.getHours().padLeft(),
-                    d.getMinutes().padLeft(),
-                    d.getSeconds().padLeft()].join(':');
+            createtime = [d.getFullYear(), (d.getMonth() + 1).padLeft(), d.getDate().padLeft()].join('/') + ' ' +
+                [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':');
         console.log("---------------topicid:" + topicid);
         console.log("---------------creatorid:" + creatorid);
         console.log("---------------code:" + code);
         console.log("---------------explain:" + explain);
-
-        db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,explain,code) VALUES (?,?,?,?,?,?,?)",
-            topicid, createtime, creatorid, 0, parentid, explain, code, function (err) {
-                if (err) {
-                    console.log("insert reply err->", err);
-                    res.send(JSON.stringify({result: false, detail: "database error"}));
-                } else {
-                    res.send(JSON.stringify({result: true}));
-                    //$('#message-sent').val("send susessfully!");
-                }
-            });
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,explain,code) VALUES (?,?,?,?,?,?,?)",
+                topicid, createtime, creatorid, 0, parentid, explain, code, function (err) {
+                    if (err) {
+                        console.log("insert reply err->", err);
+                        res.send(JSON.stringify({result: false, detail: "database error"}));
+                    } else {
+                        res.send(JSON.stringify({result: true}));
+                        //$('#message-sent').val("send susessfully!");
+                    }
+                });
+        });
+        db.close();
     }
 
 });
@@ -123,6 +135,8 @@ router.post('/submit', urlencodedParser, function (req, res) {
 router.get('/addlikeTopic', urlencodedParser, function (req, res) {
     var tid=req.query.tid;
     console.log("likecomment->comment_id:", tid);
+    var db = new sqlite3.Database('Mydb.db');
+    db.serialize(function() {
     db.run("UPDATE Topic SET likes = likes + 1 WHERE tid = ?",
         currenttid, function (err) {
             if (err) {
@@ -132,6 +146,8 @@ router.get('/addlikeTopic', urlencodedParser, function (req, res) {
                 res.send(JSON.stringify({result: true}));
             }
         });
+    });
+    db.close();
 });
 
 

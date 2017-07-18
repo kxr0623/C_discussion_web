@@ -3,13 +3,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-var db = new sqlite3.Database('Mydb.db');
+
 var crypto = require('crypto');
 var dateFormat = require('dateformat');
 var now = new Date();
 var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
-/*var algorithm = 'aes-256-ctr',
-    pas = '@p4gt)Ox';// encrypt the cookie*/
 
     // to page sign up
     app.get('/', function (req, res) {
@@ -36,21 +34,24 @@ var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
         var password = req.body.password.trim();
         var email = req.body.email.trim();
 
-                var md5 = crypto.createHash('md5');
-                var passwordmd5 = md5.update(password).digest('base64');
-                console.log("password->",password);
-
-                db.run("INSERT INTO Users(username,password,email) VALUES (?,?,?)",
-                    username,password,email,function(err){
-                        if(err){
-                            console.log("INSERT INTO Users err->",err);
-                            res.send(false);
-                        }else{
-                            // res.sendStatus(200);
-                            res.send(true);
-                            console.log("sign up susess--------------------");
-                        }
-                    });
+        //var md5 = crypto.createHash('md5');
+        //var passwordmd5 = md5.update(password).digest('base64');
+        console.log("password->",password);
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run("INSERT INTO Users(username,password,email) VALUES (?,?,?)",
+                username, password, email, function (err) {
+                    if (err) {
+                        console.log("INSERT INTO Users err->", err);
+                        res.send(false);
+                    } else {
+                        // res.sendStatus(200);
+                        res.send(true);
+                        console.log("sign up susess--------------------");
+                    }
+                });
+        });
+        db.close();
 
     });
 
@@ -64,25 +65,28 @@ var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
             res.send("false");
         }
     });
-function checkUserNameCanBeRegistered(userName, callback) {
-    console.log("enter checkUserNameCanBeRegistered");
-    db.serialize(function() {
-        var sql = db.prepare("SELECT * FROM Users WHERE username = $username");
-        sql.get({$username:userName},function(err,row){
-            if(err) {
-                console.log("database error->",err);
-                callback(false);
-            } else {
-                //console.log("row->",row);
-                if(row === undefined || row.length===0) {
-                    callback(true);
-                } else {
+
+    function checkUserNameCanBeRegistered(userName, callback) {
+        console.log("enter checkUserNameCanBeRegistered");
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            var sql = db.prepare("SELECT * FROM Users WHERE username = $username");
+            sql.get({$username:userName},function(err,row){
+                if(err) {
+                    console.log("database error->",err);
                     callback(false);
+                } else {
+                    //console.log("row->",row);
+                    if(row === undefined || row.length===0) {
+                        callback(true);
+                    } else {
+                        callback(false);
+                    }
                 }
-            }
+            });
+            sql.finalize();
         });
-        sql.finalize();
-    });
-}
+        db.close();
+    }
 
 module.exports = app;

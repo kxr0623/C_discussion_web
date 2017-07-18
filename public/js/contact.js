@@ -14,7 +14,7 @@ $(document).ready(function(){
         console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
 
         if(contactmessage.length < 1||contactsubject.length<1||contactemail.length<1||contactname.length<1) {
-            $('#message-sent').test("Please full the form, and submit again.");
+            $('#feedback1').test("Please full the form, and submit again.");
             return;
         }
         else  if(!validEmail(contactemail)) {
@@ -38,10 +38,10 @@ $(document).ready(function(){
         });
         if(sresult.result === true) {
 
-            $('#message-sent').text("send susessfully!");
+            alert("send susessfully!");
             location.reload();
         } else {
-            $('#message-sent').val("send fail!");
+            alert(sresult.detail);
         }
 
 
@@ -69,24 +69,25 @@ $(document).ready(function(){
             }
         });
     });
-    function logoutFuc() {
-        var result;
-        $.ajax({
-            type: "GET",
-            url: "/logout",
-            dataType: 'text',
-            async: false,
-            data: {},
-            success: function (data) {
-                result = data;
-            }
-        });
-        if (result === "true") {
-            location.reload();
-        }
-    }
+
 });
 function validEmail(v) {
     var r = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
     return (v.match(r) == null) ? false : true;
+}
+function logoutFuc() {
+    var result;
+    $.ajax({
+        type: "GET",
+        url: "/logout",
+        dataType: 'text',
+        async: false,
+        data: {},
+        success: function (data) {
+            result = data;
+        }
+    });
+    if (result === "true") {
+        location.reload();
+    }
 }

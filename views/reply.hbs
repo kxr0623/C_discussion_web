@@ -196,7 +196,7 @@
 
                 <h4 id="map">View the map of Replies <small>(click the node on the picture to change to the post)</small></h4>
                 <div id="mynetwork"></div>
-                <script type="text/javascript" src="vis-try1.js"></script>
+
                 <p id="selection"></p>
                 <section id="comments">
 
@@ -224,7 +224,7 @@
                             </div>
 
                             <div class="hidden">
-                                <input name="topicid" id="topicid-div" value="{{topic_detail.tid}}" />
+                                <input name="topicid" id="topicid_div" value="{{topic_detail.tid}}" />
                                 <input name="postid" id="postid_div" value="{{post_detail.pid}}" />
                                 <input name="parent" id="parent" value="0" />
                             </div>
@@ -241,6 +241,20 @@
 
                 </section>
                 <!-- end of comments -->
+                <div class="hidden">
+                    <input name="topic_creator" id="topicCreator_div" value="{{topic_detail.username}}" />
+                    <div id="topic_likes">{{topic_detail.likes}}</div>
+                    <div id="postidlist">
+                        <ul>
+                            {{#if allpost}}
+                                {{#each allpost}}
+                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" >{{parent}}</li>
+                                {{/each}}
+                            {{/if}}
+
+                        </ul>
+                    </div>
+                </div>
 
             </div>
             <!-- end of page content -->

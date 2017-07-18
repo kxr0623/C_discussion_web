@@ -24,6 +24,13 @@ $('#like-it-form .like-it').click(function(){
         data:{ "tid":tid},
         success: function(data) {
             sresult = data;
+            if(data.result === true) {
+                //alert("send susessfully!");
+                location.reload();
+            }
+            else {
+                alert("* database is locked! please waite..");
+            }
         }
     });
     if(sresult.result === true) {
@@ -50,6 +57,13 @@ $('#like1').click(function(){
         data:{"tid":tid},
         success: function(data) {
             sresult = data;
+            if(data.result === true) {
+                //alert("send susessfully!");
+                location.reload();
+            }
+            else {
+                alert("* database is locked! please waite..");
+            }
         }
     });
     if(sresult.result === true) {
@@ -98,18 +112,19 @@ $("#submit_Reply").click(function(){
                     "parent":parent},
                 success: function(data) {
                     sresult = data;
-                    console.log(">>>>>>ajax:"+data);
+                    if(data.result === true) {
+                        alert("send susessfully!");
+                        location.reload();
+                    }
+                    else {
+                        alert("* database is locked! please waite..");
+                    }
                 },
                 err:function(data){
                     alert(data);
                 }
             });
-            if(sresult.result === true) {
-                alert("send susessfully!");
-                location.reload();
-            } else {
-                $('#feedback1').val("* database is locked! please waite..");
-            }
+
         }
     });
     $(function () {
@@ -174,7 +189,7 @@ var lis = document.getElementById("postidlist").getElementsByTagName("li");
 var titleid=0,tlikes=parseInt($('#like1').html(), 10),tposter=$('#topic_creator').html();
 
 var nodesArray=[
-  { id: 0,value:tlikes, label: tposter, title: 'Go to Reply:0' },
+  { id: 0,value:tlikes, label:"#0 "+ tposter, title: 'Go to Reply:0' },
 ];
 
 //alert(lis[3].innerHTML);
@@ -185,7 +200,7 @@ for(var i=0;i<lis.length;i++){
     var pid=parseInt(lis[i].id),likes=parseInt(lis[i].value),plable=lis[i].title;
     if(likes>max){star=lis[i].id; max=likes;};
    try{
-        nodes.add({id:pid,value:likes,label:plable,title: 'Go to Reply:' + (i+1)});
+        nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+plable,title: 'Go to Reply:' + (i+1)});
     }
    catch(err) {alert(err);}
 }
@@ -243,7 +258,7 @@ function draw() {
     },
     layout: {
       hierarchical: {
-        direction: 'LR',
+        direction: 'UD',
         sortMethod: 'directed'   // hubsize, directed
       }
     },
@@ -263,8 +278,36 @@ function draw() {
       },
     },
   };
+  var options2;
+  options2={
+      interaction: {
+          hover: true,
+      },
+      layout: {
+          hierarchical: {
+              direction: 'LR',
+              sortMethod: 'directed'   // hubsize, directed
+          },
+      },
+
+          nodes: {
+              shape:'dot',
+              color: {
+                  border: '#2B7CE9',
+                  background: '#97C2FC',
+                  highlight: {
+                      border: '#2B7CE9',
+                      background: '#ffff99'
+                  },
+                  hover: {
+                      border: '#ffff00',
+                      background: '#97C2FC'
+                  }
+              },
+          },
+  };
   network = new vis.Network(container, data, options);
-  network0 = new vis.Network(container0, data, options);
+  network0 = new vis.Network(container0, data, options2);
   network.selectNodes([currentNode]);
   network0.selectNodes([currentNode]);
   // add event listeners0

@@ -1,0 +1,145 @@
+function post_detail(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+    var pid=req.query.id;
+    if(isEmptyObject(pid)){
+        console.log("not find that id of post!");
+        res.render('index');
+    }
+    currentPid=pid;
+    var dbRequest = 'SELECT * FROM Users inner join Post on uid=creator where pid ='+pid;
+    db.all(dbRequest, function(error, rows) {
+
+        if (error || !rows.length) {
+            console.log("post_detail err->",error);
+            res.render('index');
+        }
+        req.post_detail = rows[0];
+        topic_id=rows[0].topicid;
+        current_parent=rows[0].parent;
+        return next();
+    });
+    db.close();
+}
+function topic_detail(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest = "SELECT * FROM Users inner join Topic on uid=creator where tid = "+topic_id;
+    db.all(dbRequest, function(error, rows) {
+        if (error || !rows.length) {
+            console.log("topic_detail err->",error);
+            res.render('index');
+        }
+        req.topic_detail = rows[0];
+
+        return next();
+    });
+}
+function children(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest = "SELECT * FROM Users inner join Post on uid=creator where topicid="+topic_id +
+        " and parent ="+currentPid +" order by pid";
+    db.all(dbRequest, function(error, rows) {
+        if (error) {
+            console.log("children err->",error);
+            res.render('index');
+        }
+        req.children = rows;
+
+        return next();
+    });
+}
+function samelevel(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest = "SELECT * FROM Users inner join Post on uid=creator where topicid="+topic_id +" and parent ="+current_parent;
+    db.all(dbRequest, function(error, rows) {
+        if (error) {
+            console.log("samelevel err->",error);
+            res.render('index');
+        }
+        req.samelevel = rows;
+
+        return next();
+    });
+}
+function count_allreply(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest = "SELECT count(pid) AS sum_posts FROM Post WHERE topicid="+topic_id +" and parent ="+currentPid;
+    db.all(dbRequest, function(error, rows) {
+        if (error || !rows.length) {
+            console.log("count_allreply err->",error);
+            res.render('index');
+        }
+        req.count_allreply = rows[0];
+
+        return next();
+    });
+}
+function lastversioncode(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest;
+    if(current_parent!=0) {
+        dbRequest = "SELECT code FROM Post WHERE pid=" + current_parent;
+    }
+    else {
+        dbRequest = "SELECT code FROM Topic WHERE tid=" + topic_id;
+    }
+        db.all(dbRequest, function (error, rows) {
+            if (error || !rows.length) {
+                console.log("count_allreply err->", error);
+                res.render('index');
+            }
+            req.lastversioncode = rows[0];
+
+            return next();
+        });
+
+
+}
+function range(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest = "SELECT count(pid) AS range FROM Post WHERE topicid="+topic_id +" and pid <="+currentPid;
+    db.all(dbRequest, function(error, rows) {
+        if (error || !rows.length) {
+            console.log("range err->",error);
+            res.render('index');
+        }
+        req.range = rows[0];
+
+        next();
+    });
+}
+function all_posts(req, res, next) {
+    var db = new sqlite3.Database('Mydb.db');
+
+    var dbRequest = "select * from Post inner join Users on creator=uid " +
+        "where topicid="+topic_id+" order by pid";
+    db.all(dbRequest, function(error, rows) {
+        if (error || !rows.length) {
+            console.log("all_posts err->",error);
+            res.render('index');
+        }
+        req.allpost = rows;
+
+        next();
+    });
+}
+function renderPage(req, res) {
+    res.render('reply', {
+        "post_detail":req.post_detail,
+        "topic_detail":req.topic_detail,
+        "children":req.children,
+        "samelevel": req.samelevel,
+        "count_allreply": req.count_allreply,
+        "range": req.range,
+        "lastcode":req.lastversioncode,
+        "allpost":req.allpost
+    });
+}
+
+// define the home page route
+//router.get('/', post_detail,topic_detail,children,samelevel,count_allreply,lastversioncode,range,all_posts,renderPage);

@@ -29,6 +29,7 @@ $('#like-it-form .like-it').click(function(){
     if(sresult.result === true) {
         location.reload();
     }
+    else {alert(sresult.detail);}
 });
 $('#like1').click(function(){
     var likeButton = $(this);
@@ -55,6 +56,7 @@ $('#like1').click(function(){
     if(sresult.result === true) {
         location.reload();
     }
+    else {alert(sresult.detail);}
 });
 
 //------------------------------------------------------
@@ -84,7 +86,7 @@ $(document).ready(function(){
 
         else  {
             var sresult;
-            var topicid=$('#topicid-div').val();
+            var topicid=$('#topicid_div').val();
             var parent=$('#postid_div').val();
 
             $.ajax({
@@ -99,18 +101,21 @@ $(document).ready(function(){
                     "parent":parent},
                 success: function(data) {
                     sresult = data;
-                    console.log(">>>>>>ajax:"+data);
+                    //alert(">>>>>>ajax:"+data.result);
+                    if(data.result === true) {
+                        alert("send susessfully!");
+                        location.reload();
+                    }
+                    else {
+                        alert("* database is locked! please waite..");
+                    }
+
                 },
                 err:function(data){
-                    alert(data);
+                    alert(data.result);
                 }
             });
-            if(sresult.result === true) {
-                alert("send susessfully!");
-                location.reload();
-            } else {
-                $('#feedback1').val("* database is locked! please waite..");
-            }
+
         }
     });
     $(function () {
@@ -171,11 +176,14 @@ function logoutFuc() {
 }
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
-var lis = document.getElementById("postidlist").getElementsByTagName("li");
-var titleid=0,tlikes=parseInt($('#like1').html(), 10),tposter=$('#topic_creator').html();
 
+var lis = document.getElementById("postidlist").getElementsByTagName("li");
+var titleid=parseInt($('#topicid_div').val()),
+    tlikes=parseInt($('#topic_likes').html(), 10),
+    tposter=$('#topicCreator_div').val();
+//alert(tlikes);
 var nodesArray=[
-    { id: 0,value:tlikes, label: tposter, title: 'Go to Reply:0' },
+    { id: 0,value:tlikes, label:"#0 "+ tposter, title: 'Go to Reply:0' },
 ];
 
 //alert(lis[3].innerHTML);
@@ -186,7 +194,7 @@ for(var i=0;i<lis.length;i++){
     var pid=parseInt(lis[i].id),likes=parseInt(lis[i].value),plable=lis[i].title;
     if(likes>max){star=lis[i].id; max=likes;};
     try{
-        nodes.add({id:pid,value:likes,label:plable,title: 'Go to Reply:' + (i+1)});
+        nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+ plable,title: 'Go to Reply:' + (i+1)});
     }
     catch(err) {alert(err);}
 }
@@ -199,14 +207,16 @@ var edgesArray=[
 ];
 var edges = new vis.DataSet(edgesArray);
 for(var i=1;i<lis.length;i++){
-    edges.add({id: i,
-        from:   parseInt(lis[i].innerHTML,10) ,
-        to:     lis[i].id});
+    try{
+        edges.add({id: i,
+            from:   parseInt(lis[i].innerHTML,10) ,
+            to:     lis[i].id});
+    }
+    catch (err){alert(err);}
 }
 
 
 var network = null;
-var network0 = null;
 
 function destroy() {
     if (network !== null) {
@@ -214,22 +224,16 @@ function destroy() {
         network = null;
     }
 }
-function destroy0() {
-    if (network0 !== null) {
-        network0.destroy();
-        network0 = null;
-    }
-}
 
 var currentNode;
 function getpageid() {
 
-    var x = document.getElementsByClassName("pagemark");
-    return x[0].innerHTML;
+   // var x = document.getElementsByClassName("pagemark");
+    return $("#postid_div").val();
+    //return x[0].innerHTML;
 }
 function draw() {
     destroy();
-    destroy0();
     currentNode=getpageid();
     var data = {
         nodes: nodes,
@@ -237,14 +241,14 @@ function draw() {
     };
     // create a network
     var container = document.getElementById('mynetwork');
-    var container0 = document.getElementById('mynetwork0');
+
     var options = {
         interaction: {
             hover: true,
         },
         layout: {
             hierarchical: {
-                direction: 'LR',
+                direction: 'UD',
                 sortMethod: 'directed'   // hubsize, directed
             }
         },
@@ -265,9 +269,9 @@ function draw() {
         },
     };
     network = new vis.Network(container, data, options);
-    network0 = new vis.Network(container0, data, options);
+
     network.selectNodes([currentNode]);
-    network0.selectNodes([currentNode]);
+
     // add event listeners0
     network.on('select', function (params) {
         document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
@@ -275,18 +279,7 @@ function draw() {
         if (params.nodes == 0) {
             //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
             // SyntaxHighlighter.all();
-            window.location.href = "single?="+$('#topicid-div').val();
-        }
-        else
-            window.location.href = "reply?id="+params.nodes;
-
-    });
-    network0.on('select', function (params) {
-        document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
-        if (params.nodes == 0) {
-            //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-            // SyntaxHighlighter.all();
-            window.location.href = "single?id="+$('#topicid-div').val();
+            window.location.href = "single?id="+titleid;
         }
         else
             window.location.href = "reply?id="+params.nodes;
