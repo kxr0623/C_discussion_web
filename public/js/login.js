@@ -1,42 +1,73 @@
-/**
- * Created by kxr on 17-7-12.
- */
+function LogInForm() {
+    //alert('dddd');
+    var userName = document.getElementById("loginName").value;
 
-function submitLogInForm() {
-    $('#inputUserNamePop').popover('destroy');
-    $('#inputPasswordPop').popover('destroy');
-    $('#login_submit_btn_popover').popover('destroy');
-
-    var userName = $("#inputUserName").val();
-    var password = $("#inputPassword").val();
+    var password = document.getElementById("loginPassword").value;
 
     if (userName.length <= 0) {
-        $('#inputUserNamePop').popover({title: "oh no!", content: "Please type your username."});
-        $('#inputUserNamePop').popover('show');
+        alert("input your username");
         return false;
     }
-    if (password.length < 6 || password.length > 12) {
-        $('#inputPasswordPop').popover({title: "oh no!", content: "Please type your password correctly."});
-        $('#inputPasswordPop').popover('show');
+    if (password.length > 16 || password.length<3) {
+        alert("You need to type passwords between 3 and 16 characters!");
         return false;
     }
-
+    // alert(password);
     var result;
     $.ajax({
         type: "POST",
-        url : "/login/submit",
+        url : "/login",
         dataType: 'json',
         async : false,
         data:{"userName":userName, "password":password},
-        success: function(data) {
-            result = data;
+        success: function(data,status) {
+            if(status == 'success'){
+                alert('log in successfully...');
+                location.href = '/';
+            }
+        },
+        error: function(data,status){
+            if(status == 'error'){
+                alert('username or password error!');
+                location.reload();
+            }
         }
     });
 
-    if(result == true) {
-        window.location.href = "/";
-    } else {
-        $('#login_submit_btn_popover').popover({title: "oh no!", content: "Username or password is wrong."});
-        $('#login_submit_btn_popover').popover('show');
+}
+$(function () {
+    var result;
+    $.ajax({
+        type: "GET",
+        url: "/login/getcookie",
+        dataType: 'text',
+        async: false,
+        data: {},
+        success: function (data) {
+            result = data;
+            if (result) {
+                $('#login').hide();
+                $('#reg').hide();
+                $('#logout').text(result+" logout ");
+            } else {
+                $('#logout').hide();
+            }
+        }
+    });
+});
+function logoutFuc() {
+    var result;
+    $.ajax({
+        type: "GET",
+        url: "/logout",
+        dataType: 'text',
+        async: false,
+        data: {},
+        success: function (data) {
+            result = data;
+        }
+    });
+    if (result === "true") {
+        location.reload();
     }
 }

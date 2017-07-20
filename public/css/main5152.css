@@ -240,10 +240,11 @@ form.search-form input.search-btn:hover {
   background-color: #4b5760;
 }
 
-#search-error-container label {
-  color: #fff;
+#search-error-container {
+  color: red;
   padding: 5px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .lt-ie8 form.search-form input.search-btn {

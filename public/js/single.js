@@ -254,7 +254,10 @@ function draw() {
   var container0 = document.getElementById('mynetwork0');
   var options = {
     interaction: {
-      hover: true,
+        hover: true,
+        zoomView:false,
+        navigationButtons: true,
+        keyboard: true
     },
     layout: {
       hierarchical: {
@@ -264,12 +267,12 @@ function draw() {
     },
     nodes: {
         shape:'dot',
-      color: {
-        border: '#2B7CE9',
-        background: '#97C2FC',
-        highlight: {
-          border: '#2B7CE9',
-          background: '#ffff99'
+        color: {
+            border: '#2B7CE9',
+            background: '#97C2FC',
+            highlight: {
+            border: '#2B7CE9',
+            background: '#ffff99'
         },
         hover: {
           border: '#ffff00',
@@ -278,10 +281,13 @@ function draw() {
       },
     },
   };
-  var options2;
-  options2={
+  var options0;
+  options0={
       interaction: {
           hover: true,
+          zoomView:false,
+          navigationButtons: true,
+          keyboard: true
       },
       layout: {
           hierarchical: {
@@ -307,10 +313,16 @@ function draw() {
           },
   };
   network = new vis.Network(container, data, options);
-  network0 = new vis.Network(container0, data, options2);
+  network0 = new vis.Network(container0, data, options0);
   network.selectNodes([currentNode]);
   network0.selectNodes([currentNode]);
   // add event listeners0
+    network.on('hoverNode', function () {
+        document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
+    });
+    network0.on('hoverNode', function () {
+        changeCursor('pointer');
+    });
   network.on('select', function (params) {
     document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
     //alert('Selection: ' + params.nodes);
@@ -320,7 +332,7 @@ function draw() {
       window.location.href = "single?id="+$('#topicid-div').val();
     }
     else
-     window.location.href = "reply?id="+params.nodes;
+        window.location.href = "reply?id="+params.nodes;
 
   });
   network0.on('select', function (params) {
@@ -338,6 +350,7 @@ function draw() {
   network.on("showPopup", function (params) {
     // document.getElementById('selection').innerHTML = '<h2>showPopup event: </h2>' + JSON.stringify(params, null, 4);
   });
+
   
 }
 

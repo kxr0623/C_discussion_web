@@ -69,9 +69,9 @@
                                 <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
                                 <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-                                        <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
-                                        <input class="search-btn" type="submit" value="Search" />
-                                        <div id="search-error-container"></div>
+                                    <input class="search-term required" type="text" id="search_term" name="s" placeholder="Type your search terms here" />
+                                    <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
+                                    <div id="search-error-container"></div>
                                 </form>
                         </div>
                 </div>
@@ -163,7 +163,7 @@
                                         <div class="span4">
                                                 <section class="widget"><h3 class="title">Categories</h3>
                                                         <ul>
-                                                                
+
                                                         </ul>
                                                 </section>
                                         </div>
@@ -176,7 +176,7 @@
                                                                         <li>No Tweets loaded !</li>
                                                                 </ul>
                                                         </div>
-                                                       
+
                                                 </section>
                                         </div>
 

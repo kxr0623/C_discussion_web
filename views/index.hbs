@@ -13,15 +13,24 @@
                 <link rel="shortcut icon" href="images/favicon.png" />
 
                 <!-- Style Sheet-->
-                
-                <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='responsive-css-css'  href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='pretty-photo-css-css'  href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
-                <link rel='stylesheet' id='main-css-css'  href='css/main5152.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='custom-css-css'  href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
+
+            <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
+            <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
+            <link rel='stylesheet' id='responsive-css-css'  href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
+            <link rel='stylesheet' id='pretty-photo-css-css'  href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
+            <link rel='stylesheet' id='main-css-css'  href='css/main5152.css?ver=1.0' type='text/css' media='all' />
+            <link rel='stylesheet' id='custom-css-css'  href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
+
 
             <script>
+                var modal = document.getElementById('id01');
 
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
             </script>
                 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
                 <!--[if lt IE 9]>
@@ -52,7 +61,7 @@
                                                                 <li><a href="contact">Contact</a></li>
                                                         </ul>
                                                         <ul id="headerul2">
-                                                                <li id ='login'><a  href="login"> LOG IN</a></li> 
+                                                                <li id ='login' onclick="document.getElementById('id01').style.display='block'" >LOG IN</li>
                                                                 <li id ='reg'><a  href="reg">Register</a></li>
                                                                 <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
                                                         </ul>
@@ -72,14 +81,42 @@
                                 <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
                                 <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-                                        <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here" title="* Please enter a search term!" />
-                                        <input class="search-btn" type="submit" value="Search" />
-                                        <div id="search-error-container"></div>
+                                    <input class="search-term required" type="text" id="search_term" name="s" placeholder="Type your search terms here" />
+                                    <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
+                                    <div id="search-error-container"></div>
                                 </form>
                         </div>
                 </div>
                 <!-- End of Search Wrapper -->
-        
+
+                <!--pupup login-->
+                <div id="id01" class="modal" style="width: 400px" >
+
+                    <form class="modal-content animate" action="/action_page.php">
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                            <img src="images/users.png" alt="Avatar" class="avatar">
+                        </div>
+
+                        <div class="logincontainer">
+                            <label><b>Username</b></label>
+                            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+
+                            <label><b>Password</b></label>
+                            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+
+                            <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+
+                        <div class="logincontainer" style="background-color:#f1f1f1">
+                            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                            <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+
+                        </div>
+
+                        </div>
+                    </form>
+                </div>
+                <!---->
 
                 <!-- Start of Page Container -->
                 <div class="page-container">
@@ -91,11 +128,11 @@
                                                 <div class="row separator">
                                                         <section class="span4 articles-list">
                                                                 <h3>Latest Topics</h3>
-                                                                <ul class="articles">
+                                                                <ul class="articles" id="articles1">
                                                                     {{#if newest}}
                                                                         {{#each newest}}
 
-                                                                            <li class="article-entry standard">
+                                                                            <li class="article-entry standard" id="{{title}}">
                                                                                 <h4><a class="atitle" href="/single?id={{tid}}">{{title}}</a></h4>
                                                                                 <span class="article-meta">{{createtime}} by {{username}}</span>
                                                                                 <span class="like-count">{{likes}}</span>
@@ -245,6 +282,7 @@
 
                 <!-- script -->
                 <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+                <script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
                 <script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
                 <script type='text/javascript' src='js/prettyphoto/jquery.prettyPhoto.js'></script>
                 <script type='text/javascript' src='js/jflickrfeed.js'></script>
@@ -252,44 +290,8 @@
                 <script type='text/javascript' src='js/jquery.form.js'></script>
                 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
                 <script type='text/javascript' src='js/custom.js'></script>
-                <script>
-                    $(function () {
-                        var result;
-                        $.ajax({
-                            type: "GET",
-                            url: "/login/getcookie",
-                            dataType: 'text',
-                            async: false,
-                            data: {},
-                            success: function (data) {
-                                result = data;
-                                if (result) {
-                                    $('#login').hide();
-                                    $('#reg').hide();
-                                    $('#logout').text(result+" logout ");
-                                } else {
-                                    $('#logout').hide();
-                                }
-                            }
-                        });
-                    });
-                    function logoutFuc() {
+                <script type='text/javascript' src='js/home.js'>
 
-                        var result;
-                        $.ajax({
-                            type: "GET",
-                            url: "/logout",
-                            dataType: 'text',
-                            async: false,
-                            data: {},
-                            success: function (data) {
-                                result = data;
-                            }
-                        });
-                        if (result === "true") {
-                            location.reload();
-                        }
-                    }
                 </script>
         </body>
 </html>

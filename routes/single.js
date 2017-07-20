@@ -13,11 +13,6 @@ Handlebars.registerHelper("inc", function(value, options)
     return parseInt(value) + 1;
 });
 // middleware that is specific to this router
-/*router.use(function timeLog (req, res, next) {
-  console.log('Time: ', Date.now())
-  next();
-})
-*/
 // define the home page route
 router.get('/', function (req, res) {
     var tid=req.query.id;
@@ -82,8 +77,6 @@ router.get('/', function (req, res) {
                   });
               });
           allpost.finalize();
-
-
 
       });
       db.close();

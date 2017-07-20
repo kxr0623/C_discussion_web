@@ -8,7 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 var requestTime = function (req, res, next) {
   req.requestTime = Date.now()
   next()
-}
+};
 
 var path=__dirname + '/views/';
 router.use(requestTime)
@@ -108,12 +108,6 @@ function renderIndexPage(req, res) {
 }
 router.get('/', new_list, pop_list,count_topics,  renderIndexPage);
 
-function generateQuerySQL( callback) {
-        // popular
-        callback("SELECT * " +
-            "FROM Topic Inner Join Users on creator=uid  ORDER BY likes DESC ");
-}
-
 router.get('/articles-list', function(req, res) {
   res.render('articles-list');
 });
@@ -123,6 +117,27 @@ router.get('/test', function (req, res) {
     DbQuery()
         .then((text) => res.send(text))//sent the data from db to page
         .catch((err) => console.log(err))//else catch an err
-})
+});
+router.get('/search', urlencodedParser, function (req, res) {
+    var db = new sqlite3.Database('Mydb.db');
+    var search_string = req.query.search_string;
+    var stmt = db.prepare("SELECT tid,title FROM Topic WHERE title LIKE $search_string");
+    stmt.get({$search_string:"%"+search_string+"%"},function(err,row){
+        if(err) {
+            console.log("database err->",err);
+            res.send(JSON.stringify({result: false, detail: "database error"}));
+        } else {
+            console.log("search tid->",row);
+            if(row!==undefined) {
+                res.send(JSON.stringify({result: true, detail: row.title}));
+            } else {
+                res.send(JSON.stringify({result: false}));
+            }
+
+        }
+    });
+    stmt.finalize();
+    db.close();
+});
 
 module.exports = router;

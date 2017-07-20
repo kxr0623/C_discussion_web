@@ -91,3 +91,29 @@ function logoutFuc() {
         location.reload();
     }
 }
+function dosearch() {
+    var stm= document.getElementById('search_term').value;
+    //alert(stm);
+    if(stm.length > 0){
+        $.ajax({
+            type: "GET",
+            url : "/search",
+            dataType: 'json',
+            async : false,
+            data:{"search_string":stm},
+            success: function(data) {
+
+                if(data.result && data.detail.length>0) {
+                   // alert(data.detail)
+                    window.location.href="/#"+data.detail;
+
+                } else {
+                    // alert("no r")
+                    $("#search_term").val("");
+                    $('#search-error-container').html("* No result...");
+                }
+            }
+        });
+    }
+    else $('#search-error-container').html("* Please enter a search term!");;
+}
