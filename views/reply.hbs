@@ -19,11 +19,11 @@
 
 
     <!-- Style Sheet-->
+    <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
 
     <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'
-    />
+    <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'/>
     <link rel='stylesheet' id='main-css-css' href='css/main5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
     <!--chart js-->
@@ -69,7 +69,7 @@
                         <li><a href="contact">Contact</a></li>
                     </ul>
                     <ul id="headerul2">
-                        <li id='login'><a href="login"> LOG IN</a></li>
+                        <li id ='login' onclick="document.getElementById('id01').style.display='block'" ><a>LOG IN</a></li>
                         <li id='reg'><a href="reg">Register</a></li>
                         <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
                     </ul>
@@ -81,7 +81,37 @@
 </div>
 <!-- End of Header -->
 
+<!--pupup login-->
+<div id="id01"  class="modal" style="width: 1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
+
+    <form class="modal-content animate" style="width: 400px">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="images/users.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="logincontainer" >
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+
+            <label><b>Password</b></label>
+            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+
+            <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+
+            <div class="logincontainer" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--end login popup-->
+
 <!-- Start of Search Wrapper -->
+<div class="search-area-wrapper"></div>
 <!-- End of Search Wrapper -->
 
 <!-- Start of Page Container -->
@@ -133,8 +163,9 @@
 
             </aside>
             <!-- end of sidebar -->
-            <div class="span9 page-content">
 
+
+            <div class="span9 page-content">
                 <ul class="breadcrumb">
                     <li>Title: <a href="single?id={{topic_detail.tid}}">{{topic_detail.title}}</a>
                         <span class="divider">/</span>
@@ -146,7 +177,7 @@
                 <article class=" type-post format-standard hentry clearfix">
 
                     <h1 class="post-title"><a href="single?id={{topic_detail.tid}}"> {{topic_detail.title}}</a></h1>
-                    <p class="notice"> <img src="images/arrow-down.png" style="width:15px;height:15px;" /> Reply
+                    <p class="notice"> <img src="images/arrow-down.png" style="width:15px;height:15px;" /> Here is the Reply
                         {{range.range}}
                     </p>
 
@@ -174,7 +205,7 @@
                             </blockquote>
                         </div>
                         <div class="span5">
-                            <h3>Last version code</h3>
+                            <h3 style="cursor: pointer" onclick="toparent();">Last version code  </h3>
                             <blockquote class="code">
                                 <pre id="codearea2" class="brush: cpp">{{lastcode.code}}
 
@@ -226,7 +257,7 @@
                             <div class="hidden">
                                 <input name="topicid" id="topicid_div" value="{{topic_detail.tid}}" />
                                 <input name="postid" id="postid_div" value="{{post_detail.pid}}" />
-                                <input name="parent" id="parent" value="0" />
+                                <input name="parentforThis" id="parentforThis" value="{{post_detail.parent}}" />
                             </div>
                             <div>
                                 <input class="btn btn-inverse" name="submit" type="button" id="submit_Reply" value="Submit Comment">

@@ -69,6 +69,13 @@ $(document).ready(function(){
             }
         });
     });
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        //alert(event.target.id)
+        if (event.target.id === 'id01') {
+            document.getElementById('id01').style.display = "none";
+        }
+    }
 
 });
 function validEmail(v) {
@@ -117,3 +124,47 @@ function dosearch() {
     }
     else $('#search-error-container').html("* Please enter a search term!");;
 }
+function LogInForm() {
+    //alert('dddd');
+    var userName = document.getElementById("loginName").value;
+
+    var password = document.getElementById("loginPassword").value;
+
+    if (userName.length <= 0) {
+        alert("input your username");
+        return false;
+    }
+    if (password.length > 16 || password.length<3) {
+        alert("You need to type passwords between 3 and 16 characters!");
+        return false;
+    }
+    // alert(password);
+    var result;
+    $.ajax({
+        type: "POST",
+        url : "/login",
+        dataType: 'json',
+        async : false,
+        data:{"userName":userName, "password":password},
+        success: function(data,status) {
+            if(status == 'success'){
+                alert(userName+': log in successfully...');
+                //location.href = '/';
+                document.getElementById('id01').style.display = "none";
+                $('#login').hide();
+                $('#reg').hide();
+                $('#logout').text(userName+" logout ");
+                $('#logout').show();
+            }
+        },
+        error: function(data,status){
+            if(status == 'error'){
+                alert('username or password error!');
+                $('#loginName').val('');
+                $('#loginPassword').val('');
+            }
+        }
+    });
+
+}
+

@@ -53,8 +53,7 @@ a:hover {
   position: relative;
   min-height: 50px;
   height: auto !important;
-  height: 50px;
-  
+
 }
 
 .logo-container {
@@ -195,8 +194,8 @@ h3.search-header {
 p.search-tag-line {
   font-family: "Droid Serif", serif;
   font-style: italic;
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 20px;
+  line-height: 22px;
   color: #fff;
   text-align: center;
 }
@@ -240,12 +239,6 @@ form.search-form input.search-btn:hover {
   background-color: #4b5760;
 }
 
-#search-error-container {
-  color: red;
-  padding: 5px;
-  font-size: 16px;
-  font-weight: bold;
-}
 
 .lt-ie8 form.search-form input.search-btn {
   padding-top: 12px;
@@ -1461,15 +1454,15 @@ a#scroll-top:hover {
   /* Search Area */
   .search-area-wrapper {
     background-size: auto;
-    min-height: 240px;
+    min-height: 260px;
     height: auto !important;
-    height: 240px;
+
   }
   .search-area-wrapper .search-area {
-    padding: 20px 0;
+    padding: 20px 0 0 0;
   }
   .search-area-wrapper h3.search-header {
-    font-size: 30px;
+    font-size: 26px;
     padding: 0 15px;
   }
   .search-area-wrapper p.search-tag-line {

@@ -10,6 +10,8 @@
 
     <link rel="shortcut icon" href="images/favicon.png" />
     <!-- Style Sheet-->
+    <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
+
     <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'/>
@@ -44,7 +46,7 @@
                         <li><a href="contact">Contact</a></li>
                     </ul>
                     <ul id="headerul2">
-                        <li id='login'><a href="login"> LOG IN</a></li>
+                        <li id ='login' onclick="document.getElementById('id01').style.display='block'" ><a>LOG IN</a></li>
                         <li id='reg'class="current-menu-item"><a href="reg">Register</a></li>
                         <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
                     </ul>
@@ -56,6 +58,36 @@
     </header>
 </div>
 <!-- End of Header -->
+
+<!--pupup login-->
+<div id="id01"  class="modal" style="width:1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
+
+    <form class="modal-content animate" style="width: 400px">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="images/users.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="logincontainer" >
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+
+            <label><b>Password</b></label>
+            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+
+            <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+
+            <div class="logincontainer" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--end login popup-->
+
 
 <!-- Start of Page Container -->
 <div class="page-container">

@@ -1,8 +1,9 @@
 /**
  * Created by kxr on 17-7-20.
  */
+var loginresult;
 $(function () {
-    var result;
+
     $.ajax({
         type: "GET",
         url: "/login/getcookie",
@@ -10,11 +11,11 @@ $(function () {
         async: false,
         data: {},
         success: function (data) {
-            result = data;
-            if (result) {
+            loginresult = data;
+            if (loginresult) {
                 $('#login').hide();
                 $('#reg').hide();
-                $('#logout').text(result+" logout ");
+                $('#logout').text(loginresult+" logout ");
             } else {
                 $('#logout').hide();
             }
@@ -38,6 +39,7 @@ function logoutFuc() {
         location.reload();
     }
 }
+
 function dosearch() {
     var stm= document.getElementById('search_term').value;
 
@@ -88,16 +90,29 @@ function LogInForm() {
         data:{"userName":userName, "password":password},
         success: function(data,status) {
             if(status == 'success'){
-                alert('log in successfully...');
-                location.href = '/';
+                alert(userName+': log in successfully...');
+                //location.href = '/';
+                document.getElementById('id01').style.display = "none";
+                $('#login').hide();
+                $('#reg').hide();
+                $('#logout').text(userName+" logout ");
+                $('#logout').show();
             }
         },
         error: function(data,status){
             if(status == 'error'){
                 alert('username or password error!');
-                location.reload();
+                $('#loginName').val('');
+                $('#loginPassword').val('');
             }
         }
     });
 
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    //alert(event.target.id)
+    if (event.target.id === 'id01') {
+        document.getElementById('id01').style.display = "none";
+    }
 }
