@@ -15,27 +15,31 @@
 
         <link rel="shortcut icon" href="images/favicon.png" />
 
-
-
-
         <!-- Style Sheet-->
         <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
         <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
         <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
         <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'/>
-        <link rel='stylesheet' id='main-css-css' href='css/main5152.css?ver=1.0' type='text/css' media='all' />
+        <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
         <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
 
-        <!--chart js<script type="text/javascript" src="vis-single.js"></script>-->
+        <!--map js -->
         <script type="text/javascript" src="vis/dist/vis.js"></script>
         <link href="vis/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
 
+    <!--code editor-->
+    <!--<script src="monaco-editor/min/vs/loader.js"></script>-->
+    <script src="ace_src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="ace_src-noconflict/mode-c_cpp.js" type="text/javascript" charset="utf-8"></script>
+    <!--end code editor-->
 
-    <!--the discription style-->
-
+        <!--the discription style-->
         <link rel='stylesheet' id='bootstrap-css-css' href='/javascripts/theme.css' type='text/css' media='all' />
         <script type="text/javascript" src="/javascripts/syntaxhighlighter.js" />
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+
+
+
+
         <!--[if lt IE 9]>
                 <script src="js/html5.js"></script></script>
                 <![endif]-->
@@ -235,15 +239,19 @@
 
                                                                 <div>
                                                                         <label for="comment">Comment *</label>
-                                                                        <textarea name="replycomment" id="replycomment" class="required span7" rows="6" title="* Please enter your comment"></textarea>
+                                                                        <textarea name="replycomment" id="replycomment" class="span7" rows="6" title="* Please enter your comment"></textarea>
                                                                 </div>
                                                                 <div>
                                                                         <label for="code">Code</label>
-                                                                        <textarea  name="replycode" id="replycode" class="span7" rows="6" title=""></textarea>
-                                                                </div>
 
+                                                                </div>
+                                                            <!--code editor-->
+                                                                <div id="editor" style="width: 87%;" title="Please Write your code here."></div>
+                                                                <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
+                                                            <!--end code editor-->
                                                                 <div>
-                                                                        <input type="button" name="submit" onclick="javascript:submit()" value="Submit Comment" id="submit_Reply" class="btn btn-inverse">
+
+                                                                        <input type="button" name="submit"  value="Submit Comment" id="submit_Reply" class="btn btn-inverse">
                                                                         <img src="images/loading.gif" id="contact-loader" alt="Loading...">
 
                                                                 </div>
@@ -258,6 +266,8 @@
                                                         </form>
 
                                                 </div>
+
+
 
                                         </section>
                                         <!-- end of comments -->

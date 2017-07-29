@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>monaco-editor basic use</title>
+    <script src="monaco-editor/min/vs/loader.js"></script>
+    <script src="jquery/dist/jquery.min.js"></script>
+    <style>
+        body { background-color: pink; }
+    </style>
+</head>
+<body>
+<div id="container" style="height: 400px; width:400px;"></div>
+<button onclick="GetEditorValue();">获取编辑器值</button>
+<button onclick="ReCreateEditor();">重新创建编辑器</button>
+<script>
+    var monacoEditor;
+    //init monaco
+    require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });alert("here")
+    require(['vs/editor/editor.main'], function () {
+        monacoEditor = monaco.editor.create(document.getElementById('container'), {
+            value: "void myrev(char *s);}",
+            language: 'c',
+            wordWrap: "on",   //自动换行，注意大小写
+            wrappingIndent: "indent"
+        });
+    });
+    function ReCreateEditor() {
+        $("#container").children().remove();
+        require(['vs/editor/editor.main'], function () {
+            monacoEditor = monaco.editor.create(document.getElementById('container'), {
+                value: "void myrev(char *s);}",
+                language: 'c',
+                wordWrap: "on",   //自动换行，注意大小写
+                wrappingIndent: "indent"
+            });
+        });
+    }
+    function GetEditorValue() {
+        alert(monacoEditor.getValue());
+    }
+</script>
+</body>
+</html>

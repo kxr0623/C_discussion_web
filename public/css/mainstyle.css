@@ -120,6 +120,7 @@ span.tag-line {
   float: left;
   list-style: none;
   padding: 16px 14px 18px;
+  cursor: pointer;
   
 }
 .main-nav div > ul > li a {
@@ -986,7 +987,15 @@ input[type=text].error,
 #contact-form .error-container label {
   font-weight: 400;
 }
-
+#editor {
+  font-size: 15px;
+  position: relative;
+  height: 180px;
+  width: 77%;
+  border:1.6px solid #c2c2d6;
+  border-radius: 0.3em;
+  margin : 0px 0px 15px 0px;
+}
 #contact-loader {
   display: none;
 }

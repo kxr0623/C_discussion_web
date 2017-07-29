@@ -76,15 +76,30 @@ function validEmail(v) {
     var r = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
     return (v.match(r) == null) ? false : true;
 }
-
+//alert("herer")
+//-------------------ace code editor---------------------------------------
+var editor = ace.edit("editor");
+editor.setOptions({
+    useWrapMode: true,
+    highlightActiveLine: true,
+    showPrintMargin: false,
+    theme: 'ace/theme/Xcode',
+    mode: 'ace/mode/c_cpp'
+});
+var session=editor.getSession();
+session.setUseWrapMode(true);
+editor.session.setWrapLimit(80);
+editor.setValue(document.getElementById("codearea2").innerHTML);
+//-------------------------------------------------------------------------------
+var cCode="";
 $(document).ready(function(){
-$("#submit_Reply").click(function(){
 
-        //console.log(">>>>>>>>>>>>>>>>");
-        var replycomment=$("#replycomment").val();
-        var replycode=$("#replycode").val();
-       // console.log(">>>>>>>>>>>>>>>>contactname:"+contactname);
-        //console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
+$("#submit_Reply").click(function(){
+//alert("herer")
+    var replycomment=$("#replycomment").val();
+    //var replycode=GetEditorValue();
+    //var replycode=$("#replycode").val();
+    var replycode=editor.getValue();
 
     if(!checkIsLogin()) {
         $('#feedback1').text("* Please Sign In First.");
@@ -154,6 +169,8 @@ $("#submit_Reply").click(function(){
             document.getElementById('id01').style.display = "none";
         }
     }
+
+
 });
 function checkIsLogin() {
 
@@ -234,6 +251,27 @@ function LogInForm() {
 
 }
 
+/*//configure code  editor
+var monacoEditor;
+require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
+//alert("here")
+require(['vs/editor/editor.main'], function () {
+    monacoEditor = monaco.editor.create(document.getElementById('container'), {
+        value: "void myrev(char *s);}",
+        language: 'c',
+        wordWrap: "on",
+        wrappingIndent: "indent"
+    });
+});
+
+function GetEditorValue() {
+    // alert(monacoEditor.getValue());
+    //alert(document.getElementById('container').value());
+    cCode=monacoEditor.getValue();
+    return cCode;
+}
+*/
+
 
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
@@ -309,7 +347,7 @@ function draw() {
         hover: true,
         zoomView:false,
         navigationButtons: true,
-        keyboard: true
+        //keyboard: true
     },
     layout: {
       hierarchical: {
@@ -339,7 +377,7 @@ function draw() {
           hover: true,
           zoomView:false,
           navigationButtons: true,
-          keyboard: true
+         // keyboard: true
       },
       layout: {
           hierarchical: {
@@ -379,8 +417,7 @@ function draw() {
     document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
     //alert('Selection: ' + params.nodes);
     if (params.nodes == 0) {
-      //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-      // SyntaxHighlighter.all();
+
       window.location.href = "single?id="+$('#topicid-div').val();
     }
     else

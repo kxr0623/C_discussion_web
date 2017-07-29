@@ -65,15 +65,26 @@ function validEmail(v) {
     return (v.match(r) == null) ? false : true;
 }
 
+//-------------------ace code editor-------------------------------
+var editor = ace.edit("editor");
+editor.setOptions({
+    useWrapMode: true,
+    highlightActiveLine: true,
+    showPrintMargin: false,
+    theme: 'ace/theme/Xcode',
+    mode: 'ace/mode/c_cpp'
+});
+var session=editor.getSession();
+session.setUseWrapMode(true);
+editor.session.setWrapLimit(80);
+editor.setValue(document.getElementById("codearea1").innerHTML);
+//-------------------------------------------------------------------
 $(document).ready(function(){
     $("#submit_Reply").click(function(){
 
-        //console.log(">>>>>>>>>>>>>>>>");
         var replycomment=$("#comment").val();
-        var replycode=$("#code").val();
-        // console.log(">>>>>>>>>>>>>>>>contactname:"+contactname);
-        //console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
-
+       // var replycode=$("#code").val();
+        var replycode=editor.getValue();
         if(!checkIsLogin()) {
             $('#feedback1').text("* Please Sign In First.");
             return;
@@ -145,6 +156,7 @@ $(document).ready(function(){
             document.getElementById('id01').style.display = "none";
         }
     }
+
 });
 function checkIsLogin() {
 
@@ -224,6 +236,8 @@ function LogInForm() {
     });
 
 }
+
+// go to the parent post
 function toparent() {
     var parentid=$('#parentforThis').val();
     //alert(parentid)
@@ -233,6 +247,9 @@ function toparent() {
     else
         window.location.href="reply?id="+parentid;
 }
+
+
+
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
 
@@ -304,6 +321,9 @@ function draw() {
     var options = {
         interaction: {
             hover: true,
+            zoomView:false,
+            navigationButtons: true,
+            //keyboard: true
         },
         layout: {
             hierarchical: {
@@ -330,7 +350,9 @@ function draw() {
     network = new vis.Network(container, data, options);
 
     network.selectNodes([currentNode]);
-
+    network.on('hoverNode', function () {
+        document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
+    });
     // add event listeners0
     network.on('select', function (params) {
         document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;

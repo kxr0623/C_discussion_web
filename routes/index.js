@@ -118,6 +118,10 @@ router.get('/test', function (req, res) {
         .then((text) => res.send(text))//sent the data from db to page
         .catch((err) => console.log(err))//else catch an err
 });
+router.get('/editor', function (req, res) {
+    res.render('editor');
+});
+
 router.get('/search', urlencodedParser, function (req, res) {
     var db = new sqlite3.Database('Mydb.db');
     var search_string = req.query.search_string;

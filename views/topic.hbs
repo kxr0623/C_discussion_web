@@ -11,20 +11,19 @@
                 <title>C programming discussion</title>
 
                 <link rel="shortcut icon" href="images/favicon.png" />
-
-
-                
-
                 <!-- Style Sheet-->
 
             <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
             <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
             <link rel='stylesheet' id='responsive-css-css'  href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
             <link rel='stylesheet' id='pretty-photo-css-css'  href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
-            <link rel='stylesheet' id='main-css-css'  href='css/main5152.css?ver=1.0' type='text/css' media='all' />
+            <link rel='stylesheet' id='main-css-css'  href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
                 <link rel='stylesheet' id='custom-css-css'  href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
 
-
+            <!--code editor-->
+            <script src="ace_src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+            <script src="ace_src-noconflict/mode-c_cpp.js" type="text/javascript" charset="utf-8"></script>
+            <!--end code editor-->
                 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
                 <!--[if lt IE 9]>
                 <script src="js/html5.js"></script></script>
@@ -129,77 +128,77 @@
                                         
                                         <div class="span8 page-content">
 
+                                            <form id="contact-form" class="row" method="post">
+
+                                                <div class="span2">
+                                                    <label for="name">Title <span>*</span> </label>
+                                                </div>
+                                                <div class="span6">
+                                                    <input type="text" style="  width: 555px;" name="topictitle" id="topictitle" class="required input-xlarge" value="" title="* Please provide a title for the topic">
+                                                </div>
+
+
+                                                <div class="span2">
+                                                    <label for="message">Question dicription <span>*</span> </label>
+                                                </div>
+
+                                                <div class="span6">
+                                                    <textarea name="topic_dicription" id="topic_dicription" class="required span6" rows="6" title="* Please enter your description of question here"></textarea>
+                                                </div>
+
+                                                <div class="span2">
+                                                    <label for="reason">Code </label>
+                                                </div>
+                                                <div class="span6">
+                                                    <!--code editor-->
+                                                    <div id="editor" style="width: 100%;height:200px;" title="Please write your code here"></div>
+                                                    <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
+                                                </div>
+
+                                                <div class="span2">
+                                                    <label for="email">Tags</label>
+                                                </div>
+                                                <div class="span6">
+                                                    <input type="text" style="  width: 555px;" name="tags" id="tags" class="email required input-xlarge" value="" title="* Please provide tags for this topic">
+                                                </div>
+                                                <div class="span2">
+
+                                                </div>
+                                                <div class="span6" style="margin-bottom: 20px;">
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">basic</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">beginner</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">String</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">printer</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">queue</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">linked table</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">stack</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">sorting</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">hashing</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">SDL</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data type</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">null</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">return</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">malloc</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">open file</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data structure</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">variable</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">typeof</a>
+                                                    <a onclick="addtag(this.innerHTML);" class="btn btn-mini">viod</a>
+                                                </div>
+
+                                                <div class="span6 offset2 bm30">
+                                                    <input type="button"  name="submit" id="post_topic" value="Post the Topic" class="btn btn-inverse">
+                                                    <img src="images/loading.gif" id="contact-loader" alt="Loading...">
+                                                </div>
+
+                                                <div class="span6 offset2 error-container"></div>
+                                                <div class="span8 offset2" id="message-sent"></div>
+
+                                            </form>
+
                                                 <article class="type-page hentry clearfix">
-                                                        <h1 >
-                                                                Post a New Discussion Topic
-                                                        </h1>
+                                                        <h1 >Post a New Discussion Topic</h1>
                                                 </article>
-
-
-                                                <form id="contact-form" class="row" method="post">
-
-                                                        <div class="span2">
-                                                                <label for="name">Title <span>*</span> </label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <input type="text" style="  width: 555px;" name="topictitle" id="topictitle" class="required input-xlarge" value="" title="* Please provide a title for the topic">
-                                                        </div>
-
-                                                        
-                                                        <div class="span2">
-                                                                <label for="message">Question dicription <span>*</span> </label>
-                                                        </div>
-
-                                                        <div class="span6">
-                                                                <textarea name="topic_dicription" id="topic_dicription" class="required span6" rows="6" title="* Please enter your description of question here"></textarea>
-                                                        </div>
-
-                                                        <div class="span2">
-                                                                <label for="reason">Code </label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <textarea name="topic_code" id="topic_code" class="required span6" rows="6" title="* Please enter your Code here"></textarea>
-                                                        </div>
-                                                        <div class="span2">
-                                                                <label for="email">Tags</label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <input type="text" style="  width: 555px;" name="tags" id="tags" class="email required input-xlarge" value="" title="* Please provide tags for this topic">
-                                                        </div>
-                                                        <div class="span2">
-                                                                
-                                                        </div>
-                                                        <div class="span6" style="margin-bottom: 20px;">
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">basic</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">beginner</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">String</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">printer</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">queue</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">linked table</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">stack</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">sorting</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">hashing</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">SDL</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data type</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">null</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">return</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">malloc</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">open file</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data structure</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">variable</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">typeof</a>
-                                                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">viod</a>
-                                                        </div>
-
-                                                        <div class="span6 offset2 bm30">
-                                                                <input type="button"  name="submit" id="post_topic" value="Post the Topic" class="btn btn-inverse">
-                                                                <img src="images/loading.gif" id="contact-loader" alt="Loading...">
-                                                        </div>
-
-                                                        <div class="span6 offset2 error-container"></div>
-                                                        <div class="span8 offset2" id="message-sent"></div>
-
-                                                </form>
                                         </div>
                                         <!-- end of page content -->
                                          <!-- start of sidebar -->
