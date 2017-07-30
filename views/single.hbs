@@ -7,25 +7,26 @@
 <!--<![endif]-->
 
 <head>
-        <!-- META TAGS -->
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- META TAGS -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>C Programming Discussion</title>
+    <title>C Programming Discussion</title>
 
-        <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="shortcut icon" href="images/favicon.png"/>
 
-        <!-- Style Sheet-->
-        <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
-        <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
-        <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
-        <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'/>
-        <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
-        <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
+    <!-- Style Sheet-->
+    <link rel='stylesheet' id='login-css-css' href='css/login.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='custom-css-css' href='css/custom5152.html?ver=1.0' type='text/css' media='all'/>
 
-        <!--map js -->
-        <script type="text/javascript" src="vis/dist/vis.js"></script>
-        <link href="vis/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <!--map js -->
+    <script type="text/javascript" src="vis/dist/vis.js"></script>
+    <link href="vis/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
     <!--code editor-->
     <!--<script src="monaco-editor/min/vs/loader.js"></script>-->
@@ -33,350 +34,367 @@
     <script src="ace_src-noconflict/mode-c_cpp.js" type="text/javascript" charset="utf-8"></script>
     <!--end code editor-->
 
-        <!--the discription style-->
-        <link rel='stylesheet' id='bootstrap-css-css' href='/javascripts/theme.css' type='text/css' media='all' />
-        <script type="text/javascript" src="/javascripts/syntaxhighlighter.js" />
+    <!--the discription style-->
+    <link rel='stylesheet' id='bootstrap-css-css' href='/javascripts/theme.css' type='text/css' media='all'/>
+    <script type="text/javascript" src="/javascripts/syntaxhighlighter.js"/>
 
 
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script></script>
+    <![endif]-->
+    <style type="text/css">
+        #mynetwork {
+            width: 700px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
 
-
-        <!--[if lt IE 9]>
-                <script src="js/html5.js"></script></script>
-                <![endif]-->
-        <style type="text/css">
-                #mynetwork {
-                        width: 700px;
-                        height: 400px;
-                        border: 1px solid lightgray;
-                }
-
-                #mynetwork0 {
-                        width: 355px;
-                        height: 400px;
-                        border: 1px solid lightgray;
-                }
-        </style>
+        #mynetwork0 {
+            width: 355px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+    </style>
 </head>
 
 <body onload="draw();">
 
-        <!-- Start of Header -->
-        <div class="header-wrapper">
-                <header>
-                        <div class="container">
-                                <div class="logo-container">
-                                        <!-- Website Logo -->
-                                        <a href="/" title="C-Discussion">
-                                                        <img src="images/logo.png" alt="logo">
-                                                </a>
-                                        <span class="tag-line">C Programming Discussion</span>
-                                </div>
-                                <!-- Start of Main Navigation -->
-                                <nav class="main-nav">
-                                        <div class="menu-top-menu-container" id="cssmenu">
-                                                <ul id="headerrul1" class="clearfix" style="text-align:right;">
-                                                        <li><a href="/">Home</a></li>
-                                                        <li><a href="articles-list">Articles List</a></li>
-                                                        <li><a href="contact">Contact</a></li>
-                                                </ul>
-                                                <ul id="headerul2">
-                                                    <li id ='login' onclick="document.getElementById('id01').style.display='block'" ><a>LOG IN</a></li>
-                                                        <li id='reg'><a href="reg">Register</a></li>
-                                                        <li id="logout" value="" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
-                                                </ul>
-                                        </div>
-                                </nav>
-                                <!-- End of Main Navigation -->
-                        </div>
-                </header>
-        </div>
-        <!-- End of Header -->
-
-        <!--pupup login-->
-        <div id="id01"  class="modal" style="width: 1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
-
-            <form class="modal-content animate" style="width: 400px">
-                <div class="imgcontainer">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <img src="images/users.png" alt="Avatar" class="avatar">
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/" title="C-Discussion">
+                    <img src="images/logo.png" alt="logo">
+                </a>
+                <span class="tag-line">C Programming Discussion</span>
+            </div>
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container" id="cssmenu">
+                    <ul id="headerrul1" class="clearfix" style="text-align:right;">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="articles-list">Articles List</a></li>
+                        <li><a href="contact">Contact</a></li>
+                    </ul>
+                    <ul id="headerul2">
+                        <li id='login' onclick="document.getElementById('id01').style.display='block'"><a>LOG IN</a>
+                        </li>
+                        <li id='reg'><a href="reg">Register</a></li>
+                        <li id="logout" value="" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
+                    </ul>
                 </div>
+            </nav>
+            <!-- End of Main Navigation -->
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
 
-                <div class="logincontainer" >
-                    <label><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+<!--pupup login-->
+<div id="id01" class="modal"
+     style="width: 1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);">
 
-                    <label><b>Password</b></label>
-                    <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+    <form class="modal-content animate" style="width: 400px">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="images/users.png" alt="Avatar" class="avatar">
+        </div>
 
-                    <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+        <div class="logincontainer">
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required>
 
-                    <div class="logincontainer" style="background-color:#f1f1f1">
-                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                        <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+            <label><b>Password</b></label>
+            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+
+            <input type="button" value="log in" onclick="LogInForm();" id="loginbtn"/>
+
+            <div class="logincontainer" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                    Cancel
+                </button>
+                <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--end login popup-->
+
+<!-- Start of Search Wrapper -->
+<div class="search-area-wrapper"></div>
+<!-- End of Search Wrapper -->
+
+
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+
+            <!-- start of page content -->
+            <!-- start of sidebar -->
+            <aside class="span4 page-sidebar">
+
+                <section class="widget">
+                    <div class="support-widget" onclick="document.location='contact';return false;">
+                        <h3 class="title">Poster</h3>
+                        <p class="intro">Username:   {{topic_detail.creator}}</p>
+                        <p class="hidden" id="topic_creator">{{topic_detail.creator}}</p>
+                    </div>
+                </section>
+
+                <section class="widget">
+                    <h3 class="title">All Replies for this post</h3>
+
+                    <ul>
+                        {{#if children_replies}}
+                            {{#each children_replies}}
+                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}"
+                                                            title="go to reply {{inc @index}}">{{username}}</a></li>
+                            {{/each}}
+                        {{/if}}
+                    </ul>
+                </section>
+                <h4>
+                    <dt>View the map of Replies</dt>
+                </h4>
+
+                <section class="tree-widget">
+
+                    <div id="mynetwork0"></div>
+
+                </section>
+
+            </aside>
+            <!-- end of sidebar -->
+            <div class="span8 page-content">
+
+                <ul class="breadcrumb">
+                    <li>Title:<a href="single?id={{topic_detail.tid}}">{{topic_detail.title}}</a>
+                        <span class="divider">/</span>
+                    </li>
+                    Reply
+                    <li class="pagemark">0</li>
+                    <span class="divider">/</span>
+                </ul>
+
+                <article class=" type-post format-standard hentry clearfix">
+
+                    <h1 class="post-title"><a href="single?id={{topic_detail.tid}}"> {{topic_detail.title}}</a></h1>
+
+                    <div class="post-meta clearfix">
+                        <span class="date">{{topic_detail.createtime}}</span>
+                        <span class="comments"> {{post_sum.sum_posts}} replies</span>
+                        <span class="category">Reply ID:0</span>
+                        <span class="like-count" id="like1">{{topic_detail.likes}}</span>
+                    </div>
+                    <!-- end of post meta -->
+                    <h3>Question discription <a id="update_comment" style="display: none; font-size: 12px;cursor: pointer;">[ Update
+                        Discription ]</a></h3>
+                    <blockquote class="discription">
+                        <textarea id="explain-area" disabled rows="9" style="background:#f2f2f2; width: 98%; cursor:auto; font-size: 14px;font-family: Arial, Helvetica, sans-serif;">{{topic_detail.description}}
+                        </textarea>
+                        <button id="reComent_btn" style="display: none;">Update</button>
+                        <button id="reComent_cancelbtn" style="display: none;">Cancel</button>
+                    </blockquote>
+
+
+                    <div class="row-fluid">
+                        <div>
+                            <h3>My code <a id="update_code" style="display: none; font-size: 12px;cursor: pointer;">[ Update Code ]</a>
+                            </h3>
+                            <!--code editor-->
+                            <div id="reCode_editor" style="display: none; width: 100%;" title="Please Write your code here."></div>
+                            <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
+                            <!--end code editor-->
+                            <button id="reCode_btn" style="display: none;">Update</button>
+                            <button id="reCode_cancelbtn" style="display: none;">Cancel</button>
+                            <blockquote class="code" id="codeBlock">
+                                <pre id="codearea2" class="brush: cpp">{{topic_detail.code}}</pre>
+                            </blockquote>
+                        </div>
 
                     </div>
 
+                </article>
+
+                <div class="like-btn">
+
+                    <form id="like-it-form" action="#" method="post">
+                        <span class="like-it ">{{topic_detail.likes}}</span>
+                        <input type="hidden" name="post_id" value="99">
+                        <input type="hidden" name="action" value="like_it">
+                    </form>
                 </div>
-            </form>
+
+                <h4 id="map">View the map of Replies
+                    <small>(click the node on the picture to go to the post)</small>
+                </h4>
+                <div id="mynetwork"></div>
+                <p id="selection"></p>
+                <section id="comments">
+
+                    <div id="respond">
+
+                        <h3>Leave a Reply</h3>
+
+                        <div class="cancel-comment-reply">
+                            <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here
+                                to cancel reply.</a>
+                        </div>
+
+
+                        <form id="contact-form" method="post">
+
+                            <p class="comment-notes"> Required fields
+                                are marked <span class="required">*</span></p>
+
+                            <div>
+                                <label for="comment">* Comment - [<a id="clear_comment" style="font-size: 11px;"> Clear
+                                    Content </a> ]</label>
+                                <textarea name="replycomment" id="replycomment" class="span7" rows="6"
+                                          title="* Please enter your comment"></textarea>
+                            </div>
+                            <div>
+                                <label for="code">Code - [<a id="clear_code" style="font-size: 11px;"> Clear
+                                    Content </a> ]</label>
+
+                            </div>
+                            <!--code editor-->
+                            <div id="editor" style="width: 87%;" title="Please Write your code here."></div>
+                            <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
+                            <!--end code editor-->
+                            <div>
+
+                                <input type="button" name="submit" value="Submit Comment" id="submit_Reply"
+                                       class="btn btn-inverse">
+                                <img src="images/loading.gif" id="contact-loader" alt="Loading...">
+
+                            </div>
+                            <div class="hidden">
+                                <input name="topicid" id="topicid-div" value="{{topic_detail.tid}}"/>
+                                <input name="parent" id="parent" value="0"/>
+                            </div>
+                            <div class="span6 offset2 error-container"></div>
+                            <div class="span8 offset2" id="message-sent"></div>
+                            <div class="span8 offset2" id="feedback1" style="color: red"></div>
+
+                        </form>
+
+                    </div>
+
+
+                </section>
+                <!-- end of comments -->
+                <div class="hidden">
+                    <div id="postidlist">
+                        <ul>
+                            {{#if allpost}}
+                                {{#each allpost}}
+                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}"
+                                        data-explain="{{explain}}">{{parent}}</li>
+                                {{/each}}
+                            {{/if}}
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end of page content -->
+
+
         </div>
-        <!--end login popup-->
+    </div>
+</div>
+<!-- End of Page Container -->
 
-        <!-- Start of Search Wrapper -->
-        <div class="search-area-wrapper"></div>
-        <!-- End of Search Wrapper -->
+<footer id="footer-wrapper">
+    <div id="footer" class="container">
+        <div class="row">
 
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">Contact us</h3>
+                    <div class="textwidget">
+                    </div>
+                </section>
+            </div>
 
-        <!-- Start of Page Container -->
-        <div class="page-container">
-                <div class="container">
-                        <div class="row">
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">Categories</h3>
+                    <ul>
 
-                                <!-- start of page content -->
-                                <!-- start of sidebar -->
-                                <aside class="span4 page-sidebar">
+                    </ul>
+                </section>
+            </div>
 
-                                        <section class="widget">
-                                                <div class="support-widget" onclick="document.location='contact';return false;">
-                                                        <h3 class="title">Poster</h3>
-                                                    <p class="intro">Username:   {{topic_detail.creator}}</p>
-                                                    <p class="hidden" id="topic_creator">{{topic_detail.creator}}</p>
-                                                </div>
-                                        </section>
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">About</h3>
+                    <div id="twitter_update_list">
+                        <ul>
+                            <li>No Tweets loaded !</li>
+                        </ul>
+                    </div>
 
-                                        <section class="widget">
-                                                <h3 class="title">All Replies for this post</h3>
+                </section>
+            </div>
 
-                                                <ul>
-                                                    {{#if children_replies}}
-                                                    {{#each children_replies}}
-                                                        <li>#{{inc @index}} User:<a href="reply?id={{pid}}" title="go to reply {{inc @index}}">{{username}}</a> </li>
-                                                    {{/each}}
-                                                    {{/if}}
-                                                </ul>
-                                        </section>
-                                        <h4>
-                                                <dt>View the map of Replies</dt>
-                                        </h4>
-
-                                        <section class="tree-widget">
-
-                                                <div id="mynetwork0"></div>
-
-                                        </section>
-
-                                </aside>
-                                <!-- end of sidebar -->
-                                <div class="span8 page-content">
-
-                                        <ul class="breadcrumb">
-                                                <li>Title:<a href="single?id={{topic_detail.tid}}">{{topic_detail.title}}</a>
-                                                        <span class="divider">/</span>
-                                                </li>
-                                                Reply
-                                                <li class="pagemark">0</li><span class="divider">/</span>
-                                        </ul>
-
-                                        <article class=" type-post format-standard hentry clearfix">
-
-                                                <h1 class="post-title"><a href="single?id={{topic_detail.tid}}"> {{topic_detail.title}}</a></h1>
-
-                                                <div class="post-meta clearfix">
-                                                        <span class="date">{{topic_detail.createtime}}</span>
-                                                        <span class="comments"> {{post_sum.sum_posts}} replies</span>
-                                                        <span class="category">Reply ID:0</span>
-                                                        <span class="like-count" id="like1">{{topic_detail.likes}}</span>
-                                                </div>
-                                                <!-- end of post meta -->
-                                                <h3>Question discription  <a id="update_comment" style="font-size: 12px;">[ Update Discription ]</a> </h3>
-                                                <blockquote class="discription">
-
-                                                        <pre id="explain-area" style="font-size: 14px;font-family: Arial, Helvetica, sans-serif;">
-{{topic_detail.description}}
-                                                        </pre>
-                                                </blockquote>
-
-                                                <div class="row-fluid">
-                                                        <div>
-                                                                <h3>My code <a id="update_code" style="font-size: 12px;">[ Update Discription ]</a></h3>
-                                                                <blockquote class="code">
-                                                                        <pre id="codearea2" class="brush: cpp">{{topic_detail.code}}
-
-</pre>
-                                                                </blockquote>
-                                                        </div>
-
-                                                </div>
-
-                                        </article>
-
-                                        <div class="like-btn">
-
-                                                <form id="like-it-form" action="#" method="post">
-                                                        <span class="like-it ">{{topic_detail.likes}}</span>
-                                                        <input type="hidden" name="post_id" value="99">
-                                                        <input type="hidden" name="action" value="like_it">
-                                                </form>
-                                        </div>
-
-                                        <h4 id="map">View the map of Replies <small>(click the node on the picture to go to the post)</small></h4>
-                                        <div id="mynetwork"></div>
-                                        <p id="selection"></p>
-                                        <section id="comments">
-
-                                                <div id="respond">
-
-                                                        <h3>Leave a Reply</h3>
-
-                                                        <div class="cancel-comment-reply">
-                                                                <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here to cancel reply.</a>
-                                                        </div>
-
-
-                                                        <form id="contact-form"  method="post">
-
-                                                                <p class="comment-notes"> Required fields
-                                                                        are marked <span class="required">*</span></p>
-
-                                                                <div>
-                                                                        <label for="comment">* Comment      -  [<a id="clear_comment" style="font-size: 11px;" >   Clear Content </a> ]</label>
-                                                                        <textarea name="replycomment" id="replycomment" class="span7" rows="6" title="* Please enter your comment"></textarea>
-                                                                </div>
-                                                                <div>
-                                                                        <label for="code">Code  -  [<a id="clear_code" style="font-size: 11px;" >   Clear Content </a> ]</label>
-
-                                                                </div>
-                                                            <!--code editor-->
-                                                                <div id="editor" style="width: 87%;" title="Please Write your code here."></div>
-                                                                <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
-                                                            <!--end code editor-->
-                                                                <div>
-
-                                                                        <input type="button" name="submit"  value="Submit Comment" id="submit_Reply" class="btn btn-inverse">
-                                                                        <img src="images/loading.gif" id="contact-loader" alt="Loading...">
-
-                                                                </div>
-                                                            <div class="hidden">
-                                                                    <input name="topicid" id="topicid-div" value="{{topic_detail.tid}}" />
-                                                                    <input name="parent" id="parent" value="0" />
-                                                            </div>
-                                                                <div class="span6 offset2 error-container"></div>
-                                                                <div class="span8 offset2" id="message-sent"></div>
-                                                                <div class="span8 offset2" id="feedback1" style="color: red"></div>
-
-                                                        </form>
-
-                                                </div>
-
-
-
-                                        </section>
-                                        <!-- end of comments -->
-                                    <div class="hidden">
-                                        <div id="postidlist">
-                                            <ul>
-                                                {{#if allpost}}
-                                                    {{#each allpost}}
-                                                        <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}" >{{parent}}</li>
-                                                    {{/each}}
-                                                {{/if}}
-
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- end of page content -->
-
-
-
-                        </div>
-                </div>
         </div>
-        <!-- End of Page Container -->
+    </div>
+    <!-- end of #footer -->
 
-        <footer id="footer-wrapper">
-                <div id="footer" class="container">
-                        <div class="row">
 
-                                <div class="span4">
-                                        <section class="widget">
-                                                <h3 class="title">Contact us</h3>
-                                                <div class="textwidget">
-                                                </div>
-                                        </section>
-                                </div>
-
-                                <div class="span4">
-                                        <section class="widget">
-                                                <h3 class="title">Categories</h3>
-                                                <ul>
-
-                                                </ul>
-                                        </section>
-                                </div>
-
-                                <div class="span4">
-                                        <section class="widget">
-                                                <h3 class="title">About</h3>
-                                                <div id="twitter_update_list">
-                                                        <ul>
-                                                                <li>No Tweets loaded !</li>
-                                                        </ul>
-                                                </div>
-
-                                        </section>
-                                </div>
-
-                        </div>
+    <!-- Footer Bottom -->
+    <div id="footer-bottom-wrapper">
+        <div id="footer-bottom" class="container">
+            <div class="row">
+                <div class="span6">
+                    <p class="copyright">
+                        Copyright © 2017. All Rights Reserved by Xiaorui.
+                    </p>
                 </div>
-                <!-- end of #footer -->
-
-
-                <!-- Footer Bottom -->
-                <div id="footer-bottom-wrapper">
-                        <div id="footer-bottom" class="container">
-                                <div class="row">
-                                        <div class="span6">
-                                                <p class="copyright">
-                                                        Copyright © 2017. All Rights Reserved by Xiaorui.
-                                                </p>
-                                        </div>
-                                        <div class="span6">
-                                                <!-- Social Navigation -->
-                                                <ul class="social-nav clearfix">
-                                                        <li class="linkedin"><a target="_blank" href="#"></a></li>
-                                                        <li class="stumble"><a target="_blank" href="#"></a></li>
-                                                        <li class="google"><a target="_blank" href="#"></a></li>
-                                                        <li class="deviantart"><a target="_blank" href="#"></a></li>
-                                                        <li class="flickr"><a target="_blank" href="#"></a></li>
-                                                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                                                        <li class="rss"><a target="_blank" href="#"></a></li>
-                                                        <li class="twitter"><a target="_blank" href="#"></a></li>
-                                                        <li class="facebook"><a target="_blank" href="#"></a></li>
-                                                </ul>
-                                        </div>
-                                </div>
-                        </div>
+                <div class="span6">
+                    <!-- Social Navigation -->
+                    <ul class="social-nav clearfix">
+                        <li class="linkedin"><a target="_blank" href="#"></a></li>
+                        <li class="stumble"><a target="_blank" href="#"></a></li>
+                        <li class="google"><a target="_blank" href="#"></a></li>
+                        <li class="deviantart"><a target="_blank" href="#"></a></li>
+                        <li class="flickr"><a target="_blank" href="#"></a></li>
+                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                        <li class="rss"><a target="_blank" href="#"></a></li>
+                        <li class="twitter"><a target="_blank" href="#"></a></li>
+                        <li class="facebook"><a target="_blank" href="#"></a></li>
+                    </ul>
                 </div>
-                <!-- End of Footer Bottom -->
+            </div>
+        </div>
+    </div>
+    <!-- End of Footer Bottom -->
 
-        </footer>
-        <!-- End of Footer -->
+</footer>
+<!-- End of Footer -->
 
-        <a href="#top" id="scroll-top"></a>
+<a href="#top" id="scroll-top"></a>
 
-        <!-- script -->
-        <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
-        <script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
-        <script type='text/javascript' src='js/jquery.easing.1.34e44.js?ver=1.3'></script>
-         <!--<script type='text/javascript' src='js/prettyphoto/jquery.prettyPhotoaeb9.js?ver=3.1.4'></script>-->
-        <script type='text/javascript' src='js/jquery.liveSearchd5f7.js?ver=2.0'></script>
-        <script type='text/javascript' src='js/jflickrfeed.js'></script>
-        <script type='text/javascript' src='js/jquery.formd471.js?ver=3.18'></script>
-        <script type='text/javascript' src='js/jquery.validate.minfc6b.js?ver=1.10.0'></script>
-        <script type='text/javascript' src='js/custom5152.js?ver=1.0'></script>
-        <script type='text/javascript' src='js/single.js'></script>
+<!-- script -->
+<script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+<script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
+<script type='text/javascript' src='js/jquery.easing.1.34e44.js?ver=1.3'></script>
+<!--<script type='text/javascript' src='js/prettyphoto/jquery.prettyPhotoaeb9.js?ver=3.1.4'></script>-->
+<script type='text/javascript' src='js/jquery.liveSearchd5f7.js?ver=2.0'></script>
+<script type='text/javascript' src='js/jflickrfeed.js'></script>
+<script type='text/javascript' src='js/jquery.formd471.js?ver=3.18'></script>
+<script type='text/javascript' src='js/jquery.validate.minfc6b.js?ver=1.10.0'></script>
+<script type='text/javascript' src='js/custom5152.js?ver=1.0'></script>
+<script type='text/javascript' src='js/single.js'></script>
 
- </body>
+</body>
 
- </html>
+</html>

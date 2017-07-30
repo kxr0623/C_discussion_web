@@ -121,9 +121,55 @@ router.post('/submit', urlencodedParser, function (req, res) {
         });
         db.close();
     }
-
 });
+// update topic text
+router.post('/UpdateTxt', urlencodedParser, function (req, res) {
+    console.log(req.body);
+    if (req.session.username) {
 
+        var description = req.body.updateContent;
+        var topicid = req.body.topicid;
+        var parentid = req.body.parent;
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run(" UPDATE Topic SET description =?  WHERE tid=?",
+                description, topicid, function (err) {
+                    if (err) {
+                        console.log("UPDATE text err->", err);
+                        res.send(JSON.stringify({result: false, detail: "database error"}));
+                    } else {
+                        res.send(JSON.stringify({result: true}));
+                        //$('#message-sent').val("send susessfully!");
+                    }
+                });
+        });
+        db.close();
+    }
+    else res.send(JSON.stringify({result: false, detail: "not sign in."}));
+});
+// update topic code
+router.post('/UpdateCode', urlencodedParser, function (req, res) {
+    console.log(req.body);
+    if (req.session.username) {
+        var code = req.body.updateContent;
+        var topicid = req.body.topicid;
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run(" UPDATE Topic SET code =?  WHERE tid=?",
+                code, topicid, function (err) {
+                    if (err) {
+                        console.log("UPDATE code err->", err);
+                        res.send(JSON.stringify({result: false, detail: "database error"}));
+                    } else {
+                        res.send(JSON.stringify({result: true}));
+                        //$('#message-sent').val("send susessfully!");
+                    }
+                });
+        });
+        db.close();
+    }
+    else res.send(JSON.stringify({result: false, detail: "not sign in."}));
+});
 // like a comment
 router.get('/addlikeTopic', urlencodedParser, function (req, res) {
     var tid=req.query.tid;
