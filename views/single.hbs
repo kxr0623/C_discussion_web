@@ -152,8 +152,7 @@
                     <ul>
                         {{#if children_replies}}
                             {{#each children_replies}}
-                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}"
-                                                            title="go to reply {{inc @index}}">{{username}}</a></li>
+                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}" title="go to reply {{inc @index}}">{{username}}</a></li>
                             {{/each}}
                         {{/if}}
                     </ul>

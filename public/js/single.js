@@ -161,7 +161,7 @@ $('#reComent_btn').click(function () {
                     location.reload();
                 }
                 else {
-                    alert("* "+data.result.detail);
+                    alert("* "+data.detail);
                 }
             },
             err: function (data) {
@@ -170,7 +170,6 @@ $('#reComent_btn').click(function () {
         });
     }
 });
-
 $('#reCode_btn').click(function () {
     var updateContent=reCode_editor.getValue();
     if(updateContent===originalCode){alert('Failed: You have not change any code!')}
@@ -194,7 +193,7 @@ $('#reCode_btn').click(function () {
                     location.reload();
                 }
                 else {
-                    alert("* "+data.result.detail);
+                    alert("* "+data.detail);
                 }
             },
             err: function (data) {
@@ -355,6 +354,11 @@ function LogInForm() {
                 $('#login').hide();
                 $('#reg').hide();
                 $('#logout').text(userName + " logout ");
+                if(userName===$('#topic_creator').html()){
+                    //document.getElementById('update_code').style.display = "block";
+                    $('#update_code').show();
+                    $('#update_comment').show();
+                }
                 $('#logout').show();
             }
         },

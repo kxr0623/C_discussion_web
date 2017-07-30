@@ -117,6 +117,7 @@ router.get('/', function (req, res) {
     }
     db.close();
 });
+
 function isEmptyObject(obj) {
     if (obj) {
         return !Object.keys(obj).length;
@@ -186,4 +187,53 @@ router.post('/submit', urlencodedParser, function (req, res) {
     db.close();
 
 });
+// update post text
+router.post('/UpdateTxt', urlencodedParser, function (req, res) {
+    console.log(req.body);
+    if (req.session.username) {
+
+        var explain = req.body.updateContent;
+        var postid = req.body.pid;
+        var parentid = req.body.parent;
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run(" UPDATE Post SET explain =?  WHERE pid=?",
+                explain, postid, function (err) {
+                    if (err) {
+                        console.log("UPDATE text err->", err);
+                        res.send(JSON.stringify({result: false, detail: "database error"}));
+                    } else {
+                        res.send(JSON.stringify({result: true}));
+                        //$('#message-sent').val("send susessfully!");
+                    }
+                });
+        });
+        db.close();
+    }
+    else res.send(JSON.stringify({result: false, detail: "not sign in."}));
+});
+// update post code
+router.post('/UpdateCode', urlencodedParser, function (req, res) {
+    console.log(req.body);
+    if (req.session.username) {
+        var code = req.body.updateContent;
+        var pid = req.body.pid;
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run(" UPDATE Post SET code =?  WHERE pid=?",
+                code, pid, function (err) {
+                    if (err) {
+                        console.log("UPDATE code err->", err);
+                        res.send(JSON.stringify({result: false, detail: "database error"}));
+                    } else {
+                        res.send(JSON.stringify({result: true}));
+                        //$('#message-sent').val("send susessfully!");
+                    }
+                });
+        });
+        db.close();
+    }
+    else res.send(JSON.stringify({result: false, detail: "not sign in."}));
+});
+
 module.exports = router

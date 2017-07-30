@@ -131,6 +131,7 @@
                     <div class="support-widget" onclick="document.location='contact';return false;">
                         <h3 class="title">Poster</h3>
                         <p class="intro">Username: {{post_detail.username}}</p>
+                        <p class="intro" id="posterUname">{{post_detail.username}}</p>
                     </div>
                 </section>
 
@@ -192,17 +193,24 @@
                         <span class="like-count" id="like1">{{post_detail.likes}}</span>
                     </div>
                     <!-- end of post meta -->
-                    <h3>Explain </h3>
+                    <h3>Explain <a id="update_comment" style="display: none; font-size: 12px;cursor: pointer;">[ Update Comment ]</a></h3>
                     <blockquote class="discription" style="">
                         <textarea id="explain-area" disabled rows="9" style="width: 98%; cursor:auto; font-size: 14px;font-family: Arial, Helvetica, sans-serif;">{{post_detail.explain}}
                         </textarea>
-
+                        <button id="reComent_btn" style="display: none;">Update</button>
+                        <button id="reComent_cancelbtn" style="display: none;">Cancel</button>
                     </blockquote>
 
                     <div class="row-fluid">
                         <div class="span7">
-                            <h3>My code</h3>
-                            <blockquote class="code">
+                            <h3>My code<a id="update_code" style="display: none; font-size: 12px;cursor: pointer;">[ Update Code ]</a></h3>
+                            <!--code editor-->
+                            <div id="reCode_editor" style="display: none; width: 100%;" title="Please Write your code here."></div>
+                            <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
+                            <!--end code editor-->
+                            <button id="reCode_btn" style="display: none;">Update</button>
+                            <button id="reCode_cancelbtn" style="display: none;">Cancel</button>
+                            <blockquote class="code" id="codeBlock">
                                 <pre id="codearea1" class="brush: cpp;">{{post_detail.code}}
 
 </pre>

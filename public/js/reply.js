@@ -77,7 +77,8 @@ editor.setOptions({
 var session=editor.getSession();
 session.setUseWrapMode(true);
 editor.session.setWrapLimit(80);
-editor.setValue(document.getElementById("codearea1").innerHTML);
+var originalCode=document.getElementById("codearea1").innerHTML;
+editor.setValue(originalCode);
 //-------------------------------------------------------------------
 $(document).ready(function(){
     $("#submit_Reply").click(function(){
@@ -143,6 +144,10 @@ $(document).ready(function(){
                     $('#login').hide();
                     $('#reg').hide();
                     $('#logout').text(result+" logout ");
+                    if(result=== $('#posterUname').html()){
+                        $('#update_code').show();
+                        $('#update_comment').show();
+                    }
                 } else {
                     $('#logout').hide();
                 }
@@ -219,11 +224,16 @@ function LogInForm() {
             if(status == 'success'){
                 alert(userName+': log in successfully...');
                 //location.href = '/';
+                if(userName=== $('#posterUname').html()){
+                    $('#update_code').show();
+                    $('#update_comment').show();
+                }
                 document.getElementById('id01').style.display = "none";
                 $('#login').hide();
                 $('#reg').hide();
                 $('#logout').text(userName+" logout ");
                 $('#logout').show();
+
             }
         },
         error: function(data,status){
@@ -247,14 +257,117 @@ function toparent() {
     else
         window.location.href="reply?id="+parentid;
 }
-
+//--------------action of btns--------------------------
+var reCode_editor = ace.edit("reCode_editor");
+var originalTxt=$('#explain-area').val();
 $('#clear_comment').click(function () {
     $('#comment').val('');
 });
 $('#clear_code').click(function () {
     editor.setValue('');
 });
+$('#update_comment').click(function () {
+    $('#reComent_btn').show();
+    $('#reComent_cancelbtn').show();
+    document.getElementById('explain-area').style.background = '#fff';
+    $('#explain-area').attr("disabled", false);
+});
+$('#reComent_cancelbtn').click(function () {
+    $('#reComent_btn').hide();
+    $('#reComent_cancelbtn').hide();
+    document.getElementById('explain-area').style.background = '#f2f2f2';
+    $('#explain-area').attr("disabled", true);
+});
 
+$('#update_code').click(function () {
+    reCode_editor.setOptions({
+        useWrapMode: true,
+        highlightActiveLine: true,
+        showPrintMargin: false,
+        theme: 'ace/theme/xcode',
+        mode: 'ace/mode/c_cpp'
+    });
+    var session2 = reCode_editor.getSession();
+    session2.setUseWrapMode(true);
+    reCode_editor.session.setWrapLimit(80);
+    reCode_editor.setValue(originalCode);
+    $('#reCode_btn').show();
+    $('#reCode_cancelbtn').show();
+    $('#reCode_editor').show();
+    document.getElementById('codeBlock').style.display = 'none';
+
+});
+$('#reCode_cancelbtn').click(function () {
+    $('#reCode_btn').hide();
+    $('#reCode_cancelbtn').hide();
+    $('#reCode_editor').hide();
+    document.getElementById('codeBlock').style.display = 'block';
+});
+$('#reComent_btn').click(function () {
+    var updateContent=$('#explain-area').val();
+    if(updateContent===originalTxt){alert('Failed: You have not change anything!')}
+    else {
+        var pid = $('#postid_div').val();
+        var parent = 0;
+        $.ajax({
+            type: "post",
+            url: "/reply/UpdateTxt",
+            dataType: 'json',
+            async: false,
+            data: {
+                "updateContent": updateContent,
+                "pid": pid,
+                "parent": parent
+            },
+            success: function (data) {
+                if (data.result === true) {
+                    //alert(data.result);
+                    alert("send susessfully!");
+                    location.reload();
+                }
+                else {
+                    alert("* "+data.detail);
+                }
+            },
+            err: function (data) {
+                alert(data);
+            }
+        });
+    }
+});
+$('#reCode_btn').click(function () {
+    var updateContent=reCode_editor.getValue();
+    if(updateContent===originalCode){alert('Failed: You have not change any code!')}
+    else {
+        var pid = $('#postid_div').val();
+        var parent = 0;
+        $.ajax({
+            type: "post",
+            url: "/reply/UpdateCode",
+            dataType: 'json',
+            async: false,
+            data: {
+                "updateContent": updateContent,
+                "pid": pid,
+                "parent": parent
+            },
+            success: function (data) {
+                //alert(data.result);
+                if (data.result === true) {
+                    alert("Update code susessfully!");
+                    location.reload();
+                }
+                else {
+                    alert("* "+data.detail);
+                }
+            },
+            err: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+});
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
 
