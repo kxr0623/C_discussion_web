@@ -284,6 +284,15 @@ pre {
     word-wrap: normal !important;
     white-space: pre !important;
 }​
+.small_btn button{
+  background-color: #3f4b55;
+  font-size: 11px;
+  line-height: 19px;
+  font-weight: 600;
+  padding: 14px 30px 15px;
+  margin:0 90px 0 0;
+  color: #fff;
+ }
 
 /* WordPress Core --------------------------------------------------------------------------------------------------- */
 .alignnone {
@@ -766,7 +775,7 @@ ul.articles li.article-entry:last-child {
 
 .hentry.type-post .post-title {
   padding-left: 35px;
-  background: url("../images/standard-large.png") no-repeat 0 3px;
+  background: url("../images/question-large.png") no-repeat 0 3px;
   font-size: 20px;
   line-height: 30px;
 }

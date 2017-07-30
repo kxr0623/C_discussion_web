@@ -93,7 +93,12 @@ editor.setValue(document.getElementById("codearea2").innerHTML);
 //-------------------------------------------------------------------------------
 var cCode="";
 $(document).ready(function(){
-
+$('#clear_comment').click(function () {
+    $('#replycomment').val('');
+});
+$('#clear_code').click(function () {
+    editor.setValue('');
+});
 $("#submit_Reply").click(function(){
 //alert("herer")
     var replycomment=$("#replycomment").val();
@@ -283,14 +288,37 @@ var nodesArray=[
 ];
 
 //alert(lis[3].innerHTML);
+//-------------to format the content that show on the node
+function formatExplain(str) {
+    var numWords = str.replace(/^\s+|\s+$/g,"").split(/\s+/);
+    //alert(numWords[0]);
+    var lineNum = 0; var newString='';
+    for (var i = 1; i <= numWords.length; i++){
+       if(lineNum<3){
+           if(i%15!==0 ){
+               newString +=numWords[i-1]+' ';
+           }
+           else{
+               newString +=numWords[i-1]+'<br/>';
+               lineNum++;
+           }
+       }
+       else return newString+'[ Click the Node to Read More ... ] ';
+    }
+    return newString;
+}
 
 var nodes = new vis.DataSet(nodesArray);
 var star=0,max=0;
 for(var i=0;i<lis.length;i++){
-    var pid=parseInt(lis[i].id),likes=parseInt(lis[i].value),plable=lis[i].title;
+    var pid=parseInt(lis[i].id), likes=parseInt(lis[i].value), plable=lis[i].title;
+    var explain=lis[i].getAttribute("data-explain")
+    var titleelement= '<br/>* Explain: <br/>'+formatExplain(explain);
+
     if(likes>max){star=lis[i].id; max=likes;};
    try{
-        nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+plable,title: 'Go to Reply:' + (i+1)});
+        //nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+plable,title: 'Go to Reply:' + (i+1)});
+       nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+plable,title: 'Go to Reply:' + (i+1)+titleelement});
     }
    catch(err) {alert(err);}
 }
@@ -307,7 +335,6 @@ for(var i=1;i<lis.length;i++){
                     from:   parseInt(lis[i].innerHTML,10) ,
                     to:     lis[i].id});
 }
-
 
 var network = null;
 var network0 = null;
@@ -326,15 +353,17 @@ function destroy0() {
 }
 
 var currentNode;
-function getpageid() {
 
+function getpageid() {
   var x = document.getElementsByClassName("pagemark");
   return x[0].innerHTML;
 }
+
 function draw() {
   destroy();
   destroy0();
   currentNode=getpageid();
+    nodes.update({id:currentNode, title:'You are here.'});
   var data = {
     nodes: nodes,
     edges: edges
@@ -405,6 +434,7 @@ function draw() {
   network = new vis.Network(container, data, options);
   network0 = new vis.Network(container0, data, options0);
   network.selectNodes([currentNode]);
+
   network0.selectNodes([currentNode]);
   // add event listeners0
     network.on('hoverNode', function () {

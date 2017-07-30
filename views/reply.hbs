@@ -193,7 +193,7 @@
                     </div>
                     <!-- end of post meta -->
                     <h3>Explain </h3>
-                    <blockquote class="discription">
+                    <blockquote class="discription" style="">
 
                         <pre id="explain-area" style="font-size: 14px;font-family: Arial, Helvetica, sans-serif;">{{post_detail.explain}}
                         </pre>
@@ -250,11 +250,11 @@
                             <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
 
                             <div>
-                                <label for="comment">Comment *</label>
+                                <label for="comment">*Comment -  [<a id="clear_comment" style="font-size: 11px;" >   Clear Content </a> ]</label>
                                 <textarea name="Comment" id="comment" class="required span7" rows="6" title="* Please enter your comment"></textarea>
                             </div>
                             <div>
-                                <label for="comment">Code</label>
+                                <label for="comment">Code-  [<a id="clear_code" style="font-size: 11px;" >   Clear Content </a> ]</label>
 
                             </div>
                             <div id="editor"></div>
@@ -280,11 +280,12 @@
                 <div class="hidden">
                     <input name="topic_creator" id="topicCreator_div" value="{{topic_detail.username}}" />
                     <div id="topic_likes">{{topic_detail.likes}}</div>
+                    <div id="topic_question">{{topic_detail.description}}</div>
                     <div id="postidlist">
                         <ul>
                             {{#if allpost}}
                                 {{#each allpost}}
-                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" >{{parent}}</li>
+                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}" >{{parent}}</li>
                                 {{/each}}
                             {{/if}}
 

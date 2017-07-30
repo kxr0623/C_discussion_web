@@ -248,6 +248,12 @@ function toparent() {
         window.location.href="reply?id="+parentid;
 }
 
+$('#clear_comment').click(function () {
+    $('#comment').val('');
+});
+$('#clear_code').click(function () {
+    editor.setValue('');
+});
 
 
 //------------------------------------------------------------------------------------------------------------------
@@ -256,28 +262,53 @@ function toparent() {
 var lis = document.getElementById("postidlist").getElementsByTagName("li");
 var titleid=parseInt($('#topicid_div').val()),
     tlikes=parseInt($('#topic_likes').html(), 10),
-    tposter=$('#topicCreator_div').val();
-//alert(tlikes);
+    tposter=$('#topicCreator_div').val(),
+    tQuestion=$('#topic_question').html();
+
+
+//-------------to format the content that show on the node
+function formatExplain(str) {
+    var numWords = str.replace(/^\s+|\s+$/g,"").split(/\s+/);
+    //alert(numWords[0]);
+    var lineNum = 0; var newString='';
+    for (var i = 1; i <= numWords.length; i++){
+        if(lineNum<3){
+            if(i%15!==0 ){
+                newString +=numWords[i-1]+' ';
+            }
+            else{
+                newString +=numWords[i-1]+'<br/>';
+                lineNum++;
+            }
+        }
+        else return newString+'[ Click the Node to Read More ... ] ';
+    }
+    return newString;
+}
+
+
+//----------add all nodes to map---------
 var nodesArray=[
-    { id: 0,value:tlikes, label:"#0 "+ tposter, title: 'Go to Reply:0' },
+    { id: 0,value:tlikes, label:"#0 "+ tposter, title: 'Go to Reply:0'+'<br/>* Question: <br/>'+formatExplain(tQuestion) },
 ];
-
-//alert(lis[3].innerHTML);
-
 var nodes = new vis.DataSet(nodesArray);
 var star=0,max=0;
+
 for(var i=0;i<lis.length;i++){
     var pid=parseInt(lis[i].id),likes=parseInt(lis[i].value),plable=lis[i].title;
+    var explain=lis[i].getAttribute("data-explain");
+    var titleelement= '<br/>* Explain: <br/>'+formatExplain(explain);
+
     if(likes>max){star=lis[i].id; max=likes;};
     try{
-        nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+ plable,title: 'Go to Reply:' + (i+1)});
+        nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+ plable,title: 'Go to Reply:' + (i+1)+titleelement});
     }
     catch(err) {alert(err);}
 }
-//mark the star
+//---------------------------mark the star-----------------
 if(star!=0){nodes.update({id:star, font: { size: 15 }, size: 25, shape: 'star'});}
 
-// create an array with edges
+//---------------- --------create an array with edges-------------
 var edgesArray=[
     { from: 0, to: lis[0].id },
 ];
@@ -303,14 +334,13 @@ function destroy() {
 
 var currentNode;
 function getpageid() {
-
-   // var x = document.getElementsByClassName("pagemark");
     return $("#postid_div").val();
     //return x[0].innerHTML;
 }
 function draw() {
     destroy();
     currentNode=getpageid();
+    nodes.update({id:currentNode, title:'You are here.'});
     var data = {
         nodes: nodes,
         edges: edges
