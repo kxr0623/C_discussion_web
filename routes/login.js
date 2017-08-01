@@ -1,15 +1,11 @@
 var sqlite3 = require('sqlite3').verbose();
 var express = require('express');
-//var app = express();
 var router = express.Router();
 var bodyParser = require('body-parser');
-
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var crypto = require('crypto');
-var dateFormat = require('dateformat');
-var now = new Date();
-var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
+var end_pw = "X?R,K"; // encrypt the password: md5(originalpassword+end_pw)
 /*var algorithm = 'aes-256-ctr',
     pas = '@p4gt)Ox';// encrypt the cookie*/
 
@@ -53,14 +49,13 @@ router.post('/',urlencodedParser, function (req, res) {
             //res.sendStatus(200);
             return;
         }
-
         var md5 = crypto.createHash('md5');
-        //var passwordmd5 = md5.update(password+salt).digest('base64');
-        //console.log("passwordmd5->",passwordmd5);
+        var password_md5 = md5.update(password+end_pw).digest('base64');
+        console.log("password_md5->",password_md5);
         var db = new sqlite3.Database('Mydb.db');
         db.serialize(function() {
             var stmt = db.prepare("SELECT * FROM Users WHERE username = $username AND password = $password");
-            stmt.all({$username:username, $password:password},function(err,row){
+            stmt.all({$username:username, $password:password_md5},function(err,row){
                 if(err) {
                     console.log("err->",err);
                     res.sendStatus(404);

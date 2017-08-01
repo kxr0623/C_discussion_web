@@ -5,9 +5,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var crypto = require('crypto');
-var dateFormat = require('dateformat');
-var now = new Date();
-var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
+var end_pw = "X?R,K"; // encrypt the password: px+end_px
 
     // to page sign up
     app.get('/', function (req, res) {
@@ -34,13 +32,13 @@ var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
         var password = req.body.password.trim();
         var email = req.body.email.trim();
 
-        //var md5 = crypto.createHash('md5');
-        //var passwordmd5 = md5.update(password).digest('base64');
-        console.log("password->",password);
+        var md5 = crypto.createHash('md5');
+        var password_md5 = md5.update(password+end_pw).digest('base64');
+        console.log("password->",password_md5);
         var db = new sqlite3.Database('Mydb.db');
         db.serialize(function() {
             db.run("INSERT INTO Users(username,password,email) VALUES (?,?,?)",
-                username, password, email, function (err) {
+                username, password_md5, email, function (err) {
                     if (err) {
                         console.log("INSERT INTO Users err->", err);
                         res.send(false);

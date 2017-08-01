@@ -8,7 +8,6 @@ var engine=require('consolidate');
 var validUrl = require('valid-url');
 var url = require('url');
 var session		=	require('express-session');
-
 var hbs = require('express-handlebars').create({
     //defaultLayout: 'main',
     extname: '.hbs'
@@ -26,7 +25,7 @@ var newtopic=require('./routes/newtopic_r.js');
 var app = express();
 
 
-// view engine setup  加载.html文件-->HTML文件
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs',hbs.engine);
 app.set('view engine', 'hbs');

@@ -270,12 +270,14 @@ $('#update_comment').click(function () {
     $('#reComent_btn').show();
     $('#reComent_cancelbtn').show();
     document.getElementById('explain-area').style.background = '#fff';
+
     $('#explain-area').attr("disabled", false);
 });
 $('#reComent_cancelbtn').click(function () {
     $('#reComent_btn').hide();
     $('#reComent_cancelbtn').hide();
     document.getElementById('explain-area').style.background = '#f2f2f2';
+    $('#explain-area').val(originalTxt);
     $('#explain-area').attr("disabled", true);
 });
 
@@ -305,6 +307,7 @@ $('#reCode_cancelbtn').click(function () {
 });
 $('#reComent_btn').click(function () {
     var updateContent=$('#explain-area').val();
+    if(updateContent==""||updateContent.length===0){alert('Failed: cannot leave nothing in Discription area!')}
     if(updateContent===originalTxt){alert('Failed: You have not change anything!')}
     else {
         var pid = $('#postid_div').val();

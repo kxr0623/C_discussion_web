@@ -110,6 +110,7 @@ $('#reComent_cancelbtn').click(function () {
     $('#reComent_btn').hide();
     $('#reComent_cancelbtn').hide();
     document.getElementById('explain-area').style.background = '#f2f2f2';
+    $('#explain-area').val(originalTxt);
     $('#explain-area').attr("disabled", true);
 });
 var reCode_editor = ace.edit("reCode_editor");
@@ -141,6 +142,7 @@ $('#reCode_cancelbtn').click(function () {
 $('#reComent_btn').click(function () {
     var updateContent=$('#explain-area').val();
     if(updateContent===originalTxt){alert('Failed: You have not change anything!')}
+    if(updateContent==""||updateContent.length===0){alert('Failed: Discription area is empty!')}
     else {
         var topicid = $('#topicid-div').val();
         var parent = 0;
@@ -173,6 +175,7 @@ $('#reComent_btn').click(function () {
 $('#reCode_btn').click(function () {
     var updateContent=reCode_editor.getValue();
     if(updateContent===originalCode){alert('Failed: You have not change any code!')}
+
     else {
         var topicid = $('#topicid-div').val();
         var parent = 0;
@@ -395,6 +398,7 @@ function LogInForm() {
  */
 
 
+
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
 var lis = document.getElementById("postidlist").getElementsByTagName("li");
@@ -406,13 +410,13 @@ var nodesArray = [
 
 //alert(lis[3].innerHTML);
 //-------------to format the content that show on the node
-function formatExplain(str) {
+function formatExplain(str,maxNum) {
     var numWords = str.replace(/^\s+|\s+$/g, "").split(/\s+/);
     //alert(numWords[0]);
     var lineNum = 0;
     var newString = '';
     for (var i = 1; i <= numWords.length; i++) {
-        if (lineNum < 3) {
+        if (lineNum < maxNum) {
             if (i % 15 !== 0) {
                 newString += numWords[i - 1] + ' ';
             }
@@ -428,10 +432,18 @@ function formatExplain(str) {
 
 var nodes = new vis.DataSet(nodesArray);
 var star = 0, max = 0;
+if(lis.length===0){
+    $('#map_area1').hide();
+    $('#mynetwork').hide();
+    $('#view_map').text('[ OH~ 0 Reply for this Topic ]');
+    $('#view_map').css('color', 'red');
+    $('#map').text('[ 0 Reply for this Topic ]');
+    $('#map').css('color', 'red');
+}
 for (var i = 0; i < lis.length; i++) {
     var pid = parseInt(lis[i].id), likes = parseInt(lis[i].value), plable = lis[i].title;
     var explain = lis[i].getAttribute("data-explain")
-    var titleelement = '<br/>* Explain: <br/>' + formatExplain(explain);
+    var titleelement = '<br/>* Explain: <br/>' + formatExplain(explain,3);
 
     if (likes > max) {
         star = lis[i].id;
@@ -455,6 +467,7 @@ for (var i = 0; i < lis.length; i++) {
 if (star != 0) {
     nodes.update({id: star, font: {size: 15}, size: 25, shape: 'star'});
 }
+
 
 // create an array with edges
 var edgesArray = [
