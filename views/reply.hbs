@@ -160,7 +160,7 @@
                 <section>
                     <dl class="accordion clearfix">
                         <a href="#map" >
-                            <h4 onmousemove="this.style.color='#0059b3';"onmouseout="this.style.color='black'">* View the map of Replies</h4>
+                            <h4 id="aside_viewmap"><img src="images/image.png"> View the map of Replies</h4>
                         </a>
                     </dl>
                 </section>
@@ -215,8 +215,13 @@
                     </blockquote>
 
                     <div class="row-fluid">
-                        <div class="span7">
-                            <h3>My code<a id="update_code" style="display: none; font-size: 12px;cursor: pointer;">[ Update Code ]</a></h3>
+                        <div class="span12">
+                            <h3  >
+                                <img src="images/faq-minus.png" id="show_code" style="width:15px;height:15px;" />
+                                <a id="head_mycode" onclick="showHideCode();" data-img="faq-minus.png"> The code </a>
+                                <a id="update_code" >[ Update Code ]</a>
+                            </h3>
+
                             <!--code editor-->
                             <div id="reCode_editor" style="display: none; width: 100%;" title="Please Write your code here."></div>
                             <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
@@ -224,20 +229,92 @@
                             <button id="reCode_btn" style="display: none;">Update</button>
                             <button id="reCode_cancelbtn" style="display: none;">Cancel</button>
                             <blockquote class="code" id="codeBlock">
+                                <pre id="mycode" class="hidden">{{post_detail.code}}</pre>
                                 <pre id="codearea1" class="brush: cpp;">{{post_detail.code}}
-
 </pre>
                             </blockquote>
                         </div>
-                        <div class="span5">
-                            <h3 style="cursor: pointer" onclick="toparent();">Last version code  </h3>
-                            <blockquote class="code">
-                                <pre id="codearea2" class="brush: cpp">{{lastcode.code}}
 
+
+                        <!--<div class="span5 hidden">-->
+                        <div class=" hidden">
+                            <h3 style="cursor: pointer" onclick="toparent();">Parent version code  </h3>
+                            <blockquote class="code">
+                                <pre id="lastversioncode" class="hidden">{{lastcode.code}}</pre>
+                                <pre id="codearea2" class="brush: cpp">{{lastcode.code}}
 </pre>
                             </blockquote>
                         </div>
                     </div>
+
+                    <h3  >
+                        <img src="images/faq-minus.png" id="show_compare" style="width:15px;height:15px;" />
+                        <a id="head_compare" onclick="showHideCompare();" data-img="faq-minus.png"> Compare with Code of Parent Post </a>
+                    </h3>
+                    <div id="compare_area">
+                        <div class="row-fluid">
+                            <div class="span7">
+                                <h4 id="head_lastcode" style="cursor: pointer" onclick="toparent();" title="Go back to last post...">[ Code of Parent Post ]</h4>
+                            </div>
+                            <div class="span5">
+                                <h4>[ Code of This Post ]</h4>
+                            </div>
+                        </div>
+
+                        <div id="diffcontainer" style="width:100%;height:300px;border:1px solid grey"></div>
+                    </div>
+
+
+                    <script src="monaco-editor/min/vs/loader.js"></script>
+                    <script>
+                        require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
+                        require(['vs/editor/editor.main'], function() {
+                            var diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffcontainer'));
+                            var originalTxt = document.getElementById('lastversioncode').innerText;
+                            var modifiedTxt = document.getElementById('mycode').innerText;
+                            diffEditor.setModel({
+                                original: monaco.editor.createModel(originalTxt, 'c'),
+                                modified: monaco.editor.createModel(modifiedTxt, 'c'),
+                            });
+                            diffEditor.getModifiedEditor().updateOptions({readOnly:true});
+                        });
+
+                        function showHideCode() {
+
+                            if($('#head_mycode').attr('data-img')==="faq-minus.png"){
+                                $('#head_mycode').attr('data-img', "faq-plus.png");
+                                $('#show_code').attr("src",'images/faq-plus.png');
+                                $('#codeBlock').hide();
+                            }
+                            else {
+                                $('#head_mycode').attr('data-img',"faq-minus.png");
+                                $('#show_code').attr("src",'images/faq-minus.png');
+                                //$('#show_code').attr("src",'images/faq-plus.png');
+                                $('#show_code').show();
+                                $('#codeBlock').show();
+                            }
+
+                        }
+                        function showHideCompare() {
+                            //var lines = document.getElementById('mycode').innerHTML.split('\n');
+                            //alert(lines.length);
+                            //document.getElementById('diffcontainer').style.height=(lines.length*15)+'px';
+                            if($('#head_compare').attr('data-img')==="faq-minus.png"){
+                                $('#head_compare').attr('data-img', "faq-plus.png");
+                                $('#show_compare').attr("src",'images/faq-plus.png');
+                                $('#compare_area').hide();
+                            }
+                            else {
+
+                                $('#head_compare').attr('data-img',"faq-minus.png");
+                                $('#show_compare').attr("src",'images/faq-minus.png');
+                                //$('#show_code').attr("src",'images/faq-plus.png');
+                                $('#show_compare').show();
+                                $('#compare_area').show();
+                            }
+                        }
+
+                    </script>
 
                 </article>
 
@@ -250,7 +327,7 @@
                     </form>
                 </div>
 
-                <h4 id="map">View the map of Replies <small>(click the node on the picture to change to the post)</small></h4>
+                <h3 id="map">View the map of Replies <small>(click the node on the picture to change to the post)</small></h3>
                 <div id="mynetwork"></div>
 
                 <p id="selection"></p>

@@ -1552,3 +1552,19 @@ a#scroll-top:hover {
     display: inline-block;
   }
 }
+#head_mycode:hover{
+  cursor: pointer;
+}
+#head_lastcode:hover{
+  color: #395996;
+}
+#aside_viewmap:hover{
+  color: #395996;
+}
+#update_code
+{
+  display: none; font-size: 12px;cursor: pointer;
+}
+#head_compare{
+  cursor: pointer;
+}
