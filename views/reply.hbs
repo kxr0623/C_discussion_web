@@ -215,8 +215,8 @@
                     </blockquote>
 
                     <div class="row-fluid">
-                        <div class="span9">
-                            <h3  >
+                        <div>
+                            <h3>
                                 <img src="images/faq-minus.png" id="show_code" style="width:15px;height:15px;" />
                                 <a id="head_mycode" onclick="showHideCode();" data-img="faq-minus.png"> The code </a>
                                 <a id="update_code" >[ Update Code ]</a>
@@ -228,16 +228,16 @@
                             <!--end code editor-->
                             <button id="reCode_btn" style="display: none;">Update</button>
                             <button id="reCode_cancelbtn" style="display: none;">Cancel</button>
-                            <blockquote class="code" id="codeBlock">
+                            <blockquote class=" code" id="codeBlock">
                                 <pre id="mycode" class="hidden">{{post_detail.code}}</pre>
-                                <pre id="codearea1" class="brush: cpp;">{{post_detail.code}}
+                                <pre id="codearea1"  class="brush: cpp;">{{post_detail.code}}
 </pre>
                             </blockquote>
                         </div>
-
+                    </div>
 
                         <!--<div class="span5 hidden">-->
-                        <div class=" hidden">
+                        <div class="hidden">
                             <h3 style="cursor: pointer" onclick="toparent();">Parent version code  </h3>
                             <blockquote class="code">
                                 <pre id="lastversioncode" class="hidden">{{lastcode.code}}</pre>
@@ -245,7 +245,7 @@
 </pre>
                             </blockquote>
                         </div>
-                    </div>
+
 
                     <h3  >
                         <img src="images/faq-minus.png" id="show_compare" style="width:15px;height:15px;" />
@@ -267,52 +267,7 @@
 
                     <script src="monaco-editor/min/vs/loader.js"></script>
                     <script>
-                        require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
-                        require(['vs/editor/editor.main'], function() {
-                            var diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffcontainer'));
-                            var originalTxt = document.getElementById('lastversioncode').innerText;
-                            var modifiedTxt = document.getElementById('mycode').innerText;
-                            diffEditor.setModel({
-                                original: monaco.editor.createModel(originalTxt, 'c'),
-                                modified: monaco.editor.createModel(modifiedTxt, 'c'),
-                            });
-                            diffEditor.getModifiedEditor().updateOptions({readOnly:true});
-                        });
 
-                        function showHideCode() {
-
-                            if($('#head_mycode').attr('data-img')==="faq-minus.png"){
-                                $('#head_mycode').attr('data-img', "faq-plus.png");
-                                $('#show_code').attr("src",'images/faq-plus.png');
-                                $('#codeBlock').hide();
-                            }
-                            else {
-                                $('#head_mycode').attr('data-img',"faq-minus.png");
-                                $('#show_code').attr("src",'images/faq-minus.png');
-                                //$('#show_code').attr("src",'images/faq-plus.png');
-                                $('#show_code').show();
-                                $('#codeBlock').show();
-                            }
-
-                        }
-                        function showHideCompare() {
-                            //var lines = document.getElementById('mycode').innerHTML.split('\n');
-                            //alert(lines.length);
-                            //document.getElementById('diffcontainer').style.height=(lines.length*15)+'px';
-                            if($('#head_compare').attr('data-img')==="faq-minus.png"){
-                                $('#head_compare').attr('data-img', "faq-plus.png");
-                                $('#show_compare').attr("src",'images/faq-plus.png');
-                                $('#compare_area').hide();
-                            }
-                            else {
-
-                                $('#head_compare').attr('data-img',"faq-minus.png");
-                                $('#show_compare').attr("src",'images/faq-minus.png');
-                                //$('#show_code').attr("src",'images/faq-plus.png');
-                                $('#show_compare').show();
-                                $('#compare_area').show();
-                            }
-                        }
 
                     </script>
 
@@ -348,15 +303,44 @@
                             <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
 
                             <div>
-                                <label for="comment">*Comment -  [<a id="clear_comment" style="font-size: 11px;" >   Clear Content </a> ]</label>
-                                <textarea name="Comment" id="comment" class="required span7" rows="6" title="* Please enter your comment"></textarea>
+                                <label for="comment">* Comment -  [<a id="clear_comment" style="font-size: 11px;" >   Clear Content </a> ]</label>
+                                <textarea name="Comment" id="comment" class=" span7" rows="6" title="* Please enter your comment"></textarea>
                             </div>
                             <div>
-                                <label for="comment">Code-  [<a id="clear_code" style="font-size: 11px;" >   Clear Content </a> ]</label>
+                                <label for="editor">Code-  [<a id="clear_code" style="font-size: 11px;" >   Clear Content </a> ]</label>
 
                             </div>
+
                             <div id="editor"></div>
 
+                            <div>
+                                <label for="strategy">* Solution Strategy-  [<a id="clear_strategy" style="font-size: 11px;" > Clear Content </a> ]<small>   - (Use some words to summarize your solution compared with this Post.)</small></label>
+                            </div>
+                            <div >
+                                <input type='text' name="strategy" id="strategy" class="  span7" value="" title="* Please provide strategy for your reply">
+                            </div>
+
+                            <div class="" style="margin-bottom: 20px;">
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">basic</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">beginner</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">String</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">printer</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">queue</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">linked table</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">stack</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">sorting</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">hashing</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">SDL</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data type</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">null</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">return</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">malloc</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">open file</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data structure</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">variable</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">typeof</a>
+                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">viod</a>
+                            </div>
                             <div class="hidden">
                                 <input name="topicid" id="topicid_div" value="{{topic_detail.tid}}" />
                                 <input name="postid" id="postid_div" value="{{post_detail.pid}}" />

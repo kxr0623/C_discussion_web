@@ -2,8 +2,7 @@
  * Created by kxr on 17-7-8.
  */
 
-/* ---------------------------------------------------- */
-/*	Like Button JS
+//-----------------------Like Button
  /* ----------------------------------------------------*/
 $('#like-it-form .like-it').click(function(){
     var likeButton = $(this);
@@ -262,9 +261,16 @@ var reCode_editor = ace.edit("reCode_editor");
 var originalTxt=$('#explain-area').val();
 $('#clear_comment').click(function () {
     $('#comment').val('');
+    $('#comment').focus();
 });
 $('#clear_code').click(function () {
     editor.setValue('');
+    editor.focus();
+
+});
+$('#clear_strategy').click(function () {
+    $('#strategy').val('');
+    $('#strategy').setSelectionRange(0, 0);
 });
 $('#update_comment').click(function () {
     $('#reComent_btn').show();
@@ -371,6 +377,53 @@ $('#reCode_btn').click(function () {
     }
 
 });
+//-------------------------------------Compare area
+require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
+require(['vs/editor/editor.main'], function() {
+    var diffEditor = monaco.editor.createDiffEditor(document.getElementById('diffcontainer'));
+    var originalTxt = document.getElementById('lastversioncode').innerText;
+    var modifiedTxt = document.getElementById('mycode').innerText;
+    diffEditor.setModel({
+        original: monaco.editor.createModel(originalTxt, 'c'),
+        modified: monaco.editor.createModel(modifiedTxt, 'c'),
+    });
+    diffEditor.getModifiedEditor().updateOptions({readOnly:true});
+});
+
+function showHideCode() {
+
+    if($('#head_mycode').attr('data-img')==="faq-minus.png"){
+        $('#head_mycode').attr('data-img', "faq-plus.png");
+        $('#show_code').attr("src",'images/faq-plus.png');
+        $('#codeBlock').hide();
+    }
+    else {
+        $('#head_mycode').attr('data-img',"faq-minus.png");
+        $('#show_code').attr("src",'images/faq-minus.png');
+        //$('#show_code').attr("src",'images/faq-plus.png');
+        $('#show_code').show();
+        $('#codeBlock').show();
+    }
+
+}
+function showHideCompare() {
+    //var lines = document.getElementById('mycode').innerHTML.split('\n');
+    //alert(lines.length);
+    //document.getElementById('diffcontainer').style.height=(lines.length*15)+'px';
+    if($('#head_compare').attr('data-img')==="faq-minus.png"){
+        $('#head_compare').attr('data-img', "faq-plus.png");
+        $('#show_compare').attr("src",'images/faq-plus.png');
+        $('#compare_area').hide();
+    }
+    else {
+
+        $('#head_compare').attr('data-img',"faq-minus.png");
+        $('#show_compare').attr("src",'images/faq-minus.png');
+        //$('#show_code').attr("src",'images/faq-plus.png');
+        $('#show_compare').show();
+        $('#compare_area').show();
+    }
+}
 
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
