@@ -157,6 +157,7 @@ router.post('/submit', urlencodedParser, function (req, res) {
         var explain = req.body.replycomment;
         var topicid = req.body.topicid;
         var parentid = req.body.parent;
+        var strategy=req.body.strategy;
         var d = new Date,
             createtime = [d.getFullYear(),
                     (d.getMonth() + 1).padLeft(),
@@ -167,11 +168,12 @@ router.post('/submit', urlencodedParser, function (req, res) {
                     d.getSeconds().padLeft()].join(':');
         console.log("---------------topicid:" + topicid);
         console.log("---------------creatorid:" + creatorid);
+        console.log("---------------strategy:" + strategy);
         console.log("---------------code:" + code);
         console.log("---------------explain:" + explain);
        // db.run("BEGIN TRANSACTION");
-        db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,explain,code) VALUES (?,?,?,?,?,?,?)",
-            topicid, createtime, creatorid, 0, parentid, explain, code, function (err) {
+        db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,strategy,explain,code) VALUES (?,?,?,?,?,?,?,?)",
+            topicid, createtime, creatorid, 0, parentid,strategy, explain, code, function (err) {
                 if (err) {
                    // db.run("ROLLBACK");
                     console.log("insert reply err->", err);

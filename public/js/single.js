@@ -100,6 +100,10 @@ $('#clear_comment').click(function () {
 $('#clear_code').click(function () {
     editor.setValue('');
 });
+$('#clear_strategy').click(function () {
+    $('#strategy').val('');
+    $('#strategy').setSelectionRange(0, 0);
+});
 $('#update_comment').click(function () {
     $('#reComent_btn').show();
     $('#reComent_cancelbtn').show();
@@ -211,17 +215,21 @@ var cCode = "";
 $(document).ready(function () {
 
     $("#submit_Reply").click(function () {
-//alert("herer")
+//alert($('#strategy').val())
         var replycomment = $("#replycomment").val();
         //var replycode=$("#replycode").val();
         var replycode = editor.getValue();
-
+        var strategy=$('#strategy').val();
         if (!checkIsLogin()) {
             $('#feedback1').text("* Please Sign In First.");
             return;
         }
         if (replycomment.length < 1) {
             $('#feedback1').text("* Please give a comment, and submit again.");
+            return;
+        }
+        if (strategy.length < 1) {
+            $('#feedback1').text("* Please write your strategy, and submit again.");
             return;
         }
 
@@ -238,6 +246,7 @@ $(document).ready(function () {
                 data: {
                     "replycode": replycode,
                     "replycomment": replycomment,
+                    "strategy":strategy,
                     "topicid": topicid,
                     "parent": parent
                 },
@@ -323,8 +332,12 @@ function logoutFuc() {
         }
     });
     if (result === "true") {
+        $('#login').show();
+        $('#reg').show();
+        $('#logout').hide();
+        $('#update_code').hide();
+        $('#update_comment').hide();
 
-        location.reload();
     }
 }
 function LogInForm() {
@@ -442,7 +455,7 @@ if(lis.length===0){
 }
 for (var i = 0; i < lis.length; i++) {
     var pid = parseInt(lis[i].id), likes = parseInt(lis[i].value), plable = lis[i].title;
-    var explain = lis[i].getAttribute("data-explain")
+    var explain = lis[i].getAttribute("data-explain");
     var titleelement = '<br/>* Explain: <br/>' + formatExplain(explain,3);
 
     if (likes > max) {
@@ -474,11 +487,13 @@ var edgesArray = [
     {from: 0, to: lis[0].id},
 ];
 var edges = new vis.DataSet(edgesArray);
-for (var i = 1; i < lis.length; i++) {
+for (var i = 0; i < lis.length; i++) {
+    var data_strategy=lis[i].getAttribute("data-strategy");
     edges.add({
         id: i,
         from: parseInt(lis[i].innerHTML, 10),
-        to: lis[i].id
+        to: lis[i].id,
+        title:data_strategy
     });
 }
 
@@ -545,6 +560,9 @@ function draw() {
                 }
             },
         },
+        edges:{
+            chosen: true,
+        }
     };
     var options0;
     options0 = {
@@ -579,9 +597,9 @@ function draw() {
     };
     network = new vis.Network(container, data, options);
     network0 = new vis.Network(container0, data, options0);
-    network.selectNodes([currentNode]);
+    network.selectNodes([currentNode],false);
 
-    network0.selectNodes([currentNode]);
+    network0.selectNodes([currentNode],false);
     // add event listeners0
     network.on('hoverNode', function () {
         document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';

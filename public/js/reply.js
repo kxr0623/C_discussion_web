@@ -83,8 +83,8 @@ $(document).ready(function(){
     $("#submit_Reply").click(function(){
 
         var replycomment=$("#comment").val();
-       // var replycode=$("#code").val();
         var replycode=editor.getValue();
+        var strategy=$('#strategy').val();
         if(!checkIsLogin()) {
             $('#feedback1').text("* Please Sign In First.");
             return;
@@ -92,6 +92,10 @@ $(document).ready(function(){
         if(replycomment.length<1) {
            // alert("rrrr");
             $('#feedback1').text("* Please give a comment, and submit again.");
+            return;
+        }
+        if (strategy.length < 1) {
+            $('#feedback1').text("* Please write your strategy, and submit again.");
             return;
         }
 
@@ -108,6 +112,7 @@ $(document).ready(function(){
                 data:{
                     "replycode":replycode,
                     "replycomment":replycomment,
+                    "strategy":strategy,
                     "topicid":topicid,
                     "parent":parent},
                 success: function(data) {
@@ -482,11 +487,16 @@ var edgesArray=[
     { from: 0, to: lis[0].id },
 ];
 var edges = new vis.DataSet(edgesArray);
-for(var i=1;i<lis.length;i++){
+for(var i=0;i<lis.length;i++){
+    var data_strategy=lis[i].getAttribute("data-strategy");
+    alert(data_strategy);
     try{
-        edges.add({id: i,
+        edges.add({
+            id: i,
             from:   parseInt(lis[i].innerHTML,10) ,
-            to:     lis[i].id});
+            to:     lis[i].id,
+            title:  data_strategy
+        });
     }
     catch (err){alert(err);}
 }
@@ -548,7 +558,7 @@ function draw() {
     };
     network = new vis.Network(container, data, options);
 
-    network.selectNodes([currentNode]);
+    network.selectNodes([currentNode],false);
     network.on('hoverNode', function () {
         document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
     });

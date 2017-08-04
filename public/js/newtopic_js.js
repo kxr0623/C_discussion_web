@@ -8,7 +8,7 @@ editor.setOptions({
     useWrapMode: true,
     highlightActiveLine: true,
     showPrintMargin: false,
-    theme: 'ace/theme/Xcode',
+    theme: 'ace/theme/xcode',
     mode: 'ace/mode/c_cpp'
 });
 var session=editor.getSession();
@@ -23,7 +23,6 @@ $(document).ready(function(){
 
         var topictitle = $("#topictitle").val();
         var topic_dicription=$("#topic_dicription").val();
-        //var topic_code=$("#topic_code").val();
         //alert(editor.getValue())
         var topic_code=editor.getValue();
         var tags=$("#tags").val();

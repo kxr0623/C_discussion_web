@@ -99,17 +99,19 @@ router.post('/submit', urlencodedParser, function (req, res) {
         var explain = req.body.replycomment;
         var topicid = req.body.topicid;
         var parentid = req.body.parent;
+        var strategy =req.body.strategy;
         var d = new Date,
             createtime = [d.getFullYear(), (d.getMonth() + 1).padLeft(), d.getDate().padLeft()].join('/') + ' ' +
                 [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':');
         console.log("---------------topicid:" + topicid);
         console.log("---------------creatorid:" + creatorid);
+        console.log("---------------strategy:" + strategy);
         console.log("---------------code:" + code);
         console.log("---------------explain:" + explain);
         var db = new sqlite3.Database('Mydb.db');
         db.serialize(function() {
-            db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,explain,code) VALUES (?,?,?,?,?,?,?)",
-                topicid, createtime, creatorid, 0, parentid, explain, code, function (err) {
+            db.run("INSERT INTO Post(topicid,createtime,creator,likes,parent,strategy,explain,code) VALUES (?,?,?,?,?,?,?,?)",
+                topicid, createtime, creatorid, 0, parentid,strategy, explain, code, function (err) {
                     if (err) {
                         console.log("insert reply err->", err);
                         res.send(JSON.stringify({result: false, detail: "database error"}));

@@ -129,9 +129,9 @@
 
                 <section class="widget">
                     <div class="support-widget" onclick="document.location='contact';return false;">
-                        <h3 class="title">Poster</h3>
-                        <p class="intro">Username: {{post_detail.username}}</p>
-                        <p class="intro" id="posterUname">{{post_detail.username}}</p>
+                        <h3 class="title">Poster :</h3>
+                        <p class="intro">{{post_detail.username}}</p>
+                        <p class="hidden" id="posterUname">{{post_detail.username}}</p>
                     </div>
                 </section>
 
@@ -292,16 +292,28 @@
 
                         <h3>Leave a Reply</h3>
 
-                        <div class="cancel-comment-reply">
-                            <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here to cancel reply.</a>
-                        </div>
+                        <form id="contact-form" method="post">
 
+                            <p class="comment-notes">( Required fields are marked <span class="required">* </span>)</p>
 
-                        <form id="contact-form" action="http://inspirythemes.com/templates/knowledgebase-html/contact_form_handler.php" method="post">
+                            <div>
+                                <label for="strategy">* Solution Strategy-  [
+                                    <a id="clear_strategy" style="font-size: 11px;" > Clear Content </a> ]
+                                    <small> - (Use some words to summarize your solution.)</small>
+                                </label>
+                            </div>
 
+                            <div >
+                                <input type='text' class="span7" id="strategy" list="list_strategies"/>
+                                <datalist id="list_strategies">
+                                    <option value="A new way;">
+                                    <option value="Continue last solution;">
+                                    <option value="Use 'while-do' loop;">
+                                    <option value="Use 'do-while' loop;">
+                                    <option value="Correct the Answer for parent post;">
+                                </datalist>
 
-                            <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
-
+                            </div>
                             <div>
                                 <label for="comment">* Comment -  [<a id="clear_comment" style="font-size: 11px;" >   Clear Content </a> ]</label>
                                 <textarea name="Comment" id="comment" class=" span7" rows="6" title="* Please enter your comment"></textarea>
@@ -313,34 +325,6 @@
 
                             <div id="editor"></div>
 
-                            <div>
-                                <label for="strategy">* Solution Strategy-  [<a id="clear_strategy" style="font-size: 11px;" > Clear Content </a> ]<small>   - (Use some words to summarize your solution compared with this Post.)</small></label>
-                            </div>
-                            <div >
-                                <input type='text' name="strategy" id="strategy" class="  span7" value="" title="* Please provide strategy for your reply">
-                            </div>
-
-                            <div class="" style="margin-bottom: 20px;">
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">basic</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">beginner</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">String</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">printer</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">queue</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">linked table</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">stack</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">sorting</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">hashing</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">SDL</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data type</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">null</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">return</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">malloc</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">open file</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">data structure</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">variable</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">typeof</a>
-                                <a onclick="addtag(this.innerHTML);" class="btn btn-mini">viod</a>
-                            </div>
                             <div class="hidden">
                                 <input name="topicid" id="topicid_div" value="{{topic_detail.tid}}" />
                                 <input name="postid" id="postid_div" value="{{post_detail.pid}}" />
@@ -367,7 +351,7 @@
                         <ul>
                             {{#if allpost}}
                                 {{#each allpost}}
-                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}" >{{parent}}</li>
+                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}" data-strategy="{{strategy}}" >{{parent}}</li>
                                 {{/each}}
                             {{/if}}
 

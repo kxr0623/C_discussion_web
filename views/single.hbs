@@ -140,9 +140,8 @@
 
                 <section class="widget">
                     <div class="support-widget" onclick="document.location='contact';return false;">
-                        <h3 class="title">Poster</h3>
-                        <p class="intro">Username:   {{topic_detail.creator}}</p>
-                        <p class="hidden" id="topic_creator">{{topic_detail.creator}}</p>
+                        <h3 class="title">Poster :</h3>
+                        <p class="intro" id="topic_creator">{{topic_detail.creator}}</p>
                     </div>
                 </section>
 
@@ -251,17 +250,28 @@
 
                         <h3>Leave a Reply</h3>
 
-                        <div class="cancel-comment-reply">
-                            <a rel="nofollow" id="cancel-comment-reply-link" href="#" style="display:none;">Click here
-                                to cancel reply.</a>
-                        </div>
-
-
                         <form id="contact-form" method="post">
 
-                            <p class="comment-notes"> Required fields
-                                are marked <span class="required">*</span></p>
+                            <p class="comment-notes">( Required fields
+                                are marked <span class="required">*</span> )</p>
+                            <div>
+                                <label for="strategy">* Solution Strategy-  [
+                                    <a id="clear_strategy" style="font-size: 11px;" > Clear Content </a> ]
+                                    <small> - (Use some words to summarize your solution.)</small>
+                                </label>
+                            </div>
 
+                            <div >
+                                <input type='text' class="span7" id="strategy" list="list_strategies"/>
+                                <datalist id="list_strategies">
+                                    <option value="A new way;">
+                                    <option value="Continue last solution;">
+                                    <option value="Use 'while-do' loop;">
+                                    <option value="Use 'do-while' loop;">
+                                    <option value="Correct the Answer for parent post;">
+                                </datalist>
+
+                            </div>
                             <div>
                                 <label for="replycomment">* Comment - [<a id="clear_comment" style="font-size: 11px;"> Clear
                                     Content </a> ]</label>
@@ -278,12 +288,6 @@
                             <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
                             <!--end code editor-->
 
-                            <div>
-                                <label for="strategy">* Solution Strategy-  [<a id="clear_strategy" style="font-size: 11px;" > Clear Content </a> ]<small>   - (Use some words to summarize your solution compared with this Post.)</small></label>
-                            </div>
-                            <div >
-                                <input type='text' name="strategy" id="strategy" class="  span7" value="" title="* Please provide strategy for your reply">
-                            </div>
                             <div>
 
                                 <input type="button" name="submit" value="Submit Comment" id="submit_Reply"
@@ -311,8 +315,7 @@
                         <ul>
                             {{#if allpost}}
                                 {{#each allpost}}
-                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}"
-                                        data-explain="{{explain}}">{{parent}}</li>
+                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}" data-strategy="{{strategy}}">{{parent}}</li>
                                 {{/each}}
                             {{/if}}
 
