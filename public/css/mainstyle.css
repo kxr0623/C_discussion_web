@@ -1568,3 +1568,12 @@ a#scroll-top:hover {
 #head_compare{
   cursor: pointer;
 }
+#receive_btn{
+  cursor: pointer;
+  font-size:14px;
+  color:green;
+  display: none;
+}
+#receive_btn:hover{
+  color:#395996;
+}

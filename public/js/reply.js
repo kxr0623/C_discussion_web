@@ -152,6 +152,9 @@ $(document).ready(function(){
                         $('#update_code').show();
                         $('#update_comment').show();
                     }
+                    if(result===$('#topicCreator_div').val()){
+                        $('#receive_btn').show();
+                    }
                 } else {
                     $('#logout').hide();
                 }
@@ -231,6 +234,9 @@ function LogInForm() {
                 if(userName=== $('#posterUname').html()){
                     $('#update_code').show();
                     $('#update_comment').show();
+                }
+                if(userName===$('#topic_creator').val()){
+                    $('#receive_btn').show();
                 }
                 document.getElementById('id01').style.display = "none";
                 $('#login').hide();
@@ -489,7 +495,6 @@ var edgesArray=[
 var edges = new vis.DataSet(edgesArray);
 for(var i=0;i<lis.length;i++){
     var data_strategy=lis[i].getAttribute("data-strategy");
-    alert(data_strategy);
     try{
         edges.add({
             id: i,
