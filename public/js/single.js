@@ -415,7 +415,10 @@ function LogInForm() {
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
 var lis = document.getElementById("postidlist").getElementsByTagName("li");
-var titleid = 0, tlikes = parseInt($('#like1').html(), 10), tposter = $('#topic_creator').html();
+var titleid = 0,
+    tlikes = parseInt($('#like1').html(), 10),
+    tposter = $('#topic_creator').html(),
+    tAnswer=$('#topic_answer').html();
 
 var nodesArray = [
     {id: 0, value: tlikes, label: "#0 " + tposter, title: 'Go to Reply:0'},
@@ -477,6 +480,7 @@ for (var i = 0; i < lis.length; i++) {
     }
 }
 //mark the star
+star=parseInt(tAnswer,10);
 if (star != 0) {
     nodes.update({id: star, font: {size: 15}, size: 25, shape: 'star'});
 }

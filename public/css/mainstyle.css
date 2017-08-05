@@ -1577,3 +1577,8 @@ a#scroll-top:hover {
 #receive_btn:hover{
   color:#395996;
 }
+#received_this{
+    font-size:14px;
+    color:red;
+    display: none;
+}

@@ -39,6 +39,7 @@ router.get('/', function (req, res) {
                   topic_detail['description'] = row.description;
                   topic_detail['likes'] = row.likes;
                   topic_detail['code'] = row.code;
+                  topic_detail['answer']=row.answer;
               } else {
                   console.log("SELECT err->", err);
                   res.render('/');

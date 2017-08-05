@@ -198,7 +198,9 @@
                     <p class="notice">  Here is the Reply
                         {{range.range}}
 
-                         <a id="receive_btn">- [ Receive This Post ]</a><img src="images/arrow-down.png" style="width:15px;height:15px;" />
+                         <a id="receive_btn">- [ Receive This Post ]</a>
+                        <a id="received_this" style="display: none;">- [ That is Received by quizzer ]</a>
+                        <img src="images/arrow-down.png" style="width:15px;height:15px;" />
                     </p>
 
                     <div class="post-meta clearfix">
@@ -349,6 +351,7 @@
                     <input name="topic_creator" id="topicCreator_div" value="{{topic_detail.username}}" />
                     <div id="topic_likes">{{topic_detail.likes}}</div>
                     <div id="topic_question">{{topic_detail.description}}</div>
+                    <div id="topic_answer">{{topic_detail.answer}}</div>
                     <div id="postidlist">
                         <ul>
                             {{#if allpost}}

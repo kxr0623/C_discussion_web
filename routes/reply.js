@@ -237,5 +237,27 @@ router.post('/UpdateCode', urlencodedParser, function (req, res) {
     }
     else res.send(JSON.stringify({result: false, detail: "not sign in."}));
 });
+//receive a post
+router.post('/answer_receive',urlencodedParser,function (req,res) {
+    console.log(req.body);
+    if (req.session.username) {
+        var pid = req.body.pid;
+        var tid = req.body.tid;
+        var db = new sqlite3.Database('Mydb.db');
+        db.serialize(function() {
+            db.run(" UPDATE Topic SET answer =?  WHERE tid=?",
+                pid,tid, function (err) {
+                    if (err) {
+                        console.log("Set Answer err->", err);
+                        res.send(JSON.stringify({result: false, detail: "database error"}));
+                    } else {
+                        res.send(JSON.stringify({result: true}));
+                    }
+                });
+        });
+        db.close();
+    }
+    else res.send(JSON.stringify({result: false, detail: "not sign in."}));
 
-module.exports = router
+});
+module.exports = router;

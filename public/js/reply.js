@@ -134,6 +134,7 @@ $(document).ready(function(){
 
         }
     });
+    //login username check
     $(function () {
         var result;
         $.ajax({
@@ -152,8 +153,11 @@ $(document).ready(function(){
                         $('#update_code').show();
                         $('#update_comment').show();
                     }
-                    if(result===$('#topicCreator_div').val()){
+                    if(result===$('#topicCreator_div').val() && $('#topic_answer').html().length===0){
                         $('#receive_btn').show();
+                    }
+                    if($('#topic_answer').html()===$('#postid_div').val()){
+                        $('#received_this').show();
                     }
                 } else {
                     $('#logout').hide();
@@ -235,7 +239,7 @@ function LogInForm() {
                     $('#update_code').show();
                     $('#update_comment').show();
                 }
-                if(userName===$('#topic_creator').val()){
+                if(userName===$('#topicCreator_div').val() && $('#topic_answer').html().length===0 ){
                     $('#receive_btn').show();
                 }
                 document.getElementById('id01').style.display = "none";
@@ -297,7 +301,6 @@ $('#reComent_cancelbtn').click(function () {
     $('#explain-area').val(originalTxt);
     $('#explain-area').attr("disabled", true);
 });
-
 $('#update_code').click(function () {
     reCode_editor.setOptions({
         useWrapMode: true,
@@ -388,6 +391,31 @@ $('#reCode_btn').click(function () {
     }
 
 });
+$('#receive_btn').click(function () {
+    var postid=$('#postid_div').val();
+    var tid=$('#topicid_div').val();
+    $.ajax({
+        type: "POST",
+        url : "/reply/answer_receive",
+        dataType: 'json',
+        async : false,
+        data:{"pid":postid,"tid":tid},
+        success: function(data) {
+            if(data){
+                    $('#receive_btn').hide();
+                    $('#received_this').show();
+                    $('#topic_answer').html(postid);
+            }
+            else alter('something wrong with the receive button...');
+        },
+        error: function(data,status){
+            if(status == 'error'){
+                alter('something wrong with the receive button...')
+            }
+        }
+    });
+
+});
 //-------------------------------------Compare area
 require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
 require(['vs/editor/editor.main'], function() {
@@ -443,7 +471,8 @@ var lis = document.getElementById("postidlist").getElementsByTagName("li");
 var titleid=parseInt($('#topicid_div').val()),
     tlikes=parseInt($('#topic_likes').html(), 10),
     tposter=$('#topicCreator_div').val(),
-    tQuestion=$('#topic_question').html();
+    tQuestion=$('#topic_question').html(),
+    tAnswer=$('#topic_answer').html();
 
 
 //-------------to format the content that show on the node
@@ -485,7 +514,8 @@ for(var i=0;i<lis.length;i++){
     }
     catch(err) {alert(err);}
 }
-//---------------------------mark the star-----------------
+//---------------------------mark the star (post received by topic creator-----------------
+star=parseInt(tAnswer,10);
 if(star!=0){nodes.update({id:star, font: { size: 15 }, size: 25, shape: 'star'});}
 
 //---------------- --------create an array with edges-------------
