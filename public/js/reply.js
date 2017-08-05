@@ -156,15 +156,17 @@ $(document).ready(function(){
                     if(result===$('#topicCreator_div').val() && $('#topic_answer').html().length===0){
                         $('#receive_btn').show();
                     }
-                    if($('#topic_answer').html()===$('#postid_div').val()){
-                        $('#received_this').show();
-                    }
+
                 } else {
                     $('#logout').hide();
                 }
             }
         });
     });
+    var answer=$('#topic_answer').html();
+    if(answer.length>0 && answer===$('#postid_div').val()){
+        $('#received_this').show();
+    }
 
     window.onclick = function(event) {
         //alert(event.target.id)
