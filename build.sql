@@ -62,14 +62,14 @@ FOREIGN KEY (creator) REFERENCES Users(uid)
 );
 
 --Insert into Users (username,password,email) values ("admin","111",'a@a.com');
-Insert into Users (username,password,email) values ("thinkabout","111",'a@a.com');
+--Insert into Users (username,password,email) values ("thinkabout","111",'a@a.com');
 --Insert into Users (username,password,email) values ("algorithm","111",'a@a.com');
 --Insert into Users (username,password,email) values ("retanley","111",'a@a.com');
 --Insert into Users (username,password,email) values ("Salem","111",'a@a.com');
 
 --Insert into Users (username,password,email) values ("Lundin","111",'a@a.com');
 
-Insert into Topic (title,createtime,creator,likes,tags,description,code) values ('Strlen is return 1 on empty strings - fgets',datetime('now'),1,65,'strlen problem','My problem is strlen returns 1 on empty strings
+/*Insert into Topic (title,createtime,creator,likes,tags,description,code) values ('Strlen is return 1 on empty strings - fgets',datetime('now'),1,65,'strlen problem','My problem is strlen returns 1 on empty strings
 If i write something like "a" it returns 1 too.
 
 My final goal is to put one more condition on while
@@ -108,6 +108,7 @@ int main()
 
     return 0;
 }');
+*/
 --Insert into Post (likes,createtime,creator,topicid,parent,explain,code) 
 --values (66,datetime('now'),3,1,0,
 --   "strtok will not remove the newline (or any of the given separators) if there arent any non-separator characters in the string. 
@@ -120,9 +121,11 @@ int main()
 --   This considers one two an error, but  one is okay (and is interpreted as one). (I meant to add a few spaces before and after one, but the forum reduces them to one space.)",'include &lt;string.h> int main() ');
 --\n 
 --{\n    char str[100];\n \n    while (1) {\n        puts("Enter the ID:");\n        if (fgets(str, sizeof str, stdin) == NULL)\n            break;\n        char *p = NULL;\n        if ((p = strtok(str, " \t\n")) == NULL)\n            continue;\n        printf("size of string %d\n", (int)strlen(p));\n    }\n \n    return 0\n}\n//version 2\n#include &lt;stdio.h>\n#include &lt;string.h>\n \nint main() {\n    char str[100];\n \n    while (1) {\n        puts("Enter the ID:");\n        if (fgets(str, sizeof str, stdin) == NULL)\n            break;\n        str[strcspn(str, "\n")] = '\0';\n        printf("size of string %d\n", (int)strlen(str));\n    }\n \n    return 0;\n}\n
+/*
 Insert into Post (likes,createtime,creator,topicid,parent,strategy,explain,code) 
 values (54,datetime('now'),1,1,0,'remove the newline','If at the prompt, the user justs presses the [Enter] key, 
 a newline will be input, and the strlen(buffer.idarea) will beone, not zero!
  You need to remove the newline right after entering the string before testing the length of the string.
  Even if the user entered valid data, the newline should be removed! 
- Please read the man page for fgets().','puts("Insert the ID?");fgets(buffer.idarea, MAX, stdin);');                                                                                                                             
+ Please read the man page for fgets().','puts("Insert the ID?");fgets(buffer.idarea, MAX, stdin);');            
+ */                                                                                                                 

@@ -41,8 +41,8 @@ router.get('/', function (req, res) {
                   topic_detail['code'] = row.code;
                   topic_detail['answer']=row.answer;
               } else {
-                  console.log("SELECT err->", err);
-                  res.render('/');
+                  console.log("SELECT topic_infor_query err->", err);
+                  res.render('error');
               }
           });
           topic_infor_query.finalize();
@@ -51,17 +51,28 @@ router.get('/', function (req, res) {
               "where parent=0 and topicid=$tid order by pid ;");
           var children_replies_r;
           children_replies.all({$tid: tid}, function (err, qres) {
-              //console.log("qres---------->", qres);
-              console.log("topic_detail----------->", topic_detail);
-              children_replies_r=qres;
+              if(!err){
+                  console.log("topic_detail----------->", topic_detail);
+                  children_replies_r=qres;
+              }
+              else{
+                  console.log("SELECT children_replies err->", err);
+                  res.render('error');
+              }
+
           });
           children_replies.finalize();
 
           var stmt = db.prepare("SELECT count(pid)AS sum_posts FROM Post WHERE topicid = '" + tid + "'");
           var pnum;
           stmt.get(function (err, pnumber) {
+              if(err){
+                  console.log("SELECT stmt err->", err);
+                  res.render('error');
+              }
               console.log("pnumber->", pnumber);
               pnum=pnumber;
+
           });
           stmt.finalize();
 
@@ -69,14 +80,18 @@ router.get('/', function (req, res) {
                   "where topicid=$tid order by pid");
 
           allpost.all({$tid: tid}, function (err, allposts) {
-                  console.log("allposts---------->", allposts);
-                  res.render('single', {
+              if(err){
+                  console.log("SELECT allpost err->", err);
+                  res.render('error');
+              }
+              console.log("allposts---------->", allposts);
+              res.render('single', {
                       'topic_detail': topic_detail,
                       'children_replies': children_replies_r,
                       'post_sum': pnum,
                       'allpost': allposts,
-                  });
               });
+          });
           allpost.finalize();
 
       });

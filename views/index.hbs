@@ -100,10 +100,11 @@
                 <div class="search-area-wrapper">
                     <div class="search-area container">
                         <h3 class="search-header">Search a Question?</h3>
-                        <p class="search-tag-line" id="search-error-container">If you have any question you can ask below or enter what you are looking for!</p>
+                        <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
 
-                        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-                            <input class="search-term required" type="text" id="search_term" name="s" placeholder="Type your search terms here" />
+                        <form id="search-form" class="search-form clearfix"  autocomplete="off">
+                            <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
+                                   onkeydown = "if (event.keyCode === 13) {dosearch();return false;}" />
                             <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
                             <div ></div>
                         </form>
@@ -279,7 +280,6 @@
                 <script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
                 <script type='text/javascript' src='js/prettyphoto/jquery.prettyPhoto.js'></script>
                 <script type='text/javascript' src='js/jflickrfeed.js'></script>
-				<script type='text/javascript' src='js/jquery.liveSearch.js'></script>
                 <script type='text/javascript' src='js/jquery.form.js'></script>
                 <script type='text/javascript' src='js/jquery.validate.min.js'></script>
                 <script type='text/javascript' src='js/custom.js'></script>

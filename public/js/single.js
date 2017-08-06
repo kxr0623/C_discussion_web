@@ -447,7 +447,7 @@ function formatExplain(str,maxNum) {
 }
 
 var nodes = new vis.DataSet(nodesArray);
-var star = 0, max = 0;
+var star = 0,hot=0, max = 0;
 if(lis.length===0){
     $('#map_area1').hide();
     $('#mynetwork').hide();
@@ -462,7 +462,7 @@ for (var i = 0; i < lis.length; i++) {
     var titleelement = '<br/>* Explain: <br/>' + formatExplain(explain,3);
 
     if (likes > max) {
-        star = lis[i].id;
+        hot = lis[i].id;
         max = likes;
     }
     ;
@@ -479,17 +479,34 @@ for (var i = 0; i < lis.length; i++) {
         alert(err);
     }
 }
-//mark the star
-star=parseInt(tAnswer,10);
-if (star != 0) {
+//---------------------------mark the star (post received by topic creator-----------------
+star=0;
+if(tAnswer!==''){star=parseInt(tAnswer,10);}
+if (star !== 0 && star!==hot) {
     nodes.update({id: star, font: {size: 15}, size: 25, shape: 'star'});
 }
-
-
+//mark the hot post
+if(hot!==0 && star!==hot){nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'triangle'});}
+if(hot==star && hot !==0){
+    var thenode=nodes.get(hot);
+    thenode.color={
+        border:'#ff5500',
+        background: '#97C2FC',
+        highlight: {
+            border: '#2B7CE9',
+            background: '#ffff99'
+        },
+        hover: {
+            border: '#ffff00',
+            background: '#97C2FC'
+        }
+    };
+    thenode.shape='star';
+    nodes.update(thenode);
+    //nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'star',color:'red'});
+}
 // create an array with edges
-var edgesArray = [
-    {from: 0, to: lis[0].id},
-];
+var edgesArray = [];
 var edges = new vis.DataSet(edgesArray);
 for (var i = 0; i < lis.length; i++) {
     var data_strategy=lis[i].getAttribute("data-strategy");
@@ -537,6 +554,9 @@ function draw() {
     var container = document.getElementById('mynetwork');
     var container0 = document.getElementById('mynetwork0');
     var options = {
+        hoverConnectedEdges:false,
+        selectConnectedEdges:false,
+        keyboard:{bindToWindow:false},
         interaction: {
             hover: true,
             zoomView: false,
@@ -563,13 +583,12 @@ function draw() {
                     background: '#97C2FC'
                 }
             },
-        },
-        edges:{
-            chosen: true,
         }
     };
-    var options0;
-    options0 = {
+    var options0 = {
+        hoverConnectedEdges:false,
+        selectConnectedEdges:false,
+        keyboard:{bindToWindow:false},
         interaction: {
             hover: true,
             zoomView: false,
@@ -582,7 +601,6 @@ function draw() {
                 sortMethod: 'directed'   // hubsize, directed
             },
         },
-
         nodes: {
             shape: 'dot',
             color: {
@@ -597,40 +615,47 @@ function draw() {
                     background: '#97C2FC'
                 }
             },
-        },
+        }
     };
     network = new vis.Network(container, data, options);
     network0 = new vis.Network(container0, data, options0);
     network.selectNodes([currentNode],false);
-
     network0.selectNodes([currentNode],false);
     // add event listeners0
     network.on('hoverNode', function () {
         document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
     });
     network0.on('hoverNode', function () {
-        changeCursor('pointer');
+        //changeCursor('pointer');
+        document.getElementById("mynetwork0").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
+
     });
     network.on('select', function (params) {
         document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
         //alert('Selection: ' + params.nodes);
-        if (params.nodes == 0) {
-
-            window.location.href = "single?id=" + $('#topicid-div').val();
+        if(params.nodes.length!==0) {
+            if (params.nodes == 0) {
+                //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
+                // SyntaxHighlighter.all();
+               // window.location.href = "single?id=" + $('#topicid-div').val();
+            }
+            else
+                window.location.href = "reply?id=" + params.nodes;
         }
-        else
-            window.location.href = "reply?id=" + params.nodes;
+        else network.selectNodes([currentNode],false);
 
     });
     network0.on('select', function (params) {
         document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
-        if (params.nodes == 0) {
-            //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-            // SyntaxHighlighter.all();
-            window.location.href = "single?id=" + $('#topicid-div').val();
+        if(params.nodes.length!==0) {
+            if (params.nodes == 0) {
+                //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
+                // SyntaxHighlighter.all();
+            }
+            else
+                window.location.href = "reply?id=" + params.nodes;
         }
-        else
-            window.location.href = "reply?id=" + params.nodes;
+        else network.selectNodes([currentNode],false);
 
     });
 

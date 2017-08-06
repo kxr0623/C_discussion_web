@@ -17,10 +17,13 @@ function new_list(req, res, next) {
     var db = new sqlite3.Database('Mydb.db');
     var dbRequest = 'SELECT * FROM Topic Inner Join Users on creator=uid  ORDER BY createtime DESC ';
     db.all(dbRequest, function(error, rows) {
-
-        if (error || !rows.length) {
-            console.log("err->",err);
-            res.render('/');
+        if(!rows.length){
+            req.newest = rows;
+           // res.render('/');
+        }
+        if (error ) {
+            console.log("err->",error);
+            //res.render('/');
         }
         req.newest = rows;
         return next();
@@ -34,8 +37,8 @@ function pop_list(req, res, next) {
         "FROM Topic Inner Join Users on creator=uid  ORDER BY likes DESC";
     db.all(dbRequest, function(error, rows) {
         if(error) {
-            console.log("err->",err);
-            res.render('/');
+            console.log("err->",error);
+            //res.render('/');
         }
         /* Add selected data to previous saved data. */
         else {

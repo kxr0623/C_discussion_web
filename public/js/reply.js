@@ -503,27 +503,55 @@ var nodesArray=[
     { id: 0,value:tlikes, label:"#0 "+ tposter, title: 'Go to Reply:0'+'<br/>* Question: <br/>'+formatExplain(tQuestion) },
 ];
 var nodes = new vis.DataSet(nodesArray);
-var star=0,max=0;
+var star=0,hot=0,max=0;
 
 for(var i=0;i<lis.length;i++){
     var pid=parseInt(lis[i].id),likes=parseInt(lis[i].value),plable=lis[i].title;
     var explain=lis[i].getAttribute("data-explain");
     var titleelement= '<br/>* Explain: <br/>'+formatExplain(explain);
 
-    if(likes>max){star=lis[i].id; max=likes;};
+    if(likes>max){hot=lis[i].id; max=likes;};
     try{
         nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+ plable,title: 'Go to Reply:' + (i+1)+titleelement});
     }
     catch(err) {alert(err);}
 }
 //---------------------------mark the star (post received by topic creator-----------------
-star=parseInt(tAnswer,10);
-if(star!=0){nodes.update({id:star, font: { size: 15 }, size: 25, shape: 'star'});}
+star=0;
+if(tAnswer!==''){star=parseInt(tAnswer,10);}
+if (star !== 0 && star!==hot) {
+    nodes.update({id: star, font: {size: 15}, size: 25, shape: 'star'});
+}
+//mark the hot post
+
+/*if(hot!==0 && star!==hot){
+    var thenode=nodes.get(hot);
+    thenode.color={border:'#ff5500'};
+    nodes.update(thenode);
+}
+*/
+if(hot!==0 && star!==hot){nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'triangle'});}
+if(hot==star && hot !==0){
+    var thenode=nodes.get(hot);
+    thenode.color={
+        border:'#ff5500',
+        background: '#97C2FC',
+        highlight: {
+            border: '#2B7CE9',
+            background: '#ffff99'
+        },
+        hover: {
+            border: '#ffff00',
+            background: '#97C2FC'
+        }
+    };
+    thenode.shape='star';
+    nodes.update(thenode);
+    //nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'star',color:'red'});
+}
 
 //---------------- --------create an array with edges-------------
-var edgesArray=[
-    { from: 0, to: lis[0].id },
-];
+var edgesArray=[];
 var edges = new vis.DataSet(edgesArray);
 for(var i=0;i<lis.length;i++){
     var data_strategy=lis[i].getAttribute("data-strategy");
@@ -565,6 +593,9 @@ function draw() {
     var container = document.getElementById('mynetwork');
 
     var options = {
+        physics: false,
+        hoverConnectedEdges:false,
+        selectConnectedEdges:false,
         interaction: {
             hover: true,
             zoomView:false,
@@ -602,14 +633,20 @@ function draw() {
     // add event listeners0
     network.on('select', function (params) {
         document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
-        //alert('Selection: ' + params.nodes);
-        if (params.nodes == 0) {
-            //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-            // SyntaxHighlighter.all();
-            window.location.href = "single?id="+titleid;
+
+        if(params.nodes.length!==0) {
+            if (params.nodes == 0) {
+                //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
+                // SyntaxHighlighter.all();
+                window.location.href = "single?id=" + titleid;
+            }
+            else{
+                if(params.nodes!=currentNode){window.location.href = "reply?id=" + params.nodes;}
+
+            }
+
         }
-        else
-            window.location.href = "reply?id="+params.nodes;
+        else network.selectNodes([currentNode],false);
 
     });
 
