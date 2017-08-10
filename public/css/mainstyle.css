@@ -775,7 +775,7 @@ ul.articles li.article-entry:last-child {
 
 .hentry.type-post .post-title {
   padding-left: 35px;
-  background: url("../images/question-large.png") no-repeat 0 3px;
+  background: url("../images/category-main-icon.png") no-repeat 0 3px;
   font-size: 20px;
   line-height: 30px;
 }
@@ -802,7 +802,7 @@ ul.articles li.article-entry:last-child {
 }
 
 .faq.hentry .post-title {
-  background: url("../images/question-large.png") no-repeat 0 5px;
+  background: url("../images/category-main-icon.png") no-repeat 0 5px;
   padding-left: 30px;
 }
 
@@ -1579,6 +1579,6 @@ a#scroll-top:hover {
 }
 #received_this{
     font-size:14px;
-    color:red;
+    color:#ffffb3;
     display: none;
 }

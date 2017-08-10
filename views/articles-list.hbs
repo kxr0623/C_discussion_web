@@ -12,11 +12,9 @@
 
                 <link rel="shortcut icon" href="images/favicon.png" />
 
-
-                
-
                 <!-- Style Sheet-->
-                <link rel="stylesheet" href="style.css"/>
+            <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
+            <link rel="stylesheet" href="style.css"/>
                 <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
                 <link rel='stylesheet' id='responsive-css-css'  href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
                 <link rel='stylesheet' id='pretty-photo-css-css'  href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
@@ -28,60 +26,89 @@
                 <!--[if lt IE 9]>
                 <script src="js/html5.js"></script></script>
                 <![endif]-->
-
-
         </head>
 
         <body>
 
-                <!-- Start of Header -->
-                <div class="header-wrapper">
-                        <header>
-                                <div class="container">
-                                        <div class="logo-container">
-                                                <!-- Website Logo -->
-                                                <a href="/"  title="C-Discussion">
-                                                        <img src="images/logo.png" alt="logo">
-                                                </a>
-                                                <span class="tag-line">C Programming Discussion</span>
-                                        </div>
-                                        <!-- Start of Main Navigation -->
-                                        <nav class="main-nav">
-                                                <div class="menu-top-menu-container">
-                                                        <ul id="menu-top-menu" class="clearfix">
-                                                                <li ><a href="/">Home</a></li>
-                                                                <li class="current-menu-item"><a href="articles-list">Articles List</a></li>
-                                                                <li ><a href="contact">Contact</a></li>
-                                                        </ul>
-                                                        <ul id="headerul2">
-                                                                <li id ='login'><a  href="login"> LOG IN</a></li> 
-                                                                <li id ='reg'><a  href="reg">Register</a></li>
-                                                        </ul>
-                                                </div>
-                                        </nav>
-                                        <!-- End of Main Navigation -->
-                                </div>
-                        </header>
-                </div>
-                <!-- End of Header -->
-
-                <!-- Start of Search Wrapper -->
-                <div class="search-area-wrapper">
-                        <div class="search-area container">
-                                <h3 class="search-header">Search a Question?</h3>
-                            <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
-
-                            <form id="search-form" class="search-form clearfix"  autocomplete="off">
-                                <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
-                                       onkeydown = "if (event.keyCode === 13) {dosearch();return false;}" />
-                                <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
-                                <div ></div>
-                            </form>
+        <!-- Start of Header -->
+        <div class="header-wrapper">
+            <header>
+                <div class="container">
+                    <div class="logo-container">
+                        <!-- Website Logo -->
+                        <a href="/"  title="C-Discussion">
+                            <img src="images/logo.png" alt="logo">
+                        </a>
+                        <span class="tag-line">C Programming Discussion</span>
+                    </div>
+                    <!-- Start of Main Navigation -->
+                    <nav class="main-nav">
+                        <div class="menu-top-menu-container" id="cssmenu">
+                            <ul id="headerrul1" class="clearfix" style="text-align:right;">
+                                <li><a href="/">Home</a></li>
+                                <li class="current-menu-item"><a href="articles-list">Articles List</a></li>
+                                <li><a href="contact">Contact</a></li>
+                            </ul>
+                            <ul id="headerul2">
+                                <li id ='login' onclick="document.getElementById('id01').style.display='block'" ><a>LOG IN</a></li>
+                                <li id ='reg'><a  href="reg">Register</a></li>
+                                <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
+                            </ul>
                         </div>
-                </div>
-                <!-- End of Search Wrapper -->
+                    </nav>
+                    <!-- End of Main Navigation -->
 
-                <!-- Start of Page Container -->
+                </div>
+            </header>
+        </div>
+        <!-- End of Header -->
+        <!--pupup login-->
+        <div id="id01"  class="modal" style="width: 1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
+
+            <form class="modal-content animate" style="width: 400px">
+                <div class="imgcontainer">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                    <img src="images/users.png" alt="Avatar" class="avatar">
+                </div>
+
+                <div class="logincontainer" >
+                    <label><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+
+                    <label><b>Password</b></label>
+                    <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+
+                    <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+
+                    <div class="logincontainer" style="background-color:#f1f1f1">
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                        <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <!--end login popup-->
+
+        <!-- Start of Search Wrapper -->
+        <div class="search-area-wrapper">
+            <div class="search-area container">
+                <h3 class="search-header">Search a Question?</h3>
+                <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
+
+                <form id="search-form" class="search-form clearfix"  autocomplete="off">
+                    <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
+                           onkeydown = "if (event.keyCode === 13) {dosearch();return false;}" />
+                    <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
+                    <div ></div>
+                </form>
+            </div>
+        </div>
+        <!-- End of Search Wrapper -->
+
+
+        <!-- Start of Page Container -->
                 <div class="page-container">
                         <div class="container">
                                 <div class="row">
@@ -106,53 +133,31 @@
 
                                                         </header>
 
-                                                        <p>Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending.&nbsp;Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . . <a class="readmore-link" href="http://knowledgebase.inspirythemes.com/integrating-wordpress-with-your-website/">Read more</a></p>
+                                                        <p>Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending.&nbsp;Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . .
+                                                            <a class="readmore-link" href="/">Read more</a>
+                                                        </p>
 
                                                 </article>
 
+                                            {{#if newest}}
+                                                {{#each newest}}
                                                 <article class="format-standard type-post hentry clearfix">
-
                                                         <header class="clearfix">
-
-                                                                <h3 class="post-title">
-                                                                        <a href="single.hbs">Using Javascript</a>
-                                                                </h3>
-
+                                                            <h3 class="post-title">
+                                                                <a href="/single?id={{aid}}">{{title}}</a>
+                                                            </h3>
                                                                 <div class="post-meta clearfix">
-                                                                        <span class="date">25 Feb, 2013</span>
-                                                                        <span class="category"><a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                                                        <span class="comments"><a href="#" title="Comment on Using Javascript">0 Comments</a></span>
-                                                                        <span class="like-count">18</span>
+                                                                        <span class="date">{{createtime}}</span>
+                                                                        <span class="category"><a title="View all posts in Advanced Techniques">{{tag}}</a></span>
+                                                                        <span class="author"><a href="#" title="Comment on Using Javascript">{{username}}</a></span>
+                                                                        <span class="like-count">{{likes}}</span>
                                                                 </div><!-- end of post meta -->
-
                                                         </header>
-
-                                                        <p>Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending.&nbsp;Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . . <a class="readmore-link" href="http://knowledgebase.inspirythemes.com/using-javascript/">Read more</a></p>
-
+                                                    <p id="short_content">{{content}}</p>
                                                 </article>
+                                                {{/each}}
+                                            {{/if}}
 
-                                                <article class=" type-post  format-standard hentry clearfix">
-
-                                                        <header class="clearfix">
-
-                                                                <h3 class="post-title">
-                                                                        <a href="single.hbs">WordPress Site Maintenance</a>
-                                                                </h3>
-
-                                                                <div class="post-meta clearfix">
-                                                                        <span class="date">24 Feb, 2013</span>
-                                                                        <span class="category"><a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-
-                                                                        <span class="comments"><a href="#" title="Comment on WordPress Site Maintenance">0 Comments</a></span>
-
-                                                                        <span class="like-count">15</span>
-                                                                </div><!-- end of post meta -->
-
-                                                        </header>
-
-                                                        <p>Many of us work in an endless stream of tasks, browser tasks, social media, emails, meetings, rushing from one thing to another, never pausing and never ending.&nbsp;Then the day is over, and we are exhausted, and we often have very little to show for it. And we start the next . . . <a class="readmore-link" href="http://knowledgebase.inspirythemes.com/wordpress-site-maintenance/">Read more</a></p>
-
-                                                </article>
 
                                                 <div id="pagination">
                                                         <a href="#" class="btn active">1</a>
@@ -169,37 +174,42 @@
                                         <!-- start of sidebar -->
                                         <aside class="span4 page-sidebar">
 
-                                                <section class="widget">
-                                                        <div class="support-widget">
-                                                                <h3 class="title">Support</h3>
-                                                                <p class="intro">Need more support? If you did not found an answer, contact us for further help.</p>
-                                                        </div>
-                                                </section>
+                                            <section class="widget">
+                                                <div class="newTopic-widget">
+                                                    <h3 class="title">Create a New Article</h3>
+                                                    <div class="row">
+                                                        <div class="span2" style="font-weight:bold;">Total Topics:</div>
+                                                        {{#if sumArticles}}
+                                                            {{#each sumArticles}}
+                                                                <div class="span1"><lable  class="showleft">{{sum}} </lable></div>
+                                                            {{/each}}
+                                                        {{/if}}
+                                                    </div>
+                                                    <input class="create-btn showright" type="submit" onclick="location.href='topic';" value="Create Article" />
+
+                                                </div>
+                                            </section>
+
+                                            <section class="widget">
+                                                <div class="support-widget" onclick="document.location='contact';return false;" >
+                                                    <h3 class="title">Support</h3>
+                                                    <p class="intro">Need more support? If you have some questions or suggestion for the web, contact us for further help.</p>
+                                                </div>
+                                            </section>
 
 
                                                 <section class="widget">
                                                         <h3 class="title">Featured Articles</h3>
                                                         <ul class="articles">
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.hbs">Integrating WordPress with Your Website</a></h4>
-                                                                        <span class="article-meta">25 Feb, 2013 in <a href="#" title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
-                                                                        <span class="like-count">66</span>
-                                                                </li>
-                                                                <li class="article-entry standard">
-                                                                        <h4><a href="single.hbs">WordPress Site Maintenance</a></h4>
-                                                                        <span class="article-meta">24 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">15</span>
-                                                                </li>
-                                                                <li class="article-entry video">
-                                                                        <h4><a href="single.hbs">Meta Tags in WordPress</a></h4>
-                                                                        <span class="article-meta">23 Feb, 2013 in <a href="#" title="View all posts in Website Dev">Website Dev</a></span>
-                                                                        <span class="like-count">8</span>
-                                                                </li>
-                                                                <li class="article-entry image">
-                                                                        <h4><a href="single.hbs">WordPress in Your Language</a></h4>
-                                                                        <span class="article-meta">22 Feb, 2013 in <a href="#" title="View all posts in Advanced Techniques">Advanced Techniques</a></span>
-                                                                        <span class="like-count">6</span>
-                                                                </li>
+                                                            {{#if pop}}
+                                                                {{#each pop}}
+                                                                    <li class="article-entry standard">
+                                                                        <h4><a href="/single?id={{uid}}">{{title}}</a></h4>
+                                                                        <span class="article-meta">{{createtime}} by <a>{{username}}</a></span>
+                                                                        <span class="like-count">{{likes}}</span>
+                                                                    </li>
+                                                                {{/each}}
+                                                            {{/if}}
                                                         </ul>
                                                 </section>
 
@@ -252,13 +262,13 @@
 
                 <!-- script -->
                 <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+        <script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
                 <script type='text/javascript' src='js/jquery.easing.1.34e44.js?ver=1.3'></script>
-                <script type='text/javascript' src='js/prettyphoto/jquery.prettyPhotoaeb9.js?ver=3.1.4'></script>
-                <script type='text/javascript' src='js/jquery.liveSearchd5f7.js?ver=2.0'></script>
 				<script type='text/javascript' src='js/jflickrfeed.js'></script>
                 <script type='text/javascript' src='js/jquery.formd471.js?ver=3.18'></script>
                 <script type='text/javascript' src='js/jquery.validate.minfc6b.js?ver=1.10.0'></script>
                 <script type='text/javascript' src='js/custom5152.js?ver=1.0'></script>
+        <script type='text/javascript' src='js/articles.js'></script>
 
         </body>
 </html>

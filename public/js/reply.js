@@ -165,7 +165,11 @@ $(document).ready(function(){
     });
     var answer=$('#topic_answer').html();
     if(answer.length>0 && answer===$('#postid_div').val()){
+
         $('#received_this').show();
+        document.getElementById('notice').style.background='#3bcf00';
+        document.getElementById('notice').style.color='#ffffff';
+        //$('#notice').style(background,'')
     }
 
     window.onclick = function(event) {
@@ -406,6 +410,8 @@ $('#receive_btn').click(function () {
             if(data){
                     $('#receive_btn').hide();
                     $('#received_this').show();
+                document.getElementById('notice').style.background='#3bcf00';
+                document.getElementById('notice').style.color='#ffffff';
                     $('#topic_answer').html(postid);
             }
             else alter('something wrong with the receive button...');

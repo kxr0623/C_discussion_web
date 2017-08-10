@@ -22,6 +22,7 @@ var routes_signopt = require('./routes/login.js');
 var logout = require('./routes/logout.js');
 var signup = require('./routes/signup.js');
 var newtopic=require('./routes/newtopic_r.js');
+var articles=require('./routes/articles');
 var app = express();
 
 
@@ -52,6 +53,7 @@ app.use('/logout',logout);
 app.use('/reg',signup);
 app.use('/reply',reply);
 app.use('/topic',newtopic);
+app.use('/articles-list',articles);
 
 app.use(function (req, res, next) {
     getFullUrl(req, function (fullUrl) {
