@@ -16,9 +16,7 @@ var salt = "t{Z@WLoJ"; // encrypt the password: md5(originalpassword+salt)
         /*if(req.session.username) {
             res.clearCookie("username");
         }
-        if(req.cookies.userid) {
-            res.clearCookie("userid");
-        }*/
+        */
         req.session.destroy(function(err){
             if(err){
                 console.log(err);

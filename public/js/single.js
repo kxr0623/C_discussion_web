@@ -11,11 +11,6 @@ $('#like-it-form .like-it').click(function () {
     var likeHtml = likeButton.html();
     var likeNum = parseInt(likeHtml, 10);
     likeNum++;
-    console.log("------->>>>>>>>>>>" + tid);
-    likeButton.html(likeNum);
-    var likeButton2 = $('#like1');
-    likeButton2.html(likeNum);
-    var sresult;
     $.ajax({
         type: "GET",
         url: "/single/addlikeTopic",
@@ -23,19 +18,17 @@ $('#like-it-form .like-it').click(function () {
         async: false,
         data: {"tid": tid},
         success: function (data) {
-            sresult = data;
             if (data.result === true) {
-                //alert("send susessfully!");
-                location.reload();
+                likeButton.html(likeNum);
+                var likeButton2 = $('#like1');
+                likeButton2.html(likeNum);
             }
             else {
                 alert("* database is locked! please waite..");
             }
         }
     });
-    if (sresult.result === true) {
-        location.reload();
-    }
+
 });
 $('#like1').click(function () {
     var likeButton = $(this);
@@ -44,11 +37,7 @@ $('#like1').click(function () {
     var likeNum = parseInt(likeHtml, 10);
     likeNum++;
     console.log("------->>>>>>>>>>>" + tid);
-    likeButton.html(likeNum);
-    var likeButton2 = $('#like-it-form .like-it');
-    likeButton2.html(likeNum);
 
-    var sresult;
     $.ajax({
         type: "GET",
         url: "/single/addlikeTopic",
@@ -56,19 +45,17 @@ $('#like1').click(function () {
         async: false,
         data: {"tid": tid},
         success: function (data) {
-            sresult = data;
             if (data.result === true) {
-                //alert("send susessfully!");
-                location.reload();
+                likeButton.html(likeNum);
+                var likeButton2 = $('#like-it-form .like-it');
+                likeButton2.html(likeNum);
+
             }
             else {
                 alert("* database is locked! please waite..");
             }
         }
     });
-    if (sresult.result === true) {
-        location.reload();
-    }
 });
 
 //------------------------------------------------------
@@ -234,7 +221,6 @@ $(document).ready(function () {
         }
 
         else {
-            var sresult;
             var topicid = $('#topicid-div').val();
             var parent = 0;
 
@@ -251,7 +237,6 @@ $(document).ready(function () {
                     "parent": parent
                 },
                 success: function (data) {
-                    sresult = data;
                     if (data.result === true) {
                         alert("send susessfully!");
                         location.reload();
@@ -319,8 +304,6 @@ function checkIsLogin() {
     return true;
 }
 function logoutFuc() {
-
-    var result;
     $.ajax({
         type: "GET",
         url: "/logout",
@@ -328,17 +311,20 @@ function logoutFuc() {
         async: false,
         data: {},
         success: function (data) {
-            result = data;
+            if (data === "true") {
+                $('#login').show();
+                $('#reg').show();
+                $('#logout').hide();
+                $('#update_code').hide();
+                $('#update_comment').hide();
+                $('#loginName').val('');
+                $('#loginPassword').val('');
+
+            }
+            else {alert('logout unsuccessfully...');}
         }
     });
-    if (result === "true") {
-        $('#login').show();
-        $('#reg').show();
-        $('#logout').hide();
-        $('#update_code').hide();
-        $('#update_comment').hide();
 
-    }
 }
 function LogInForm() {
     //alert('dddd');
@@ -352,6 +338,8 @@ function LogInForm() {
     }
     if (password.length > 16 || password.length < 3) {
         alert("You need to type passwords between 3 and 16 characters!");
+        $('#loginPassword').val('');
+        $('#loginPassword').focus();
         return false;
     }
     // alert(password);
@@ -381,8 +369,8 @@ function LogInForm() {
         error: function (data, status) {
             if (status == 'error') {
                 alert('username or password error!');
-                $('#loginName').val('');
                 $('#loginPassword').val('');
+                $('#loginPassword').focus();
             }
         }
     });

@@ -83,7 +83,6 @@ function validEmail(v) {
     return (v.match(r) == null) ? false : true;
 }
 function logoutFuc() {
-    var result;
     $.ajax({
         type: "GET",
         url: "/logout",
@@ -91,12 +90,16 @@ function logoutFuc() {
         async: false,
         data: {},
         success: function (data) {
-            result = data;
+            if (data === "true") {
+                $('#login').show();
+                $('#reg').show();
+                $('#logout').hide();
+                $('#loginName').val('');
+                $('#loginPassword').val('');
+            }
+            else {alert('logout unsuccessfully...');}
         }
     });
-    if (result === "true") {
-        location.reload();
-    }
 }
 function dosearch() {
     var stm= document.getElementById('search_term').value;
@@ -136,6 +139,8 @@ function LogInForm() {
     }
     if (password.length > 16 || password.length<3) {
         alert("You need to type passwords between 3 and 16 characters!");
+        $('#loginPassword').val('');
+        $('#loginPassword').focus();
         return false;
     }
     // alert(password);
@@ -160,8 +165,8 @@ function LogInForm() {
         error: function(data,status){
             if(status == 'error'){
                 alert('username or password error!');
-                $('#loginName').val('');
                 $('#loginPassword').val('');
+                $('#loginPassword').focus();
             }
         }
     });

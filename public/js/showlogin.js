@@ -31,7 +31,6 @@ $(function () {
 
 });
 function logoutFuc() {
-    var result;
     $.ajax({
         type: "GET",
         url: "/logout",
@@ -39,12 +38,14 @@ function logoutFuc() {
         async: false,
         data: {},
         success: function (data) {
-            result = data;
+            if (data === "true") {
+                $('#login').show();
+                $('#reg').show();
+                $('#logout').hide();
+            }
+            else {alert('logout unsuccessfully...');}
         }
     });
-    if (result === "true") {
-        location.reload();
-    }
 }
 
 function checkForm() {

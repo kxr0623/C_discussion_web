@@ -10,11 +10,7 @@ $('#like-it-form .like-it').click(function(){
     var likeHtml = likeButton.html();
     var likeNum = parseInt(likeHtml, 10);
     likeNum++;
-    console.log("------->>>>>>>>>>>"+pid);
-    likeButton.html(likeNum);
-    var likeButton2=$('#like1');
-    likeButton2.html(likeNum);
-    var sresult;
+
     $.ajax({
         type: "GET",
         url : "/reply/addlikeReply",
@@ -22,13 +18,15 @@ $('#like-it-form .like-it').click(function(){
         async : false,
         data:{ "pid":pid},
         success: function(data) {
-            sresult = data;
+            if(data.result === true) {
+                likeButton.html(likeNum);
+                var likeButton2=$('#like1');
+                likeButton2.html(likeNum);
+            }
+            else {alert(data.detail);}
         }
     });
-    if(sresult.result === true) {
-        location.reload();
-    }
-    else {alert(sresult.detail);}
+
 });
 $('#like1').click(function(){
     var likeButton = $(this);
@@ -36,12 +34,6 @@ $('#like1').click(function(){
     var likeHtml = likeButton.html();
     var likeNum = parseInt(likeHtml, 10);
     likeNum++;
-    console.log("------->>>>>>>>>>>"+pid);
-    likeButton.html(likeNum);
-    var likeButton2=$('#like-it-form .like-it');
-    likeButton2.html(likeNum);
-
-    var sresult;
     $.ajax({
         type: "GET",
         url : "/reply/addlikeReply",
@@ -49,13 +41,15 @@ $('#like1').click(function(){
         async : false,
         data:{"pid":pid},
         success: function(data) {
-            sresult = data;
+            if(data.result === true) {
+                likeButton.html(likeNum);
+                var likeButton2=$('#like-it-form .like-it');
+                likeButton2.html(likeNum);
+            }
+            else {alert(data.detail);}
         }
     });
-    if(sresult.result === true) {
-        location.reload();
-    }
-    else {alert(sresult.detail);}
+
 });
 
 //------------------------------------------------------
@@ -100,7 +94,6 @@ $(document).ready(function(){
         }
 
         else  {
-            var sresult;
             var topicid=$('#topicid_div').val();
             var parent=$('#postid_div').val();
 
@@ -116,8 +109,6 @@ $(document).ready(function(){
                     "topicid":topicid,
                     "parent":parent},
                 success: function(data) {
-                    sresult = data;
-                    //alert(">>>>>>ajax:"+data.result);
                     if(data.result === true) {
                         alert("send susessfully!");
                         location.reload();
@@ -198,8 +189,6 @@ function checkIsLogin() {
     return true;
 }
 function logoutFuc() {
-
-    var result;
     $.ajax({
         type: "GET",
         url: "/logout",
@@ -207,26 +196,34 @@ function logoutFuc() {
         async: false,
         data: {},
         success: function (data) {
-            result = data;
+            if (data === "true") {
+                $('#update_code').hide();
+                $('#update_comment').hide();
+                $('#receive_btn').hide();
+                document.getElementById('id01').style.display = "none";//login window
+                $('#login').show();
+                $('#reg').show();
+                $('#logout').hide();
+                $('#loginName').val('');
+                $('#loginPassword').val('');
+            }
+            else {alert('logout unsuccessfully...');}
         }
     });
-    if (result === "true") {
 
-        location.reload();
-    }
 }
 function LogInForm() {
     //alert('dddd');
     var userName = document.getElementById("loginName").value;
-
     var password = document.getElementById("loginPassword").value;
-
     if (userName.length <= 0) {
         alert("input your username");
         return false;
     }
     if (password.length > 16 || password.length<3) {
         alert("You need to type passwords between 3 and 16 characters!");
+        $('#loginPassword').val('');
+        $('#loginPassword').focus();
         return false;
     }
     // alert(password);
@@ -259,8 +256,8 @@ function LogInForm() {
         error: function(data,status){
             if(status == 'error'){
                 alert('username or password error!');
-                $('#loginName').val('');
                 $('#loginPassword').val('');
+                $('#loginPassword').focus();
             }
         }
     });
@@ -599,7 +596,7 @@ function draw() {
     var container = document.getElementById('mynetwork');
 
     var options = {
-        physics: false,
+        //physics: false,
         hoverConnectedEdges:false,
         selectConnectedEdges:false,
         interaction: {
