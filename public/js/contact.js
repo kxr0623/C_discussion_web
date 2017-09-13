@@ -10,19 +10,15 @@ $(document).ready(function(){
         var contactemail=$("#contact-email").val();
         var contactsubject=$("#contact-subject").val();
         var contactmessage=$("#contact-message").val();
-        console.log(">>>>>>>>>>>>>>>>contactname:"+contactname);
-        console.log(">>>>>>>>>>>>>>>>contactmessage:"+contactmessage);
 
         if(contactmessage.length < 1||contactsubject.length<1||contactemail.length<1||contactname.length<1) {
-            $('#feedback1').test("Please full the form, and submit again.");
+            $('#feedback1').text("Please full the form, and submit again.");
             return;
         }
         else  if(!validEmail(contactemail)) {
-            $("#feedback1").test("Please input a valid email.");
+            $("#feedback1").text("Please input a valid email.");
             return;
         }
-
-
         else {
         var sresult;
         $.ajax({
@@ -43,8 +39,6 @@ $(document).ready(function(){
         } else {
             alert(sresult.detail);
         }
-
-
         }
     });
     $(function () {
