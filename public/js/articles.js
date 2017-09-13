@@ -24,37 +24,46 @@ $(function () {
     });
 
 });
-var content=$('#short_content').html();
+var content=$('.short_content').html();
 $(function () {
-    //var content=$('#short_content').html();
+
     var shortContent=content.trim().split(/\s+/);
     var wordNum=shortContent.length;
-    var newstring;
+    var newstring='';
+    //alert(content.length)
     if(wordNum>50){
         for(var i=0;i<50;i++){
             newstring+=shortContent[i]+' ';
         }
-        newstring+='<a class="readmore-link" onclick="showall()"> . . . Read more</a>';
-        $('#short_content').html(newstring);
+
+        newstring+='<a class="read_more_btn" onclick="showall(this)" id="read_more_btn"> . . . Read more</a>';
+        $('.short_content').html(newstring);
+       // $('.read_more_btn').show();
     }
+    //$( ".editField" ).click(function() {
+    //alert($(this).find('td:last').text());
+    //});
 });
-function showall() {
-    var newstring;
-    newstring+=content+ '<a class="readmore-link" onclick="back()">  [Go back]</a>'
-    $('#short_content').html(newstring);
+function showall(aid) {
+
+    var newstring=content;
+    //alert(document.getElementById(aid.id).parentElement.id);
+    var parent_id=document.getElementById(aid.id).parentElement.id;
+    newstring+= '<a  onclick="back(this)"id="back_btn">  [Go back]</a>';
+    document.getElementById(parent_id).innerHTML=newstring;
 }
-function back() {
+function back(bid) {
     var shortContent=content.trim().split(/\s+/);
     var wordNum=shortContent.length;
-    var newstring;
+    var newstring='';
     if(wordNum>50){
         for(var i=0;i<50;i++){
             newstring+=shortContent[i]+' ';
         }
-        newstring+='<a class="readmore-link" onclick="showall()"> . . . Read more</a>';
-        $('#short_content').html(newstring);
+        var parent_id=document.getElementById(bid.id).parentElement.id;
+        newstring+='<a class="read_more_btn" id="read_more_btn" onclick="showall(this)"> . . . Read more</a>';
+        document.getElementById(parent_id).innerHTML=newstring;
     }
-   // $('#short_content').html(newstring);
 }
 
 function logoutFuc() {
@@ -71,6 +80,7 @@ function logoutFuc() {
                 $('#loginName').val('');
                 $('#loginPassword').val('');
                 $('#logout').hide();
+               // $('#logout').hide();
             }
             else {alert('logout unsuccessfully...');}
         }
@@ -115,8 +125,6 @@ function LogInForm() {
     }
     if (password.length > 16 || password.length<3) {
         alert("You need to type passwords between 3 and 16 characters!");
-        $('#loginPassword').val('');
-        $('#loginPassword').focus();
         return false;
     }
     // alert(password);
@@ -141,8 +149,8 @@ function LogInForm() {
         error: function(data,status){
             if(status == 'error'){
                 alert('username or password error!');
+                $('#loginName').val('');
                 $('#loginPassword').val('');
-                $('#loginPassword').focus();
             }
         }
     });

@@ -11,7 +11,6 @@
     <link rel="shortcut icon" href="images/favicon.png" />
     <!-- Style Sheet-->
     <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
-
     <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='responsive-css-css' href='css/responsive5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='pretty-photo-css-css' href='js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all'/>
@@ -53,7 +52,6 @@
                 </div>
             </nav>
             <!-- End of Main Navigation -->
-
         </div>
     </header>
 </div>
@@ -75,7 +73,7 @@
             <label><b>Password</b></label>
             <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
 
-            <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px" />
 
             <div class="logincontainer" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
@@ -106,34 +104,26 @@
                        Sign Up
                     </h1>
                 </article>
-
                 <form  class="row" method="POST" >
-
                     <div class="span2">
                         <label for="siName">Your Username <span>*</span> </label>
-
                     </div>
                     <div class="span6">
-
                         <input  required type="text" name="userName" id="siName" class="" style="width:270px;" title="* Please provide your username">
-
                     </div>
 
                     <div class="span2">
                         <label for="siemail">Your Email <span>*</span></label>
                     </div>
                     <div class="span6">
-                        <input type="email" name="email" id="siemail" required class=" required input-xlarge" value="" title="* Please provide a valid email address">
+                        <input type="email" name="email" id="siemail" required style="width:270px;" title="* Please provide a valid email address">
                     </div>
 
                     <div class="span2">
                         <label for="siPassword">Password <span>*</span></label>
                     </div>
                     <div class="span6">
-
                         <input required type="password" name="password" id="siPassword" style="width:270px;"  value=""title="* Please provide your password">
-
-
                     </div>
                     <div class="span2">
                         <label for="siPassword2">Confirm Password <span>*</span></label>
@@ -141,18 +131,16 @@
                     <div class="span6">
 
                         <input required type="password" name="password2" id="siPassword2" style="width:270px;"  value=""title="* Please provide your password">
-
-
                     </div>
                     <div class="span3 ">
                         <input type="button" onclick="checkForm();" value="Sign Up" id="signup" class="btn" style="width: 285px;height:40px ; font-size: medium;color:white;background: black"/>
-                        <script>
-
-                        </script>
                     </div>
 
                 </form>
-
+                <p id="username_feedback" class="feedback"></p>
+                <p id="email_feedback" class="feedback"></p>
+                <p id="password1_feedback" class="feedback"></p>
+                <p id="password2_feedback" class="feedback"></p>
             </div>
 
             <!-- end of page content -->

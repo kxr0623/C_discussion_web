@@ -1582,3 +1582,7 @@ a#scroll-top:hover {
     color:#ffffb3;
     display: none;
 }
+.feedback {
+  color:red;
+  font-size:14px;
+}

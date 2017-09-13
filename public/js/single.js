@@ -58,12 +58,6 @@ $('#like1').click(function () {
     });
 });
 
-//------------------------------------------------------
-function validEmail(v) {
-    var r = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-    return (v.match(r) == null) ? false : true;
-}
-//alert("herer")
 //-------------------ace code editor---------------------------------------
 var editor = ace.edit("editor");
 editor.setOptions({
@@ -202,7 +196,6 @@ var cCode = "";
 $(document).ready(function () {
 
     $("#submit_Reply").click(function () {
-//alert($('#strategy').val())
         var replycomment = $("#replycomment").val();
         //var replycode=$("#replycode").val();
         var replycode = editor.getValue();
@@ -278,7 +271,6 @@ $(document).ready(function () {
     });
 
     window.onclick = function (event) {
-        //alert(event.target.id)
         if (event.target.id === 'id01') {
             document.getElementById('id01').style.display = "none";
         }
@@ -327,7 +319,6 @@ function logoutFuc() {
 
 }
 function LogInForm() {
-    //alert('dddd');
     var userName = document.getElementById("loginName").value;
 
     var password = document.getElementById("loginPassword").value;
@@ -342,7 +333,6 @@ function LogInForm() {
         $('#loginPassword').focus();
         return false;
     }
-    // alert(password);
     var result;
     $.ajax({
         type: "POST",
@@ -377,29 +367,6 @@ function LogInForm() {
 
 }
 
-/*//configure code  editor
- var monacoEditor;
- require.config({ paths: { 'vs': 'monaco-editor/min/vs' } });
- //alert("here")
- require(['vs/editor/editor.main'], function () {
- monacoEditor = monaco.editor.create(document.getElementById('container'), {
- value: "void myrev(char *s);}",
- language: 'c',
- wordWrap: "on",
- wrappingIndent: "indent"
- });
- });
-
- function GetEditorValue() {
- // alert(monacoEditor.getValue());
- //alert(document.getElementById('container').value());
- cCode=monacoEditor.getValue();
- return cCode;
- }
- */
-
-
-
 //------------------------------------------------------------------------------------------------------------------
 // create an array with nodes
 var lis = document.getElementById("postidlist").getElementsByTagName("li");
@@ -412,7 +379,6 @@ var nodesArray = [
     {id: 0, value: tlikes, label: "#0 " + tposter, title: 'Go to Reply:0'},
 ];
 
-//alert(lis[3].innerHTML);
 //-------------to format the content that show on the node
 function formatExplain(str,maxNum) {
     var numWords = str.replace(/^\s+|\s+$/g, "").split(/\s+/);
@@ -439,7 +405,7 @@ var star = 0,hot=0, max = 0;
 if(lis.length===0){
     $('#map_area1').hide();
     $('#mynetwork').hide();
-    $('#view_map').text('[ OH~ 0 Reply for this Topic ]');
+    $('#view_map').text('[ OH~ 0 Reply in this Topic ]');
     $('#view_map').css('color', 'red');
     $('#map').text('[ 0 Reply for this Topic ]');
     $('#map').css('color', 'red');
@@ -452,10 +418,8 @@ for (var i = 0; i < lis.length; i++) {
     if (likes > max) {
         hot = lis[i].id;
         max = likes;
-    }
-    ;
+    };
     try {
-        //nodes.add({id:pid,value:likes,label:"#"+(i+1)+" "+plable,title: 'Go to Reply:' + (i+1)});
         nodes.add({
             id: pid,
             value: likes,
@@ -491,7 +455,6 @@ if(hot==star && hot !==0){
     };
     thenode.shape='star';
     nodes.update(thenode);
-    //nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'star',color:'red'});
 }
 // create an array with edges
 var edgesArray = [];
@@ -581,7 +544,6 @@ function draw() {
             hover: true,
             zoomView: false,
             navigationButtons: true,
-            // keyboard: true
         },
         layout: {
             hierarchical: {
@@ -614,18 +576,11 @@ function draw() {
         document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
     });
     network0.on('hoverNode', function () {
-        //changeCursor('pointer');
         document.getElementById("mynetwork0").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
-
     });
     network.on('select', function (params) {
-        document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
-        //alert('Selection: ' + params.nodes);
         if(params.nodes.length!==0) {
             if (params.nodes == 0) {
-                //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-                // SyntaxHighlighter.all();
-               // window.location.href = "single?id=" + $('#topicid-div').val();
             }
             else
                 window.location.href = "reply?id=" + params.nodes;
@@ -634,23 +589,15 @@ function draw() {
 
     });
     network0.on('select', function (params) {
-        document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
         if(params.nodes.length!==0) {
             if (params.nodes == 0) {
-                //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-                // SyntaxHighlighter.all();
             }
             else
                 window.location.href = "reply?id=" + params.nodes;
         }
-        else network.selectNodes([currentNode],false);
+        else network0.selectNodes([currentNode],false);
 
     });
-
-    network.on("showPopup", function (params) {
-        // document.getElementById('selection').innerHTML = '<h2>showPopup event: </h2>' + JSON.stringify(params, null, 4);
-    });
-
 
 }
 

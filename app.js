@@ -9,7 +9,6 @@ var validUrl = require('valid-url');
 var url = require('url');
 var session		=	require('express-session');
 var hbs = require('express-handlebars').create({
-    //defaultLayout: 'main',
     extname: '.hbs'
 });
 
@@ -17,14 +16,13 @@ var index = require('./routes/index');
 var contact=require('./routes/contact');
 var reply=require('./routes/reply');
 var single = require('./routes/single');
-const DbQuery = require('./dbconnector');
 var routes_signopt = require('./routes/login.js');
 var logout = require('./routes/logout.js');
 var signup = require('./routes/signup.js');
 var newtopic=require('./routes/newtopic_r.js');
 var articles=require('./routes/articles');
+var newarticles=require('./routes/newArticle');
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +52,7 @@ app.use('/reg',signup);
 app.use('/reply',reply);
 app.use('/topic',newtopic);
 app.use('/articles-list',articles);
+app.use('/new_article',newarticles);
 
 app.use(function (req, res, next) {
     getFullUrl(req, function (fullUrl) {

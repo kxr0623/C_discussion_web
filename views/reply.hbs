@@ -101,7 +101,7 @@
             <label><b>Password</b></label>
             <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
 
-            <input type="button" value="log in" onclick="LogInForm();" id="loginbtn" />
+            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px" />
 
             <div class="logincontainer" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
@@ -128,7 +128,7 @@
             <aside class="span3 page-sidebar">
 
                 <section class="widget">
-                    <div class="support-widget" onclick="document.location='contact';return false;">
+                    <div class="support-widget" onclick="">
                         <h3 class="title">Poster :</h3>
                         <p class="intro">{{post_detail.username}}</p>
                         <p class="hidden" id="posterUname">{{post_detail.username}}</p>
@@ -168,11 +168,11 @@
                 <dl class="toggle clearfix">
                     <dt><span></span>Click To Know How To Use The Map</dt>
                     <dd>
-                        <li>The yellow node: Current place</li>
                         <li>The size of node: represent the number of likes of a Post</li>
+                        <li>The yellow node: Current place</li>
+                        <li>The triangle shape: receives the largest number of 'likes'</li>
                         <li>The star shape:This Answer post is Accepted by Question Owner</li>
                         <li>The star with red border: This Answer post is Accepted by Question Owner; receives the largest number of 'likes'.</li>
-                        <li>The triangle shape: receives the largest number of 'likes'</li>
                         <li>Move map: Use mouse to drag the map; Or click direction keys to do it</li>
                         <li>Zoom out/in map: Click '+'/'-' symbol to do it</li>
                         <li>Hover a node: Show the text content of the reply </li>
@@ -286,7 +286,6 @@
                 <h3 id="map">View the map of Replies <small>(click the node on the picture to change to the post)</small></h3>
                 <div id="mynetwork"></div>
 
-                <p id="selection"></p>
                 <section id="comments">
 
                     <div id="respond">

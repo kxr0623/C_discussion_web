@@ -47,6 +47,11 @@ function logoutFuc() {
         }
     });
 }
+//----------------check email form--------------------------------------
+function validEmail(v) {
+    var r = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+    return (v.match(r) == null) ? false : true;
+}
 
 function checkForm() {
 
@@ -57,15 +62,24 @@ function checkForm() {
     var email = document.getElementById("siemail").value;
 
     if (userName.length <= 0) {
-        alert("input your username");
+        $('#username_feedback').text ("input your username");
         return false;
     }
+    if (!validEmail(email)){
+        if(userName.length > 0) $('#username_feedback').text(' ');
+        $('#email_feedback').text("Please provide a valid email address!");
+    }
     if (password.length > 16 || password.length<3) {
-        alert("You need to type passwords between 3 and 16 characters!");
+        if(userName.length > 0) $('#username_feedback').text(' ');
+        if(validEmail(email)) $('#email_feedback').text(' ');
+        $('#password1_feedback').text("You need to type passwords between 3 and 16 characters!");
         return false;
     }
     if (password2.length > 16 || password2 !== password) {
-        alert("The two passwords are different !");
+        if(userName.length > 0) $('#username_feedback').text(' ');
+        if(validEmail(email)) $('#email_feedback').text(' ');
+        if(password.length <= 16 || password.length>=3){$('#password1_feedback').text(' ');}
+        $('#password2_feedback').text("The two passwords are different !");
         return false;
     }
     if(checkUserName()) {

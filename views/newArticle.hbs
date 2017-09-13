@@ -20,10 +20,6 @@
             <link rel='stylesheet' id='main-css-css'  href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
                 <link rel='stylesheet' id='custom-css-css'  href='css/custom5152.html?ver=1.0' type='text/css' media='all' />
 
-            <!--code editor-->
-            <script src="ace_src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-            <script src="ace_src-noconflict/mode-c_cpp.js" type="text/javascript" charset="utf-8"></script>
-            <!--end code editor-->
                 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
                 <!--[if lt IE 9]>
                 <script src="js/html5.js"></script></script>
@@ -49,7 +45,7 @@
                                                 <div class="menu-top-menu-container">
                                                         <ul id="menu-top-menu" class="clearfix">
                                                                 <li ><a href="/">Home</a></li>
-                                                                <li><a href="articles-list">Articles List</a></li>
+                                                                <li class="active"><a href="articles-list">Articles List</a></li>
                                                                 <li ><a href="contact">Contact</a></li>
                                                         </ul>
                                                         <ul id="headerul2">
@@ -129,37 +125,28 @@
 
                                         <div class="span9 page-content">
 
-                                            <form id="contact-form" class="row" method="post">
+                                            <form id="contact-form" class="row" >
                                                 <div class="span2">
 
                                                 </div>
                                                 <article class="span7" style="margin:0px 0px 20px 0px">
-                                                    <h1 >       Post  a  New  Discussion  Topic</h1>
+                                                    <h1 >       Post  a  New  Article </h1>
                                                 </article>
 
                                                 <div class="span2">
-                                                    <label for="topictitle">Title <span>*</span> </label>
+                                                    <label for="articletitle">Title <span>*</span> </label>
                                                 </div>
                                                 <div class="span7">
-                                                    <input type="text" style="  width: 555px;" name="topictitle" id="topictitle" class="required input-xlarge" value="" title="* Please provide a title for the topic">
+                                                    <input type="text" style="  width: 555px;" name="articletitle" id="articletitle" class="required input-xlarge" value="" title="* Please provide a title for the topic">
                                                 </div>
 
 
                                                 <div class="span2">
-                                                    <label for="topic_dicription">Question dicription <span>*</span> </label>
+                                                    <label for="article_content">Content <span>*</span> </label>
                                                 </div>
 
                                                 <div class="span7">
-                                                    <textarea name="topic_dicription" id="topic_dicription" class="required span6" rows="6" title="* Please enter your description of question here"></textarea>
-                                                </div>
-
-                                                <div class="span2">
-                                                    <label for="editor">Code </label>
-                                                </div>
-                                                <div class="span6">
-                                                    <!--code editor-->
-                                                    <div id="editor" style="width: 100%;height:200px;" title="Please write your code here"></div>
-                                                    <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
+                                                    <textarea name="article_content" id="article_content" class="required span6" rows="6" title="* Please enter your description of question here"></textarea>
                                                 </div>
 
                                                 <div class="span2">
@@ -194,8 +181,8 @@
                                                 </div>
 
                                                 <div class="span6 offset2 bm30">
-                                                    <input type="button"  name="submit" id="post_topic" value="Post the Topic" class="btn btn-inverse">
-                                                    <button class="btn btn-inverse" style="color: white;" onclick="window.location.href ='/';">Cancel</button>
+                                                    <input type="button"  name="submit" id="post_article" value="Post the Article" class="btn btn-inverse">
+                                                    <button type="button" class="btn btn-inverse" style="color: white;" onclick="window.location.href ='articles-list';">Cancel</button>
                                                     <img src="images/loading.gif" id="contact-loader" alt="Loading...">
                                                 </div>
 
@@ -297,13 +284,11 @@
                 <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
                 <script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
                 <script type='text/javascript' src='js/jquery.easing.1.34e44.js?ver=1.3'></script>
-                <script type='text/javascript' src='js/prettyphoto/jquery.prettyPhotoaeb9.js?ver=3.1.4'></script>
-                <script type='text/javascript' src='js/jquery.liveSearchd5f7.js?ver=2.0'></script>
+
 				<script type='text/javascript' src='js/jflickrfeed.js'></script>
                 <script type='text/javascript' src='js/jquery.formd471.js?ver=3.18'></script>
                 <script type='text/javascript' src='js/jquery.validate.minfc6b.js?ver=1.10.0'></script>
-                <script type='text/javascript' src='js/custom5152.js?ver=1.0'></script>
-                <script type='text/javascript' src='js/newtopic_js.js'></script>
+                <script type='text/javascript' src='js/newArticle_js.js'></script>
 
         </body>
 </html>

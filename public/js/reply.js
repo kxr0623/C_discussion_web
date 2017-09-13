@@ -160,11 +160,9 @@ $(document).ready(function(){
         $('#received_this').show();
         document.getElementById('notice').style.background='#3bcf00';
         document.getElementById('notice').style.color='#ffffff';
-        //$('#notice').style(background,'')
     }
 
     window.onclick = function(event) {
-        //alert(event.target.id)
         if (event.target.id === 'id01') {
             document.getElementById('id01').style.display = "none";
         }
@@ -527,12 +525,6 @@ if (star !== 0 && star!==hot) {
 }
 //mark the hot post
 
-/*if(hot!==0 && star!==hot){
-    var thenode=nodes.get(hot);
-    thenode.color={border:'#ff5500'};
-    nodes.update(thenode);
-}
-*/
 if(hot!==0 && star!==hot){nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'triangle'});}
 if(hot==star && hot !==0){
     var thenode=nodes.get(hot);
@@ -582,7 +574,6 @@ function destroy() {
 var currentNode;
 function getpageid() {
     return $("#postid_div").val();
-    //return x[0].innerHTML;
 }
 function draw() {
     destroy();
@@ -635,28 +626,17 @@ function draw() {
     });
     // add event listeners0
     network.on('select', function (params) {
-        document.getElementById('selection').innerHTML = 'Selection: ' + params.nodes;
-
         if(params.nodes.length!==0) {
             if (params.nodes == 0) {
-                //document.getElementById('codearea1').textContent = "int size = 0;\n do {   puts(&quot;Insert the ID?&quot;);  fgets(buffer.idarea, MAX, stdin);   strtok(buffer.idarea, &quot;&quot;); // Consumir o \n   printf(&quot;size of string %d&quot;, size = strlen(buffer.idarea));} while (verifica_area_duplicadas(vector, *total, buffer.idarea) == 0);" ;
-                // SyntaxHighlighter.all();
                 window.location.href = "single?id=" + titleid;
             }
             else{
                 if(params.nodes!=currentNode){window.location.href = "reply?id=" + params.nodes;}
-
             }
-
         }
         else network.selectNodes([currentNode],false);
 
     });
-
-    network.on("showPopup", function (params) {
-        // document.getElementById('selection').innerHTML = '<h2>showPopup event: </h2>' + JSON.stringify(params, null, 4);
-    });
-
 }
 
 
