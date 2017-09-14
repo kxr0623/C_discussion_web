@@ -1,276 +1,289 @@
 <!doctype html>
-        <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
-        <!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
-        <!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
-        <!--[if gt IE 8]><!--> <html lang="en-US"> <!--<![endif]-->
-        <head>
-                <!-- META TAGS -->
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en-US"> <!--<![endif]-->
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                <title>C Programming discussion</title>
+    <title>C Programming discussion</title>
 
-                <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="shortcut icon" href="images/favicon.png"/>
 
-                <!-- Style Sheet-->
-            <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
-                <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='responsive-css-css'  href='css/responsive.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='main-css-css'  href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
-                <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-                <!--[if lt IE 9]>
-                <script src="js/html5.js"></script></script>
-                <![endif]-->
-        </head>
+    <!-- Style Sheet-->
+    <link rel='stylesheet' id='login-css-css' href='css/login.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='css/responsive.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all'/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script></script>
+    <![endif]-->
+</head>
 
-        <body>
+<body>
 
-        <!-- Start of Header -->
-        <div class="header-wrapper">
-            <header>
-                <div class="container">
-                    <div class="logo-container">
-                        <!-- Website Logo -->
-                        <a href="/"  title="C-Discussion">
-                            <img src="images/logo.png" alt="logo">
-                        </a>
-                        <span class="tag-line">C Programming Discussion</span>
-                    </div>
-                    <!-- Start of Main Navigation -->
-                    <nav class="main-nav">
-                        <div class="menu-top-menu-container" id="cssmenu">
-                            <ul id="headerrul1" class="clearfix" style="text-align:right;">
-                                <li><a href="/">Home</a></li>
-                                <li class="current-menu-item"><a href="articles-list">Articles List</a></li>
-                                <li><a href="contact">Contact</a></li>
-                            </ul>
-                            <ul id="headerul2">
-                                <li id ='login' onclick="document.getElementById('id01').style.display='block';document.getElementById('loginName').focus();" ><a>LOG IN</a></li>
-                                <li id ='reg'><a  href="reg">Register</a></li>
-                                <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <!-- End of Main Navigation -->
-
-                </div>
-            </header>
-        </div>
-        <!-- End of Header -->
-        <!--pupup login-->
-        <div id="id01"  class="modal" style="width: 1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
-
-            <form class="modal-content animate" style="width: 400px">
-                <div class="imgcontainer">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                    <img src="images/users.png" alt="Avatar" class="avatar">
-                </div>
-
-                <div class="logincontainer" >
-                    <label><b>Username</b></label>
-                    <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
-
-                    <label><b>Password</b></label>
-                    <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
-
-                    <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px" />
-
-                    <div class="logincontainer" style="background-color:#f1f1f1">
-                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                        <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
-
-                    </div>
-
-                </div>
-            </form>
-        </div>
-        <!--end login popup-->
-
-        <!-- Start of Search Wrapper -->
-        <div class="search-area-wrapper">
-            <div class="search-area container">
-                <h3 class="search-header">Search a Question?</h3>
-                <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
-
-                <form id="search-form" class="search-form clearfix"  autocomplete="off">
-                    <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
-                           onkeydown = "if (event.keyCode === 13) {dosearch();return false;}" />
-                    <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
-                    <div ></div>
-                </form>
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/" title="C-Discussion">
+                    <img src="images/logo.png" alt="logo">
+                </a>
+                <span class="tag-line">C Programming Discussion</span>
             </div>
-        </div>
-        <!-- End of Search Wrapper -->
-
-
-        <!-- Start of Page Container -->
-                <div class="page-container">
-                        <div class="container">
-                                <div class="row">
-
-                                        <!-- start of page content -->
-                                        <div class="span8 main-listing">
-
-                                            {{#if newest}}
-                                                {{#each newest}}
-                                                <article class="format-standard type-post hentry clearfix">
-                                                        <header class="clearfix">
-                                                            <h3 class="post-title">
-                                                                <a href="/single?id={{aid}}">{{title}}</a>
-                                                            </h3>
-                                                                <div class="post-meta clearfix">
-                                                                        <span class="date">{{createtime}}</span>
-                                                                        <span class="category"><a title="View all posts in Advanced Techniques">{{tag}}</a></span>
-                                                                        <span class="author"><a href="#" title="Comment on Using Javascript">{{username}}</a></span>
-                                                                        <span class="like-count">{{likes}}</span>
-                                                                </div><!-- end of post meta -->
-                                                        </header>
-                                                    <p  class="short_content" id="short_content{{aid}}">{{content}}
-                                                    </p>
-
-                                                </article>
-                                                {{/each}}
-                                            {{/if}}
-
-                                        </div>
-                                        <!-- end of page content -->
-
-
-                                        <!-- start of sidebar -->
-                                        <aside class="span4 page-sidebar">
-
-                                            <section class="widget">
-                                                <div class="newTopic-widget">
-                                                    <h3 class="title">Create a New Article</h3>
-                                                    <div class="row">
-                                                        <div class="span2" style="font-weight:bold;">Total Topics:</div>
-                                                        {{#if sumArticles}}
-                                                            {{#each sumArticles}}
-                                                                <div class="span1"><lable  class="showleft">{{sum}} </lable></div>
-                                                            {{/each}}
-                                                        {{/if}}
-                                                    </div>
-                                                    <input class="create-btn showright" type="submit" onclick="location.href='new_article';" value="Create Article" />
-
-                                                </div>
-                                            </section>
-
-                                            <section class="widget">
-                                                <div class="support-widget" onclick="document.location='contact';return false;" >
-                                                    <h3 class="title">Support</h3>
-                                                    <p class="intro">Need more support? If you have some questions or suggestion for the web, contact us for further help.</p>
-                                                </div>
-                                            </section>
-
-
-                                                <section class="widget">
-                                                        <h3 class="title">Featured Articles</h3>
-                                                        <ul class="articles">
-                                                            {{#if pop}}
-                                                                {{#each pop}}
-                                                                    <li class="article-entry standard">
-                                                                        <h4><a href="/single?id={{uid}}">{{title}}</a></h4>
-                                                                        <span class="article-meta">{{createtime}} by <a>{{username}}</a></span>
-                                                                        <span class="like-count">{{likes}}</span>
-                                                                    </li>
-                                                                {{/each}}
-                                                            {{/if}}
-                                                        </ul>
-                                                </section>
-
-                                        </aside>
-                                        <!-- end of sidebar -->
-                                </div>
-                        </div>
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container" id="cssmenu">
+                    <ul id="headerrul1" class="clearfix" style="text-align:right;">
+                        <li><a href="/">Home</a></li>
+                        <li class="current-menu-item"><a href="articles-list">Articles List</a></li>
+                        <li><a href="contact">Contact</a></li>
+                    </ul>
+                    <ul id="headerul2">
+                        <li id='login'
+                            onclick="document.getElementById('id01').style.display='block';document.getElementById('loginName').focus();">
+                            <a>LOG IN</a></li>
+                        <li id='reg'><a href="reg">Register</a></li>
+                        <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
+                    </ul>
                 </div>
-                <!-- End of Page Container -->
+            </nav>
+            <!-- End of Main Navigation -->
 
-        <!-- Start of Footer -->
-        <footer id="footer-wrapper">
-            <div id="footer" class="container">
-                <div class="row">
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
+<!--pupup login-->
+<div id="id01" class="modal"
+     style="width: 1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);">
 
-                    <div class="span4">
-                        <section class="widget">
-                            <h3 class="title">Contact me</h3>
-                            <div class="textwidget">
-                                <ul>
-                                    <li id="fLi0">Address:<br/> Deans Court, George's Rd, Bristol BS1 5UL</li>
-                                    <li id="fLi1">Mail Us:<br/> kuangxr0623@foxmail.com</li>
-                                    <li id="fLi2">Phone: <br/>+44 0123456789</li>
-                                </ul>
-                            </div>
-                        </section>
-                    </div>
+    <form class="modal-content animate" style="width: 400px">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="images/users.png" alt="Avatar" class="avatar">
+        </div>
 
-                    <div class="span4">
-                        <section class="widget"><h3 class="title">Categories</h3>
+        <div class="logincontainer">
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required>
 
-                            <ul >
-                                <li><a href="/">Home</a></li>
-                                <li><a href="topic">New Topic</a></li>
-                                <li><a href="articles-list">Articles list</a></li>
-                                <li><a href="contact">Feedback</a></li>
-                            </ul>
+            <label><b>Password</b></label>
+            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
 
-                        </section>
-                    </div>
+            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px"/>
 
-                    <div class="span4">
-                        <section class="widget">
-                            <h3 class="title">About</h3>
-                            <p>
-                                This website is developed for C programmers to disciss their code. It is different from traditional forums.
-                                A map of posts could help you understand the context of a discussed topic.Feel free to use it. If you have any
-                                suggestion or feedbacks of the web, contact me or leave you feedback on Contact page.
+            <div class="logincontainer" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                    Cancel
+                </button>
+                <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--end login popup-->
+
+<!-- Start of Search Wrapper -->
+<div class="search-area-wrapper">
+    <div class="search-area container">
+        <h3 class="search-header">Search a Question?</h3>
+        <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
+
+        <form id="search-form" class="search-form clearfix" autocomplete="off">
+            <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
+                   onkeydown="if (event.keyCode === 13) {dosearch();return false;}"/>
+            <input class="search-btn" onclick="dosearch();" type="button" value="Search"/>
+            <div></div>
+        </form>
+    </div>
+</div>
+<!-- End of Search Wrapper -->
+
+
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+
+            <!-- start of page content -->
+            <div class="span8 main-listing">
+
+                {{#if newest}}
+                    {{#each newest}}
+                        <article class="format-standard type-post hentry clearfix">
+                            <header class="clearfix">
+                                <h3 class="post-title">
+                                    <a href="/single?id={{aid}}">{{title}}</a>
+                                </h3>
+                                <div class="post-meta clearfix">
+                                    <span class="date">{{createtime}}</span>
+                                    <span class="category"><a title="View all posts in Advanced Techniques">{{tag}}</a></span>
+                                    <span class="author"><a href="#"
+                                                            title="Comment on Using Javascript">{{username}}</a></span>
+                                    <span class="like-count">{{likes}}</span>
+                                </div><!-- end of post meta -->
+                            </header>
+                            <p class="short_content" id="short_content{{aid}}">{{content}}
                             </p>
 
-                        </section>
-                    </div>
+                        </article>
+                    {{/each}}
+                {{/if}}
 
+            </div>
+            <!-- end of page content -->
+
+
+            <!-- start of sidebar -->
+            <aside class="span4 page-sidebar">
+
+                <section class="widget">
+                    <div class="newTopic-widget">
+                        <h3 class="title">Create a New Article</h3>
+                        <div class="row">
+                            <div class="span2" style="font-weight:bold;">Total Topics:</div>
+                            {{#if sumArticles}}
+                                {{#each sumArticles}}
+                                    <div class="span1">
+                                        <lable class="showleft">{{sum}} </lable>
+                                    </div>
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                        <input class="create-btn showright" type="submit" onclick="location.href='new_article';"
+                               value="Create Article"/>
+
+                    </div>
+                </section>
+
+                <section class="widget">
+                    <div class="support-widget" onclick="document.location='contact';return false;">
+                        <h3 class="title">Support</h3>
+                        <p class="intro">Need more support? If you have some questions or suggestion for the web,
+                            contact us for further help.</p>
+                    </div>
+                </section>
+
+
+                <section class="widget">
+                    <h3 class="title">Featured Articles</h3>
+                    <ul class="articles">
+                        {{#if pop}}
+                            {{#each pop}}
+                                <li class="article-entry standard">
+                                    <h4><a href="/single?id={{uid}}">{{title}}</a></h4>
+                                    <span class="article-meta">{{createtime}} by <a>{{username}}</a></span>
+                                    <span class="like-count">{{likes}}</span>
+                                </li>
+                            {{/each}}
+                        {{/if}}
+                    </ul>
+                </section>
+
+            </aside>
+            <!-- end of sidebar -->
+        </div>
+    </div>
+</div>
+<!-- End of Page Container -->
+
+<!-- Start of Footer -->
+<footer id="footer-wrapper">
+    <div id="footer" class="container">
+        <div class="row">
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">Contact me</h3>
+                    <div class="textwidget">
+                        <ul>
+                            <li id="fLi0">Address:<br/> Deans Court, George's Rd, Bristol BS1 5UL</li>
+                            <li id="fLi1">Mail Us:<br/> kuangxr0623@foxmail.com</li>
+                            <li id="fLi2">Phone: <br/>+44 0123456789</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="span4">
+                <section class="widget"><h3 class="title">Categories</h3>
+
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="topic">New Topic</a></li>
+                        <li><a href="articles-list">Articles list</a></li>
+                        <li><a href="contact">Feedback</a></li>
+                    </ul>
+
+                </section>
+            </div>
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">About</h3>
+                    <p>
+                        This website is developed for C programmers to disciss their code. It is different from
+                        traditional forums.
+                        A map of posts could help you understand the context of a discussed topic.Feel free to use it.
+                        If you have any
+                        suggestion or feedbacks of the web, contact me or leave you feedback on Contact page.
+                    </p>
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of #footer -->
+
+    <!-- Footer Bottom -->
+    <div id="footer-bottom-wrapper">
+        <div id="footer-bottom" class="container">
+            <div class="row">
+                <div class="span6">
+                    <p class="copyright">
+                        Copyright © 2017. All Rights Reserved by xk16184
+                    </p>
+                </div>
+                <div class="span6">
+                    <!-- Social Navigation -->
+                    <ul class="social-nav clearfix">
+                        <li class="linkedin"><a target="_blank" href="https://www.linkedin.com/feed/"></a></li>
+                        <li class="stumble"><a target="_blank" href="https://www.stumbleupon.com/"></a></li>
+                        <li class="google"><a target="_blank" href="https://www.google.co.uk/"></a></li>
+                        <li class="deviantart"><a target="_blank" href="https://www.deviantart.com/"></a></li>
+                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                        <li class="rss"><a target="_blank" href="https://www.rss.com/"></a></li>
+                        <li class="twitter"><a target="_blank" href="https://twitter.com"></a></li>
+                        <li class="facebook"><a target="_blank" href="https://www.facebook.com/"></a></li>
+                    </ul>
                 </div>
             </div>
-            <!-- end of #footer -->
+        </div>
+    </div>
+    <!-- End of Footer Bottom -->
 
-            <!-- Footer Bottom -->
-            <div id="footer-bottom-wrapper">
-                <div id="footer-bottom" class="container">
-                    <div class="row">
-                        <div class="span6">
-                            <p class="copyright">
-                                Copyright © 2017. All Rights Reserved by xk16184
-                            </p>
-                        </div>
-                        <div class="span6">
-                            <!-- Social Navigation -->
-                            <ul class="social-nav clearfix">
-                                <li class="linkedin"><a target="_blank" href="https://www.linkedin.com/feed/"></a></li>
-                                <li class="stumble"><a target="_blank" href="https://www.stumbleupon.com/"></a></li>
-                                <li class="google"><a target="_blank" href="https://www.google.co.uk/"></a></li>
-                                <li class="deviantart"><a target="_blank" href="https://www.deviantart.com/"></a></li>
-                                <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                                <li class="rss"><a target="_blank" href="https://www.rss.com/"></a></li>
-                                <li class="twitter"><a target="_blank" href="https://twitter.com"></a></li>
-                                <li class="facebook"><a target="_blank" href="https://www.facebook.com/"></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Footer Bottom -->
+</footer>
+<!-- End of Footer -->
 
-        </footer>
-        <!-- End of Footer -->
+<a href="#top" id="scroll-top"></a>
 
-                <a href="#top" id="scroll-top"></a>
+<!-- script -->
+<script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+<script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
+<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
+<script type='text/javascript' src='js/jflickrfeed.js'></script>
+<script type='text/javascript' src='js/custom.js'></script>
+<script type='text/javascript' src='js/articles.js'></script>
 
-                <!-- script -->
-                <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
-                <script type='text/javascript' src='js/jquery-1.9.1.min.js'></script>
-                <script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
-                <script type='text/javascript' src='js/jflickrfeed.js'></script>
-                <script type='text/javascript' src='js/custom.js'></script>
-                <script type='text/javascript' src='js/articles.js'></script>
-
-        </body>
+</body>
 </html>

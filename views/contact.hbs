@@ -1,259 +1,272 @@
 <!doctype html>
-        <!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
-        <!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
-        <!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
-        <!--[if gt IE 8]><!--> <html lang="en-US"> <!--<![endif]-->
-        <head>
-                <!-- META TAGS -->
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en-US"> <!--<![endif]-->
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                <title>C programming discussion</title>
+    <title>C programming discussion</title>
 
-                <link rel="shortcut icon" href="images/favicon.png" />
-                <!-- Style Sheet-->
-                <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
-                <link rel='stylesheet' id='bootstrap-css-css'  href='css/bootstrap.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='responsive-css-css'  href='css/responsive.css?ver=1.0' type='text/css' media='all' />
-                <link rel='stylesheet' id='main-css-css'  href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
-                <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-                <!--[if lt IE 9]>
-                <script src="js/html5.js"></script></script>
-                <![endif]-->
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <!-- Style Sheet-->
+    <link rel='stylesheet' id='login-css-css' href='css/login.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='css/responsive.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all'/>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script></script>
+    <![endif]-->
 
-        </head>
+</head>
 
-        <body>
+<body>
 
-                <!-- Start of Header -->
-                <div class="header-wrapper">
-                        <header>
-                                <div class="container">
-                                        <div class="logo-container">
-                                                <!-- Website Logo -->
-                                                <a href="/"  title="C-Discussion">
-                                                        <img src="images/logo.png" alt="logo">
-                                                </a>
-                                                <span class="tag-line">C Programming Discussion</span>
-                                        </div>
-                                        <!-- Start of Main Navigation -->
-                                        <nav class="main-nav">
-                                                <div class="menu-top-menu-container">
-                                                        <ul id="menu-top-menu" class="clearfix">
-                                                                <li ><a href="/">Home</a></li>
-                                                                <li><a href="articles-list">Articles List</a></li>
-                                                                <li class="current-menu-item"><a href="contact">Contact</a></li>
-                                                        </ul>
-                                                        <ul id="headerul2">
-                                                            <li id ='login' onclick="document.getElementById('id01').style.display='block';document.getElementById('loginName').focus();" ><a>LOG IN</a></li>
-                                                                <li id ='reg'><a  href="reg">Register</a></li>
-                                                                <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
-                                                        </ul>
-                                                </div>
-                                        </nav>
-                                        <!-- End of Main Navigation -->
-
-                                </div>
-                        </header>
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/" title="C-Discussion">
+                    <img src="images/logo.png" alt="logo">
+                </a>
+                <span class="tag-line">C Programming Discussion</span>
+            </div>
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container">
+                    <ul id="menu-top-menu" class="clearfix">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="articles-list">Articles List</a></li>
+                        <li class="current-menu-item"><a href="contact">Contact</a></li>
+                    </ul>
+                    <ul id="headerul2">
+                        <li id='login'
+                            onclick="document.getElementById('id01').style.display='block';document.getElementById('loginName').focus();">
+                            <a>LOG IN</a></li>
+                        <li id='reg'><a href="reg">Register</a></li>
+                        <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
+                    </ul>
                 </div>
-                <!-- End of Header -->
+            </nav>
+            <!-- End of Main Navigation -->
 
-                <!--pupup login-->
-                <div id="id01"  class="modal" style="width:1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
 
-                    <form class="modal-content animate" style="width: 400px">
-                        <div class="imgcontainer">
-                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-                            <img src="images/users.png" alt="Avatar" class="avatar">
-                        </div>
+<!--pupup login-->
+<div id="id01" class="modal"
+     style="width:1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);">
 
-                        <div class="logincontainer" >
-                            <label><b>Username</b></label>
-                            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+    <form class="modal-content animate" style="width: 400px">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="images/users.png" alt="Avatar" class="avatar">
+        </div>
 
-                            <label><b>Password</b></label>
-                            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
+        <div class="logincontainer">
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required>
 
-                            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px" />
-                            <div class="logincontainer" style="background-color:#f1f1f1">
-                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                                <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
+            <label><b>Password</b></label>
+            <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
 
-                            </div>
+            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px"/>
+            <div class="logincontainer" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                    Cancel
+                </button>
+                <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
 
-                        </div>
-                    </form>
-                </div>
-                <!--end login popup-->
+            </div>
 
-                <!-- Start of Search Wrapper -->
-                <div class="search-area-wrapper">
-                        <div class="search-area container">
-                                <h3 class="search-header">Search a Question?</h3>
-                            <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
+        </div>
+    </form>
+</div>
+<!--end login popup-->
 
-                            <form id="search-form" class="search-form clearfix"  autocomplete="off">
-                                <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
-                                       onkeydown = "if (event.keyCode === 13) {dosearch();return false;}" />
-                                <input class="search-btn" onclick="dosearch();" type="button" value="Search" />
-                                <div ></div>
-                            </form>
-                        </div>
-                </div>
-                <!-- End of Search Wrapper -->
+<!-- Start of Search Wrapper -->
+<div class="search-area-wrapper">
+    <div class="search-area container">
+        <h3 class="search-header">Search a Question?</h3>
+        <p class="search-tag-line" id="search-error-container" style="color: blue">-</p>
 
-                <!-- Start of Page Container -->
-                <div class="page-container">
-                        <div class="container">
+        <form id="search-form" class="search-form clearfix" autocomplete="off">
+            <input class="search-term " type="text" id="search_term" placeholder="Type your search terms here"
+                   onkeydown="if (event.keyCode === 13) {dosearch();return false;}"/>
+            <input class="search-btn" onclick="dosearch();" type="button" value="Search"/>
+            <div></div>
+        </form>
+    </div>
+</div>
+<!-- End of Search Wrapper -->
 
-                                        <!-- start of page content -->
-                                <div class="row">
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
 
-                                        <!-- start of page content -->
-                                         <!-- start of sidebar -->
-                                        <aside class="span4 page-sidebar">
-                                                <section class="widget">
-                                                </section>
-                                        </aside>
-                                        
-                                        <div class="span6 page-content">
+        <!-- start of page content -->
+        <div class="row">
 
-                                                <article class="type-page hentry clearfix">
-                                                        <h1 class="post-title">
-                                                                <a href="#">Contact</a>
-                                                        </h1>
-                                                </article>
+            <!-- start of page content -->
+            <!-- start of sidebar -->
+            <aside class="span4 page-sidebar">
+                <section class="widget">
+                </section>
+            </aside>
+
+            <div class="span6 page-content">
+
+                <article class="type-page hentry clearfix">
+                    <h1 class="post-title">
+                        <a href="#">Contact</a>
+                    </h1>
+                </article>
 
 
-                                                <form id="contact-form" class="row" method="post">
+                <form id="contact-form" class="row" method="post">
 
-                                                        <div class="span2">
-                                                                <label for="contact-name">Your Name <span>*</span> </label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <input type="text" name="name" id="contact-name" class="required input-xlarge" value="" title="* Please provide your name">
-                                                        </div>
-
-                                                        <div class="span2">
-                                                                <label for="contact-email">Your Email <span>*</span></label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <input type="email" name="email" id="contact-email" required class=" required input-xlarge" value="" title="* Please provide a valid email address">
-                                                        </div>
-
-                                                        <div class="span2">
-                                                                <label for="contact-subject">Subject <span>*</span></label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <input type="text" name="Subject" id="contact-subject" class="required input-xlarge" value=""title="* Please provide a valid subject">
-                                                        </div>
-
-                                                        <div class="span2">
-                                                                <label for="contact-message">Your Message <span>*</span> </label>
-                                                        </div>
-                                                        <div class="span6">
-                                                                <textarea name="message" id="contact-message" class="required span6" rows="6" title="* Please enter your message"></textarea>
-                                                        </div>
-
-                                                        <div class="span6 offset2 bm30">
-                                                                <input type="button" name="submit" value="Send Message" id="confirmSubmit" class="btn btn-inverse">
-                                                                <img src="images/loading.gif" id="contact-loader" alt="Loading...">
-                                                        </div>
-                                                        <div class="span8 offset2" id="feedback1" style="color: red"></div>
-
-                                                </form>
-                                        </div>
-                                        <!-- end of page content -->
-
-                                </div>
-                        </div>
-                </div>
-                <!-- End of Page Container -->
-
-                <!-- Start of Footer -->
-                <footer id="footer-wrapper">
-                    <div id="footer" class="container">
-                        <div class="row">
-
-                            <div class="span4">
-                                <section class="widget">
-                                    <h3 class="title">Contact me</h3>
-                                    <div class="textwidget">
-                                        <ul>
-                                            <li id="fLi0">Address:<br/> Deans Court, George's Rd, Bristol BS1 5UL</li>
-                                            <li id="fLi1">Mail Us:<br/> kuangxr0623@foxmail.com</li>
-                                            <li id="fLi2">Phone: <br/>+44 0123456789</li>
-                                        </ul>
-                                    </div>
-                                </section>
-                            </div>
-
-                            <div class="span4">
-                                <section class="widget"><h3 class="title">Categories</h3>
-
-                                    <ul >
-                                        <li><a href="/">Home</a></li>
-                                        <li><a href="topic">New Topic</a></li>
-                                        <li><a href="articles-list">Articles list</a></li>
-                                        <li><a href="contact">Feedback</a></li>
-                                    </ul>
-
-                                </section>
-                            </div>
-
-                            <div class="span4">
-                                <section class="widget">
-                                    <h3 class="title">About</h3>
-                                    <p>
-                                        This website is developed for C programmers to disciss their code. It is different from traditional forums.
-                                        A map of posts could help you understand the context of a discussed topic.Feel free to use it. If you have any
-                                        suggestion or feedbacks of the web, contact me or leave you feedback on Contact page.
-                                    </p>
-
-                                </section>
-                            </div>
-
-                        </div>
+                    <div class="span2">
+                        <label for="contact-name">Your Name <span>*</span> </label>
                     </div>
-                    <!-- end of #footer -->
-
-                    <!-- Footer Bottom -->
-                    <div id="footer-bottom-wrapper">
-                        <div id="footer-bottom" class="container">
-                            <div class="row">
-                                <div class="span6">
-                                    <p class="copyright">
-                                        Copyright © 2017. All Rights Reserved by xk16184
-                                    </p>
-                                </div>
-                                <div class="span6">
-                                    <!-- Social Navigation -->
-                                    <ul class="social-nav clearfix">
-                                        <li class="linkedin"><a target="_blank" href="https://www.linkedin.com/feed/"></a></li>
-                                        <li class="stumble"><a target="_blank" href="https://www.stumbleupon.com/"></a></li>
-                                        <li class="google"><a target="_blank" href="https://www.google.co.uk/"></a></li>
-                                        <li class="deviantart"><a target="_blank" href="https://www.deviantart.com/"></a></li>
-                                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                                        <li class="rss"><a target="_blank" href="https://www.rss.com/"></a></li>
-                                        <li class="twitter"><a target="_blank" href="https://twitter.com"></a></li>
-                                        <li class="facebook"><a target="_blank" href="https://www.facebook.com/"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="span6">
+                        <input type="text" name="name" id="contact-name" class="required input-xlarge" value=""
+                               title="* Please provide your name">
                     </div>
-                    <!-- End of Footer Bottom -->
 
-                </footer>
-                <!-- End of Footer -->
+                    <div class="span2">
+                        <label for="contact-email">Your Email <span>*</span></label>
+                    </div>
+                    <div class="span6">
+                        <input type="email" name="email" id="contact-email" required class=" required input-xlarge"
+                               value="" title="* Please provide a valid email address">
+                    </div>
 
-                <a href="#top" id="scroll-top"></a>
+                    <div class="span2">
+                        <label for="contact-subject">Subject <span>*</span></label>
+                    </div>
+                    <div class="span6">
+                        <input type="text" name="Subject" id="contact-subject" class="required input-xlarge" value=""
+                               title="* Please provide a valid subject">
+                    </div>
 
-                <!-- script -->
-                <script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
-                <script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
-                <script type='text/javascript' src='js/contact.js'></script>
+                    <div class="span2">
+                        <label for="contact-message">Your Message <span>*</span> </label>
+                    </div>
+                    <div class="span6">
+                        <textarea name="message" id="contact-message" class="required span6" rows="6"
+                                  title="* Please enter your message"></textarea>
+                    </div>
 
-        </body>
+                    <div class="span6 offset2 bm30">
+                        <input type="button" name="submit" value="Send Message" id="confirmSubmit"
+                               class="btn btn-inverse">
+                        <img src="images/loading.gif" id="contact-loader" alt="Loading...">
+                    </div>
+                    <div class="span8 offset2" id="feedback1" style="color: red"></div>
+
+                </form>
+            </div>
+            <!-- end of page content -->
+
+        </div>
+    </div>
+</div>
+<!-- End of Page Container -->
+
+<!-- Start of Footer -->
+<footer id="footer-wrapper">
+    <div id="footer" class="container">
+        <div class="row">
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">Contact me</h3>
+                    <div class="textwidget">
+                        <ul>
+                            <li id="fLi0">Address:<br/> Deans Court, George's Rd, Bristol BS1 5UL</li>
+                            <li id="fLi1">Mail Us:<br/> kuangxr0623@foxmail.com</li>
+                            <li id="fLi2">Phone: <br/>+44 0123456789</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="span4">
+                <section class="widget"><h3 class="title">Categories</h3>
+
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="topic">New Topic</a></li>
+                        <li><a href="articles-list">Articles list</a></li>
+                        <li><a href="contact">Feedback</a></li>
+                    </ul>
+
+                </section>
+            </div>
+
+            <div class="span4">
+                <section class="widget">
+                    <h3 class="title">About</h3>
+                    <p>
+                        This website is developed for C programmers to disciss their code. It is different from
+                        traditional forums.
+                        A map of posts could help you understand the context of a discussed topic.Feel free to use it.
+                        If you have any
+                        suggestion or feedbacks of the web, contact me or leave you feedback on Contact page.
+                    </p>
+
+                </section>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of #footer -->
+
+    <!-- Footer Bottom -->
+    <div id="footer-bottom-wrapper">
+        <div id="footer-bottom" class="container">
+            <div class="row">
+                <div class="span6">
+                    <p class="copyright">
+                        Copyright © 2017. All Rights Reserved by xk16184
+                    </p>
+                </div>
+                <div class="span6">
+                    <!-- Social Navigation -->
+                    <ul class="social-nav clearfix">
+                        <li class="linkedin"><a target="_blank" href="https://www.linkedin.com/feed/"></a></li>
+                        <li class="stumble"><a target="_blank" href="https://www.stumbleupon.com/"></a></li>
+                        <li class="google"><a target="_blank" href="https://www.google.co.uk/"></a></li>
+                        <li class="deviantart"><a target="_blank" href="https://www.deviantart.com/"></a></li>
+                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                        <li class="rss"><a target="_blank" href="https://www.rss.com/"></a></li>
+                        <li class="twitter"><a target="_blank" href="https://twitter.com"></a></li>
+                        <li class="facebook"><a target="_blank" href="https://www.facebook.com/"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Footer Bottom -->
+
+</footer>
+<!-- End of Footer -->
+
+<a href="#top" id="scroll-top"></a>
+
+<!-- script -->
+<script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>
+<script type='text/javascript' src='js/jquery.easing.1.3.js'></script>
+<script type='text/javascript' src='js/contact.js'></script>
+
+</body>
 </html>
 

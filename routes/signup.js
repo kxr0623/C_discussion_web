@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var crypto = require('crypto');
-var end_pw = "X?R,K"; // encrypt the password: px+end_px
+var end_pw = "X?R,K"; // encrypt the password
 
     // to page sign up
     app.get('/', function (req, res) {
@@ -50,7 +50,6 @@ var end_pw = "X?R,K"; // encrypt the password: px+end_px
                 });
         });
         db.close();
-
     });
 
     // to checkIsLogin

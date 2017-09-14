@@ -31,8 +31,8 @@
     <!--end code editor-->
 
     <!--the discription style-->
-    <link rel='stylesheet' id='bootstrap-css-css' href='/javascripts/theme.css' type='text/css' media='all'/>
-    <script type="text/javascript" src="/javascripts/syntaxhighlighter.js"/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='/syntaxhighlighter/theme.css' type='text/css' media='all'/>
+    <script type="text/javascript" src="/syntaxhighlighter/syntaxhighlighter.js"/>
 
     <!--[if lt IE 9]>
     <script src="js/html5.js"></script></script>
@@ -74,7 +74,9 @@
                         <li><a href="contact">Contact</a></li>
                     </ul>
                     <ul id="headerul2">
-                        <li id='login' onclick="document.getElementById('id01').style.display='block';document.getElementById('loginName').focus();"><a>LOG IN</a>
+                        <li id='login'
+                            onclick="document.getElementById('id01').style.display='block';document.getElementById('loginName').focus();">
+                            <a>LOG IN</a>
                         </li>
                         <li id='reg'><a href="reg">Register</a></li>
                         <li id="logout" value="" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
@@ -104,7 +106,7 @@
             <label><b>Password</b></label>
             <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
 
-            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px" />
+            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px"/>
             <div class="logincontainer" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
                     Cancel
@@ -145,7 +147,8 @@
                     <ul>
                         {{#if children_replies}}
                             {{#each children_replies}}
-                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}" title="go to reply {{inc @index}}">{{username}}</a></li>
+                                <li>#{{inc @index}} User:<a href="reply?id={{pid}}"
+                                                            title="go to reply {{inc @index}}">{{username}}</a></li>
                             {{/each}}
                         {{/if}}
                     </ul>
@@ -165,10 +168,12 @@
                         <li>The yellow node: Current place</li>
                         <li>The triangle shape: receives the largest number of 'likes'</li>
                         <li>The star shape:This Answer post is Accepted by Question Owner</li>
-                        <li>The star with red border: This Answer post is Accepted by Question Owner; receives the largest number of 'likes'.</li>
+                        <li>The star with red border: This Answer post is Accepted by Question Owner; receives the
+                            largest number of 'likes'.
+                        </li>
                         <li>Move map: Use mouse to drag the map; Or click direction keys to do it</li>
                         <li>Zoom out/in map: Click '+'/'-' symbol to do it</li>
-                        <li>Hover a node: Show the text content of the reply </li>
+                        <li>Hover a node: Show the text content of the reply</li>
                         <li>Hover a line: Show the solution strategy of the reply Compared to its parent post</li>
 
                     </dd>
@@ -198,9 +203,12 @@
                         <span class="like-count" id="like1">{{topic_detail.likes}}</span>
                     </div>
                     <!-- end of post meta -->
-                    <h3>Question discription <a id="update_comment" style="display: none; font-size: 12px;cursor: pointer;">[ Update Discription ]</a></h3>
+                    <h3>Question discription <a id="update_comment"
+                                                style="display: none; font-size: 12px;cursor: pointer;">[ Update
+                        Discription ]</a></h3>
                     <blockquote class="discription">
-                        <textarea id="explain-area" disabled rows="9" style="background:#f2f2f2; width: 98%; cursor:auto; font-size: 14px;font-family: Arial, Helvetica, sans-serif;">{{topic_detail.description}}
+                        <textarea id="explain-area" disabled rows="9"
+                                  style="background:#f2f2f2; width: 98%; cursor:auto; font-size: 14px;font-family: Arial, Helvetica, sans-serif;">{{topic_detail.description}}
                         </textarea>
                         <button id="reComent_btn" style="display: none;">Update</button>
                         <button id="reComent_cancelbtn" style="display: none;">Cancel</button>
@@ -209,10 +217,11 @@
 
                     <div class="row-fluid">
                         <div>
-                            <h3>My code <a id="update_code" >[ Update Code ]</a>
+                            <h3>My code <a id="update_code">[ Update Code ]</a>
                             </h3>
                             <!--code editor-->
-                            <div id="reCode_editor" style="display: none; width: 100%;" title="Please Write your code here."></div>
+                            <div id="reCode_editor" style="display: none; width: 100%;"
+                                 title="Please Write your code here."></div>
                             <!--<div id="container" style="height: 180px;width: 87%; border:1.6px solid #c2c2d6;border-radius: 0.3em;"></div>-->
                             <!--end code editor-->
                             <button id="reCode_btn" style="display: none;">Update</button>
@@ -240,7 +249,7 @@
                 </h4>
                 <div id="mynetwork"></div>
                 <p id="selection"></p>
-                    <section id="comments">
+                <section id="comments">
 
                     <div id="respond">
 
@@ -251,13 +260,13 @@
                             <p class="comment-notes">( Required fields
                                 are marked <span class="required">*</span> )</p>
                             <div>
-                                <label for="strategy">* Solution Strategy-  [
-                                    <a id="clear_strategy" style="font-size: 11px;" > Clear Content </a> ]
+                                <label for="strategy">* Solution Strategy- [
+                                    <a id="clear_strategy" style="font-size: 11px;"> Clear Content </a> ]
                                     <small> - (Use some words to summarize your solution.)</small>
                                 </label>
                             </div>
 
-                            <div >
+                            <div>
                                 <input type='text' class="span7" id="strategy" list="list_strategies"/>
                                 <datalist id="list_strategies">
                                     <option value="A new way;">
@@ -269,7 +278,8 @@
 
                             </div>
                             <div>
-                                <label for="replycomment">* Comment - [<a id="clear_comment" style="font-size: 11px;"> Clear
+                                <label for="replycomment">* Comment - [<a id="clear_comment" style="font-size: 11px;">
+                                    Clear
                                     Content </a> ]</label>
                                 <textarea name="replycomment" id="replycomment" class="span7" rows="6"
                                           title="* Please enter your comment"></textarea>
@@ -312,7 +322,8 @@
                         <ul>
                             {{#if allpost}}
                                 {{#each allpost}}
-                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}" data-strategy="{{strategy}}">{{parent}}</li>
+                                    <li id="{{pid}}" value="{{likes}}" title="{{username}}" data-explain="{{explain}}"
+                                        data-strategy="{{strategy}}">{{parent}}</li>
                                 {{/each}}
                             {{/if}}
 
@@ -350,7 +361,7 @@
             <div class="span4">
                 <section class="widget"><h3 class="title">Categories</h3>
 
-                    <ul >
+                    <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="topic">New Topic</a></li>
                         <li><a href="articles-list">Articles list</a></li>
@@ -364,8 +375,10 @@
                 <section class="widget">
                     <h3 class="title">About</h3>
                     <p>
-                        This website is developed for C programmers to disciss their code. It is different from traditional forums.
-                        A map of posts could help you understand the context of a discussed topic.Feel free to use it. If you have any
+                        This website is developed for C programmers to disciss their code. It is different from
+                        traditional forums.
+                        A map of posts could help you understand the context of a discussed topic.Feel free to use it.
+                        If you have any
                         suggestion or feedbacks of the web, contact me or leave you feedback on Contact page.
                     </p>
 

@@ -70,11 +70,11 @@ editor.setOptions({
 var session = editor.getSession();
 session.setUseWrapMode(true);
 editor.session.setWrapLimit(80);
-var originalCode=document.getElementById("codearea2").innerHTML;
+var originalCode = document.getElementById("codearea2").innerHTML;
 editor.setValue(originalCode);
 //-----------------------------------------------------------------------------
 //---------------------------actions of btns----------
-var originalTxt=$('#explain-area').val();
+var originalTxt = $('#explain-area').val();
 $('#clear_comment').click(function () {
     $('#replycomment').val('');
 });
@@ -125,9 +125,13 @@ $('#reCode_cancelbtn').click(function () {
     document.getElementById('codeBlock').style.display = 'block';
 });
 $('#reComent_btn').click(function () {
-    var updateContent=$('#explain-area').val();
-    if(updateContent===originalTxt){alert('Failed: You have not change anything!')}
-    if(updateContent==""||updateContent.length===0){alert('Failed: Discription area is empty!')}
+    var updateContent = $('#explain-area').val();
+    if (updateContent === originalTxt) {
+        alert('Failed: You have not change anything!')
+    }
+    if (updateContent == "" || updateContent.length === 0) {
+        alert('Failed: Discription area is empty!')
+    }
     else {
         var topicid = $('#topicid-div').val();
         var parent = 0;
@@ -148,7 +152,7 @@ $('#reComent_btn').click(function () {
                     location.reload();
                 }
                 else {
-                    alert("* "+data.detail);
+                    alert("* " + data.detail);
                 }
             },
             err: function (data) {
@@ -158,8 +162,10 @@ $('#reComent_btn').click(function () {
     }
 });
 $('#reCode_btn').click(function () {
-    var updateContent=reCode_editor.getValue();
-    if(updateContent===originalCode){alert('Failed: You have not change any code!')}
+    var updateContent = reCode_editor.getValue();
+    if (updateContent === originalCode) {
+        alert('Failed: You have not change any code!')
+    }
 
     else {
         var topicid = $('#topicid-div').val();
@@ -181,7 +187,7 @@ $('#reCode_btn').click(function () {
                     location.reload();
                 }
                 else {
-                    alert("* "+data.detail);
+                    alert("* " + data.detail);
                 }
             },
             err: function (data) {
@@ -199,7 +205,7 @@ $(document).ready(function () {
         var replycomment = $("#replycomment").val();
         //var replycode=$("#replycode").val();
         var replycode = editor.getValue();
-        var strategy=$('#strategy').val();
+        var strategy = $('#strategy').val();
         if (!checkIsLogin()) {
             $('#feedback1').text("* Please Sign In First.");
             return;
@@ -225,7 +231,7 @@ $(document).ready(function () {
                 data: {
                     "replycode": replycode,
                     "replycomment": replycomment,
-                    "strategy":strategy,
+                    "strategy": strategy,
                     "topicid": topicid,
                     "parent": parent
                 },
@@ -259,7 +265,7 @@ $(document).ready(function () {
                     $('#login').hide();
                     $('#reg').hide();
                     $('#logout').text(result + " logout ");
-                    if(result=== $('#topic_creator').html()){
+                    if (result === $('#topic_creator').html()) {
                         $('#update_code').show();
                         $('#update_comment').show();
                     }
@@ -313,7 +319,9 @@ function logoutFuc() {
                 $('#loginPassword').val('');
 
             }
-            else {alert('logout unsuccessfully...');}
+            else {
+                alert('logout unsuccessfully...');
+            }
         }
     });
 
@@ -348,7 +356,7 @@ function LogInForm() {
                 $('#login').hide();
                 $('#reg').hide();
                 $('#logout').text(userName + " logout ");
-                if(userName===$('#topic_creator').html()){
+                if (userName === $('#topic_creator').html()) {
                     //document.getElementById('update_code').style.display = "block";
                     $('#update_code').show();
                     $('#update_comment').show();
@@ -373,14 +381,14 @@ var lis = document.getElementById("postidlist").getElementsByTagName("li");
 var titleid = 0,
     tlikes = parseInt($('#like1').html(), 10),
     tposter = $('#topic_creator').html(),
-    tAnswer=$('#topic_answer').html();
+    tAnswer = $('#topic_answer').html();
 
 var nodesArray = [
     {id: 0, value: tlikes, label: "#0 " + tposter, title: 'Go to Reply:0'},
 ];
 
 //-------------to format the content that show on the node
-function formatExplain(str,maxNum) {
+function formatExplain(str, maxNum) {
     var numWords = str.replace(/^\s+|\s+$/g, "").split(/\s+/);
     //alert(numWords[0]);
     var lineNum = 0;
@@ -401,8 +409,8 @@ function formatExplain(str,maxNum) {
 }
 
 var nodes = new vis.DataSet(nodesArray);
-var star = 0,hot=0, max = 0;
-if(lis.length===0){
+var star = 0, hot = 0, max = 0;
+if (lis.length === 0) {
     $('#map_area1').hide();
     $('#mynetwork').hide();
     $('#view_map').text('[ OH~ 0 Reply in this Topic ]');
@@ -413,12 +421,13 @@ if(lis.length===0){
 for (var i = 0; i < lis.length; i++) {
     var pid = parseInt(lis[i].id), likes = parseInt(lis[i].value), plable = lis[i].title;
     var explain = lis[i].getAttribute("data-explain");
-    var titleelement = '<br/>* Explain: <br/>' + formatExplain(explain,3);
+    var titleelement = '<br/>* Explain: <br/>' + formatExplain(explain, 3);
 
     if (likes > max) {
         hot = lis[i].id;
         max = likes;
-    };
+    }
+    ;
     try {
         nodes.add({
             id: pid,
@@ -432,17 +441,21 @@ for (var i = 0; i < lis.length; i++) {
     }
 }
 //---------------------------mark the star (post received by topic creator-----------------
-star=0;
-if(tAnswer!==''){star=parseInt(tAnswer,10);}
-if (star !== 0 && star!==hot) {
+star = 0;
+if (tAnswer !== '') {
+    star = parseInt(tAnswer, 10);
+}
+if (star !== 0 && star !== hot) {
     nodes.update({id: star, font: {size: 15}, size: 25, shape: 'star'});
 }
 //mark the hot post
-if(hot!==0 && star!==hot){nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'triangle'});}
-if(hot==star && hot !==0){
-    var thenode=nodes.get(hot);
-    thenode.color={
-        border:'#ff5500',
+if (hot !== 0 && star !== hot) {
+    nodes.update({id: hot, font: {size: 15}, size: 25, shape: 'triangle'});
+}
+if (hot == star && hot !== 0) {
+    var thenode = nodes.get(hot);
+    thenode.color = {
+        border: '#ff5500',
         background: '#97C2FC',
         highlight: {
             border: '#2B7CE9',
@@ -453,19 +466,19 @@ if(hot==star && hot !==0){
             background: '#97C2FC'
         }
     };
-    thenode.shape='star';
+    thenode.shape = 'star';
     nodes.update(thenode);
 }
 // create an array with edges
 var edgesArray = [];
 var edges = new vis.DataSet(edgesArray);
 for (var i = 0; i < lis.length; i++) {
-    var data_strategy=lis[i].getAttribute("data-strategy");
+    var data_strategy = lis[i].getAttribute("data-strategy");
     edges.add({
         id: i,
         from: parseInt(lis[i].innerHTML, 10),
         to: lis[i].id,
-        title:data_strategy
+        title: data_strategy
     });
 }
 
@@ -505,9 +518,9 @@ function draw() {
     var container = document.getElementById('mynetwork');
     var container0 = document.getElementById('mynetwork0');
     var options = {
-        hoverConnectedEdges:false,
-        selectConnectedEdges:false,
-        keyboard:{bindToWindow:false},
+        hoverConnectedEdges: false,
+        selectConnectedEdges: false,
+        keyboard: {bindToWindow: false},
         interaction: {
             hover: true,
             zoomView: false,
@@ -537,9 +550,9 @@ function draw() {
         }
     };
     var options0 = {
-        hoverConnectedEdges:false,
-        selectConnectedEdges:false,
-        keyboard:{bindToWindow:false},
+        hoverConnectedEdges: false,
+        selectConnectedEdges: false,
+        keyboard: {bindToWindow: false},
         interaction: {
             hover: true,
             zoomView: false,
@@ -569,8 +582,8 @@ function draw() {
     };
     network = new vis.Network(container, data, options);
     network0 = new vis.Network(container0, data, options0);
-    network.selectNodes([currentNode],false);
-    network0.selectNodes([currentNode],false);
+    network.selectNodes([currentNode], false);
+    network0.selectNodes([currentNode], false);
     // add event listeners0
     network.on('hoverNode', function () {
         document.getElementById("mynetwork").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
@@ -579,23 +592,23 @@ function draw() {
         document.getElementById("mynetwork0").getElementsByTagName("canvas")[0].style.cursor = 'pointer';
     });
     network.on('select', function (params) {
-        if(params.nodes.length!==0) {
+        if (params.nodes.length !== 0) {
             if (params.nodes == 0) {
             }
             else
                 window.location.href = "reply?id=" + params.nodes;
         }
-        else network.selectNodes([currentNode],false);
+        else network.selectNodes([currentNode], false);
 
     });
     network0.on('select', function (params) {
-        if(params.nodes.length!==0) {
+        if (params.nodes.length !== 0) {
             if (params.nodes == 0) {
             }
             else
                 window.location.href = "reply?id=" + params.nodes;
         }
-        else network0.selectNodes([currentNode],false);
+        else network0.selectNodes([currentNode], false);
 
     });
 

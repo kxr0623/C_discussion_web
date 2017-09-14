@@ -3,22 +3,22 @@
 
 <head>
     <!-- META TAGS -->
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>C Programming Discussion</title>
 
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="shortcut icon" href="images/favicon.png"/>
     <!-- Style Sheet-->
-    <link rel='stylesheet' id='login-css-css'  href='css/login.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap.css?ver=1.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='responsive-css-css' href='css/responsive.css?ver=1.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='login-css-css' href='css/login.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css' href='css/bootstrap.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='css/responsive.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='css/mainstyle.css?ver=1.0' type='text/css' media='all'/>
     <!--[if lt IE 9]>
     <script src="js/html5.js"></script>
 
     <![endif]-->
-    <script src="js/jquery-1.9.1.min.js"> </script>
+    <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/showlogin.js"></script>
 
 </head>
@@ -43,8 +43,9 @@
                         <li><a href="contact">Contact</a></li>
                     </ul>
                     <ul id="headerul2">
-                        <li id ='login' onclick="document.getElementById('id01').style.display='block'" ><a>LOG IN</a></li>
-                        <li id='reg'class="current-menu-item"><a href="reg">Register</a></li>
+                        <li id='login' onclick="document.getElementById('id01').style.display='block'"><a>LOG IN</a>
+                        </li>
+                        <li id='reg' class="current-menu-item"><a href="reg">Register</a></li>
                         <li id="logout" onclick="logoutFuc();" style="font-size: 20px;cursor: pointer; "></li>
                     </ul>
                 </div>
@@ -56,7 +57,8 @@
 <!-- End of Header -->
 
 <!--pupup login-->
-<div id="id01"  class="modal" style="width:1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);" >
+<div id="id01" class="modal"
+     style="width:1800px;left: 0;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);">
 
     <form class="modal-content animate" style="width: 400px">
         <div class="imgcontainer">
@@ -64,17 +66,19 @@
             <img src="images/users.png" alt="Avatar" class="avatar">
         </div>
 
-        <div class="logincontainer" >
+        <div class="logincontainer">
             <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required >
+            <input type="text" placeholder="Enter Username" id="loginName" name="userName" required>
 
             <label><b>Password</b></label>
             <input type="password" id="loginPassword" placeholder="Enter Password" name="password" required>
 
-            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px" />
+            <input type="button" value="Log in" onclick="LogInForm();" id="loginbtn" style="font-size: 20px"/>
 
             <div class="logincontainer" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+                    Cancel
+                </button>
                 <span class="psw">Don't have an account? <a href="/reg">Sign Up Here</a></span>
 
             </div>
@@ -99,39 +103,44 @@
 
                 <article class="type-page hentry clearfix">
                     <h1 class="post-title">
-                       Sign Up
+                        Sign Up
                     </h1>
                 </article>
-                <form  class="row" method="POST" >
+                <form class="row" method="POST">
                     <div class="span2">
                         <label for="siName">Your Username <span>*</span> </label>
                     </div>
                     <div class="span6">
-                        <input  required type="text" name="userName" id="siName" class="" style="width:270px;" title="* Please provide your username">
+                        <input required type="text" name="userName" id="siName" class="" style="width:270px;"
+                               title="* Please provide your username">
                     </div>
 
                     <div class="span2">
                         <label for="siemail">Your Email <span>*</span></label>
                     </div>
                     <div class="span6">
-                        <input type="email" name="email" id="siemail" required style="width:270px;" title="* Please provide a valid email address">
+                        <input type="email" name="email" id="siemail" required style="width:270px;"
+                               title="* Please provide a valid email address">
                     </div>
 
                     <div class="span2">
                         <label for="siPassword">Password <span>*</span></label>
                     </div>
                     <div class="span6">
-                        <input required type="password" name="password" id="siPassword" style="width:270px;"  value=""title="* Please provide your password">
+                        <input required type="password" name="password" id="siPassword" style="width:270px;" value=""
+                               title="* Please provide your password">
                     </div>
                     <div class="span2">
                         <label for="siPassword2">Confirm Password <span>*</span></label>
                     </div>
                     <div class="span6">
 
-                        <input required type="password" name="password2" id="siPassword2" style="width:270px;"  value=""title="* Please provide your password">
+                        <input required type="password" name="password2" id="siPassword2" style="width:270px;" value=""
+                               title="* Please provide your password">
                     </div>
                     <div class="span3 ">
-                        <input type="button" onclick="checkForm();" value="Sign Up" id="signup" class="btn" style="width: 285px;height:40px ; font-size: medium;color:white;background: black"/>
+                        <input type="button" onclick="checkForm();" value="Sign Up" id="signup" class="btn"
+                               style="width: 285px;height:40px ; font-size: medium;color:white;background: black"/>
                     </div>
 
                 </form>
@@ -167,7 +176,7 @@
             <div class="span4">
                 <section class="widget"><h3 class="title">Categories</h3>
 
-                    <ul >
+                    <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="topic">New Topic</a></li>
                         <li><a href="articles-list">Articles list</a></li>
@@ -181,8 +190,10 @@
                 <section class="widget">
                     <h3 class="title">About</h3>
                     <p>
-                        This website is developed for C programmers to disciss their code. It is different from traditional forums.
-                        A map of posts could help you understand the context of a discussed topic.Feel free to use it. If you have any
+                        This website is developed for C programmers to disciss their code. It is different from
+                        traditional forums.
+                        A map of posts could help you understand the context of a discussed topic.Feel free to use it.
+                        If you have any
                         suggestion or feedbacks of the web, contact me or leave you feedback on Contact page.
                     </p>
 

@@ -8,7 +8,7 @@ function LogInForm() {
         alert("input your username");
         return false;
     }
-    if (password.length > 16 || password.length<3) {
+    if (password.length > 16 || password.length < 3) {
         alert("You need to type passwords between 3 and 16 characters!");
         return false;
     }
@@ -16,18 +16,18 @@ function LogInForm() {
     var result;
     $.ajax({
         type: "POST",
-        url : "/login",
+        url: "/login",
         dataType: 'json',
-        async : false,
-        data:{"userName":userName, "password":password},
-        success: function(data,status) {
-            if(status == 'success'){
+        async: false,
+        data: {"userName": userName, "password": password},
+        success: function (data, status) {
+            if (status == 'success') {
                 alert('log in successfully...');
                 location.href = '/';
             }
         },
-        error: function(data,status){
-            if(status == 'error'){
+        error: function (data, status) {
+            if (status == 'error') {
                 alert('username or password error!');
                 location.reload();
             }
@@ -48,7 +48,7 @@ $(function () {
             if (result) {
                 $('#login').hide();
                 $('#reg').hide();
-                $('#logout').text(result+" logout ");
+                $('#logout').text(result + " logout ");
             } else {
                 $('#logout').hide();
             }
@@ -68,7 +68,9 @@ function logoutFuc() {
                 $('#reg').show();
                 $('#logout').hide();
             }
-            else {alert('logout unsuccessfully...');}
+            else {
+                alert('logout unsuccessfully...');
+            }
         }
     });
 }

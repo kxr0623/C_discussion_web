@@ -1,6 +1,6 @@
 /* Full-width input fields */
 
-#loginName  {
+#loginName {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -8,7 +8,8 @@
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
-#loginPassword{
+
+#loginPassword {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -43,7 +44,8 @@
     border: none;
     cursor: pointer;
 }
-.cancelbtn:hover{
+
+.cancelbtn:hover {
     opacity: 0.8;
 }
 
@@ -53,6 +55,7 @@
     margin: 24px 0 12px 0;
     position: relative;
 }
+
 .avatar {
     width: 20%;
     border-radius: 20%;
@@ -71,17 +74,16 @@ span.psw {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 999999; /* Sit on top */
     left: 0;
-    top: 0;
-    width: 10px; /* Full width */
-    height: 100%; /* Full height */
-     /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    top: 0px;
+
+    height: 200%; /* Full height */
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     padding-top: 0px;
-
-
+    width: 1800px; /* Full width */
 }
 
 /* Modal Content/Box */
@@ -116,13 +118,21 @@ span.psw {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)}
-    to {-webkit-transform: scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
 }
 
 @keyframes animatezoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
 }
 
 /* Change styles for span and cancel button on extra small screens */
@@ -131,6 +141,7 @@ span.psw {
         display: block;
         float: none;
     }
+
     .cancelbtn {
         width: 100%;
     }

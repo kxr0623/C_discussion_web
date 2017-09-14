@@ -6,24 +6,22 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 
 var requestTime = function (req, res, next) {
-  req.requestTime = Date.now()
-  next()
+    req.requestTime = Date.now()
+    next()
 };
 
-var path=__dirname + '/views/';
+var path = __dirname + '/views/';
 router.use(requestTime)
 /* GET home page. */
 function new_list(req, res, next) {
     var db = new sqlite3.Database('Mydb.db');
     var dbRequest = 'SELECT * FROM Topic Inner Join Users on creator=uid  ORDER BY createtime DESC ';
-    db.all(dbRequest, function(error, rows) {
-        if(!rows.length){
+    db.all(dbRequest, function (error, rows) {
+        if (!rows.length) {
             req.newest = rows;
-           // res.render('/');
         }
-        if (error ) {
-            console.log("err->",error);
-            //res.render('/');
+        if (error) {
+            console.log("err->", error);
         }
         req.newest = rows;
         return next();
@@ -35,10 +33,9 @@ function pop_list(req, res, next) {
     var db = new sqlite3.Database('Mydb.db');
     dbRequest = "SELECT * " +
         "FROM Topic Inner Join Users on creator=uid  ORDER BY likes DESC";
-    db.all(dbRequest, function(error, rows) {
-        if(error) {
-            console.log("err->",error);
-            //res.render('/');
+    db.all(dbRequest, function (error, rows) {
+        if (error) {
+            console.log("err->", error);
         }
         /* Add selected data to previous saved data. */
         else {
@@ -50,58 +47,20 @@ function pop_list(req, res, next) {
 }
 function count_topics(req, res, next) {
     var db = new sqlite3.Database('Mydb.db');
-    dbRequest='select count(tid) sum from Topic';
-    db.all(dbRequest,function (err,rows) {
-        if(err) {
-            console.log("err->",err);
+    dbRequest = 'select count(tid) sum from Topic';
+    db.all(dbRequest, function (err, rows) {
+        if (err) {
+            console.log("err->", err);
             res.render('/');
         }
         else {
-            req.count=rows;
+            req.count = rows;
             next();
         }
     });
     db.close();
 }
-/*function createTB(req,res,next) {
-    var tname='newatable';
-    dbRequest='create table '+tname+'(pid INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT,'+
-        'explain TEXT NOT NULL,'+
-        'likes INTEGER NOT NULL,'+
-        'createtime DATETIME NOT NULL,'+
-        'creator INTEGER NOT NULL,'+
-        'topicid INTEGER NOT NULL,'+
-        'parent INTEGER NOT NULL,'+
-        'FOREIGN KEY (creator) REFERENCES Users(id),'+
-        'FOREIGN KEY (topicid) REFERENCES Topic(id));';
-    db.all(dbRequest,function (err,rows) {
-        if(err){
-            console.log("create table err:"+err);
-            res.render('/');
-        }
-        else {
-            next();
-        }
-    })
-}
 
-function selectT(req,res) {
-    var tname='Topic';
-
-    var topic_infor_query = db.prepare("SELECT * FROM "+tname+" where tid=1 ");
-    topic_infor_query.get(function (err, row) {
-        var topic_detail = {};
-
-        if (err || !row) {
-            console.log("select table err:"+err);
-            res.render('/');
-        }else {
-            console.log('>>>>>>>>>>>>>>>'+tname);
-        }
-    })
-
-}
-*/
 function renderIndexPage(req, res) {
     res.render('index', {
         "newest": req.newest,
@@ -109,7 +68,7 @@ function renderIndexPage(req, res) {
         "sumTopic": req.count
     });
 }
-router.get('/', new_list, pop_list,count_topics,  renderIndexPage);
+router.get('/', new_list, pop_list, count_topics, renderIndexPage);
 
 
 router.get('/test', function (req, res) {
@@ -126,13 +85,13 @@ router.get('/search', urlencodedParser, function (req, res) {
     var db = new sqlite3.Database('Mydb.db');
     var search_string = req.query.search_string;
     var stmt = db.prepare("SELECT tid,title FROM Topic WHERE title LIKE $search_string");
-    stmt.get({$search_string:"%"+search_string+"%"},function(err,row){
-        if(err) {
-            console.log("database err->",err);
+    stmt.get({$search_string: "%" + search_string + "%"}, function (err, row) {
+        if (err) {
+            console.log("database err->", err);
             res.send(JSON.stringify({result: false, detail: "database error"}));
         } else {
-            console.log("search tid->",row);
-            if(row!==undefined) {
+            console.log("search tid->", row);
+            if (row !== undefined) {
                 res.send(JSON.stringify({result: true, detail: row.title}));
             } else {
                 res.send(JSON.stringify({result: false}));

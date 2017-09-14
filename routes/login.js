@@ -3,7 +3,6 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
 var crypto = require('crypto');
 var end_pw = "X?R,K"; // encrypt the password: md5(originalpassword+end_pw)
 /*var algorithm = 'aes-256-ctr',
@@ -68,10 +67,7 @@ router.post('/',urlencodedParser, function (req, res) {
                         sess=req.session;
                         sess.username = username;
                         sess.userid = parseInt(row[0].uid,10);
-
-                        //res.render('index');
                         console.log("log in susess--------------------"+sess.userid);
-                        // res.sendStatus(200);
                         res.send("true");
                     }
                 }

@@ -3,7 +3,6 @@
  */
 var loginresult;
 $(function () {
-
     $.ajax({
         type: "GET",
         url: "/login/getcookie",
@@ -15,7 +14,7 @@ $(function () {
             if (loginresult) {
                 $('#login').hide();
                 $('#reg').hide();
-                $('#logout').text(loginresult+" logout ");
+                $('#logout').text(loginresult + " logout ");
             } else {
                 $('#logout').hide();
             }
@@ -37,26 +36,28 @@ function logoutFuc() {
                 $('#loginPassword').val('');
                 $('#logout').hide();
             }
-            else {alert('logout unsuccessfully...');}
+            else {
+                alert('logout unsuccessfully...');
+            }
         }
     });
 }
 
 function dosearch() {
-    var stm= document.getElementById('search_term').value;
+    var stm = document.getElementById('search_term').value;
 
-    if(stm.length > 0){
+    if (stm.length > 0) {
         $.ajax({
             type: "GET",
-            url : "/search",
+            url: "/search",
             dataType: 'json',
-            async : false,
-            data:{"search_string":stm},
-            success: function(data) {
-               // alert(stm);
-                if(data.result && data.detail.length>0) {
+            async: false,
+            data: {"search_string": stm},
+            success: function (data) {
+                // alert(stm);
+                if (data.result && data.detail.length > 0) {
                     //alert(data.detail)
-                    window.location.href="/#"+data.detail;
+                    window.location.href = "/#" + data.detail;
 
                 } else {
                     // alert("no r")
@@ -66,19 +67,19 @@ function dosearch() {
             }
         });
     }
-    else $('#search-error-container').html("* Please enter a search term!");;
+    else $('#search-error-container').html("* Please enter a search term!");
+    ;
 }
 function LogInForm() {
     //alert('dddd');
     var userName = document.getElementById("loginName").value;
-
     var password = document.getElementById("loginPassword").value;
 
     if (userName.length <= 0) {
         alert("input your username");
         return false;
     }
-    if (password.length > 16 || password.length<3) {
+    if (password.length > 16 || password.length < 3) {
         alert("You need to type passwords between 3 and 16 characters!");
         $('#loginPassword').val('');
         $('#loginPassword').focus();
@@ -88,34 +89,32 @@ function LogInForm() {
     var result;
     $.ajax({
         type: "POST",
-        url : "/login",
+        url: "/login",
         dataType: 'json',
-        async : false,
-        data:{"userName":userName, "password":password},
-        success: function(data,status) {
-            if(status == 'success'){
-                alert(userName+': log in successfully...');
+        async: false,
+        data: {"userName": userName, "password": password},
+        success: function (data, status) {
+            if (status == 'success') {
+                alert(userName + ': log in successfully...');
                 //location.href = '/';
                 document.getElementById('id01').style.display = "none";
                 $('#login').hide();
                 $('#reg').hide();
-                $('#logout').text(userName+" logout ");
+                $('#logout').text(userName + " logout ");
                 $('#logout').show();
             }
         },
-        error: function(data,status){
-            if(status == 'error'){
+        error: function (data, status) {
+            if (status == 'error') {
                 alert('username or password error!');
                 $('#loginPassword').val('');
                 $('#loginPassword').focus();
             }
         }
     });
-
 }
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    //alert(event.target.id)
+window.onclick = function (event) {
     if (event.target.id === 'id01') {
         document.getElementById('id01').style.display = "none";
     }
